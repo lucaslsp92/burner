@@ -18,31 +18,26 @@ int Particle::ioflow (double DP, double geometry[])
     Point Z (0,0,1);
 
     ///Variaveis (double, Point, etc..)
-/*
-    //// Dam-break 2D ////
-    double Wy = 1.0;
-    //// Dam-break 2D ////
-*/
-/*
-    //// Dam-break 3D with internal solid ////
-    double Wz = 1.0;
-    //// Dam-break 3D with internal solid ////
-*/
+    double L = 10.0;        // pipe length
+    double D = 0.078;       // pipe diameter
+    double R = 1.5*D/2;     // elbow revolution radius
+    double H = 0.01;        // inflow pipe length
+
+    Point inflowBeginn (0,R+D/2+H,0);
+
     ///Regiões (Region)
-    if (id==2 || id==3)
-    {
-/*
-        //// Dam-break 2D ////
-        if (y > Wy) return -1;    // Remove wall top
-        //// Dam-break 2D ////
-*/
-/*
-        //// Dam-break 3D with internal solid ////
-        if (z > Wz) return -1;      // Remove wall top
-        //// Dam-break 3D with internal solid ////
-*/
-    }
+    Region inflow = P.transformation(inflowBeginn,Y).cylinder(D/2, 3*DP);
+
     ///Operações
+    if (inflow)
+    {
+        return id+2;
+    }
+
+    if (x >= L)
+    {
+        return -1;
+    }
 
     ///Return padrão (caso nenhuma operação seja feita)
 
