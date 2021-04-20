@@ -17,35 +17,23 @@ int Particle::ioflow (double DP, double geometry[])
     Point Y (0,1,0);
     Point Z (0,0,1);
 
+    //////////////////////////////////////////
+    //// Hydrostatic tank 2D
     ///Variaveis (double, Point, etc..)
-/*
-    //// Dam-break 2D ////
-    double Wy = 1.0;
-    //// Dam-break 2D ////
-*/
-/*
-    //// Dam-break 3D with internal solid ////
-    double Wz = 1.0;
-    //// Dam-break 3D with internal solid ////
-*/
-    ///Regiões (Region)
-    if (id==2 || id==3)
+    double H = 2.0;         // water column
+    double L = 1.0;         // tank length
+
+    if (y >= 1.1*H)
     {
-/*
-        //// Dam-break 2D ////
-        if (y > Wy) return -1;    // Remove wall top
-        //// Dam-break 2D ////
-*/
-/*
-        //// Dam-break 3D with internal solid ////
-        if (z > Wz) return -1;      // Remove wall top
-        //// Dam-break 3D with internal solid ////
-*/
+        return -1;
     }
-    ///Operações
+
+    if (z < 0.0 || z >= DP)
+    {
+        return -1;
+    }
 
     ///Return padrão (caso nenhuma operação seja feita)
-
     return id;
 
 }

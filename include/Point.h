@@ -193,7 +193,7 @@ struct Point
     {
         if (x > -X/2 && x < X/2)
             if (y > -Y/2 && y < Y/2)
-                if (z > 0 && z < Z)
+                if (z > -Z/2 && z < Z/2)
                     return true;
 
         return false;
