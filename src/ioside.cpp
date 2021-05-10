@@ -19,14 +19,16 @@ int Particle::ioside (double DP, double geometry[])
     Point Z (0,0,1);
 
     //////////////////////////////////////////
-    //// Hydrostatic tank 2D
-    ///Variaveis (double, Point, etc..)
-    double H = 2.0;         // water column
-    double L = 1.0;         // tank length
+    //// Dam break tank 2D
+    //// Variaveis (double, Point, etc..)
+    double H = 0.4;         // water column
+    double W = 0.2;         // water length
+    double L = 0.8;         // tank length
+    double th = 0.5;        // tank height
 
     ///Regiões (Region)
-    Region fluid = P.rectangleXY(L, H, DP);
-    Region tank  = P.rectangleXY(L, H*1.1, 10*DP);
+    Region fluid = P.rectangleXY(W, H, DP);
+    Region tank  = P.rectangleXY(L, th, 10*DP);
 
     ///Operações
     if (tank)

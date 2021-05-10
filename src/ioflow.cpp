@@ -18,15 +18,7 @@ int Particle::ioflow (double DP, double geometry[])
     Point Z (0,0,1);
 
     //////////////////////////////////////////
-    //// Hydrostatic tank 2D
-    ///Variaveis (double, Point, etc..)
-    double H = 2.0;         // water column
-    double L = 1.0;         // tank length
-
-    if (y >= 1.1*H)
-    {
-        return -1;
-    }
+    //// Dam break tank 2D
 
     if (z < 0.0 || z >= DP)
     {
