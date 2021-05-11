@@ -21,7 +21,7 @@ int Particle::ioside (double DP, double geometry[])
     //////////////////////////////////////////
     //// Dam break tank 2D with grating elements
     //// Variaveis (double, Point, etc..)
-    bool grating = true;                       // grating flag
+    bool grating = false;                       // grating flag
     double H = 0.3;                             // water column
     double W = 0.4;                             // water length
     double L = 1.6;                             // tank length
@@ -41,11 +41,11 @@ int Particle::ioside (double DP, double geometry[])
     if (DP == 0.001)
         gm = 0.013767767; 
     else if (DP == 0.0005)
-        gm = 0.013767767;
+        gm = 0.013767767+0.00025;
     else if (DP == 0.0002)
-        gm = 0.013767767;
+        gm = 0.013767767+0.0004;
 
-    Point BF2 (gx+0.015,0.0,0.0);
+    Point BF2 (gx+0.016,0.0,0.0);
 
     Point GE1 (gx,gb+0*gsy,0.0);
     Point GE2 (gx,gb+1*gsy,0.0);
@@ -81,7 +81,7 @@ int Particle::ioside (double DP, double geometry[])
     ///Regiões (Region)
     Region fluid = P.rectangleXY(W, H, DP);
     Region bottomFluid1 = P.rectangleXY(gx-0.002, Hb, DP);
-    Region bottomFluid2 = P.transformation(BF2,Z,0).rectangleXY(Wb-gx-0.015, Hb, DP);
+    Region bottomFluid2 = P.transformation(BF2,Z,0).rectangleXY(Wb-gx-0.016, Hb, DP);
     Region tank  = P.rectangleXY(L, th, 10*DP);
     Region chamfer = P.transformation(GE1,Z,theta*180/M_PI).rectangleXYCenter(ch, ch, 10*DP);
 

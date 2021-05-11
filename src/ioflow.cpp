@@ -19,7 +19,7 @@ int Particle::ioflow (double DP, double geometry[])
 
     //////////////////////////////////////////
     //// Dam break tank 2D with grating elements
-    bool grating = true;                       // grating flag
+    bool grating = false;                       // grating flag
     double th = 0.75;                           // tank height
     double gs = 0.010;                          // grating spacing
     double gb = 0.010;                          // space between tank bottom and first grating element
@@ -33,9 +33,9 @@ int Particle::ioflow (double DP, double geometry[])
     if (DP == 0.001)
         gm = 0.013767767; 
     else if (DP == 0.0005)
-        gm = 0.013767767;
+        gm = 0.013767767+0.00025;
     else if (DP == 0.0002)
-        gm = 0.013767767;
+        gm = 0.013767767+0.0004;
 
     Point IGE1 (gx+DP,gb+0*gsy+DP,0.0);
     Point IGE2 (gx+DP,gb+1*gsy+DP,0.0);
@@ -171,13 +171,13 @@ int Particle::ioflow (double DP, double geometry[])
         return -1;
     }
 
-    if (x >= gx-1.0*DP && x <= gx+4.0*DP && y < 0.0 && id == 2)
-    {
-        return id+1;
-    }
-
     if (grating)
     {
+        if (x >= gx-0.0015 && x <= gx+0.0049 && y < 0.0 && id == 2)
+        {
+            return id+1;
+        }
+
         if (voidGratingElement1 || voidGratingElement2 || voidGratingElement3 || voidGratingElement4 || voidGratingElement5 ||
         voidGratingElement6 || voidGratingElement7 || voidGratingElement8 || voidGratingElement9 || voidGratingElement10||
         voidGratingElement11|| voidGratingElement12|| voidGratingElement13|| voidGratingElement14|| voidGratingElement15||

@@ -236,8 +236,14 @@ struct Particle
         double gb = 0.010;                          // space between tank bottom and first grating element
         double gw = 0.005;                          // grating width
         double gsy = (gs+gw)/cos(theta);            // grating spacing Y
-        double gm = 0.013767767;                    // move granting downward Y
         double gy;
+        double gm;                                  // move granting downward Y
+        if (DP == 0.001)
+            gm = 0.013767767; 
+        else if (DP == 0.0005)
+            gm = 0.013767767+0.00025;
+        else if (DP == 0.0002)
+            gm = 0.013767767+0.0004;
 
         fprintf (paraview_xyz, "%ld\n", cont);
 
@@ -411,8 +417,14 @@ struct Particle
         double gb = 0.010;                          // space between tank bottom and first grating element
         double gw = 0.005;                          // grating width
         double gsy = (gs+gw)/cos(theta);            // grating spacing Y
-        double gm = 0.013767767;                    // move granting downward Y
         double gy;
+        double gm;                                  // move granting downward Y
+        if (DP == 0.001)
+            gm = 0.013767767; 
+        else if (DP == 0.0005)
+            gm = 0.013767767+0.00025;
+        else if (DP == 0.0002)
+            gm = 0.013767767+0.0004;
 
         fprintf (mps_grid, "%d\n%ld", 0, cont);
 
@@ -578,9 +590,14 @@ struct Particle
         double gb = 0.010;                          // space between tank bottom and first grating element
         double gw = 0.005;                          // grating width
         double gsy = (gs+gw)/cos(theta);            // grating spacing Y
-        double gm = 0.013767767;                    // move granting downward Y
         double gy;
-
+        double gm;                                  // move granting downward Y
+        if (DP == 0.001)
+            gm = 0.013767767; 
+        else if (DP == 0.0005)
+            gm = 0.013767767+0.00025;
+        else if (DP == 0.0002)
+            gm = 0.013767767+0.0004;
 
         int rmin[3];
         int rmax[3];
