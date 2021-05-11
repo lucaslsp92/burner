@@ -233,8 +233,10 @@ struct Particle
         double theta = 45*M_PI/180;                 // grating angle
         double gx = 0.90;                           // grating position X
         double gs = 0.010;                          // grating spacing
-        double gw = 0.004;                          // grating width
+        double gb = 0.010;                          // space between tank bottom and first grating element
+        double gw = 0.005;                          // grating width
         double gsy = (gs+gw)/cos(theta);            // grating spacing Y
+        double gm = 0.013767767;                    // move granting downward Y
         double gy;
 
         fprintf (paraview_xyz, "%ld\n", cont);
@@ -268,91 +270,87 @@ struct Particle
             }
             else
             {
-                if (X.y < gs+gw+0*gsy)
-                    gy = gs+0.5*gw+0*gsy;                  // grating position Y
-                else if (X.y < gs+gw+1*gsy)
-                    gy = gs+0.5*gw+1*gsy;                  // grating position Y
-                else if (X.y < gs+gw+2*gsy)
-                    gy = gs+0.5*gw+2*gsy;                  // grating position Y
-                else if (X.y < gs+gw+3*gsy)
-                    gy = gs+0.5*gw+3*gsy;                  // grating position Y
-                else if (X.y < gs+gw+4*gsy)
-                    gy = gs+0.5*gw+4*gsy;                  // grating position Y
-                else if (X.y < gs+gw+5*gsy)
-                    gy = gs+0.5*gw+5*gsy;                  // grating position Y
-                else if (X.y < gs+gw+6*gsy)
-                    gy = gs+0.5*gw+6*gsy;                  // grating position Y
-                else if (X.y < gs+gw+7*gsy)
-                    gy = gs+0.5*gw+7*gsy;                  // grating position Y
-                else if (X.y < gs+gw+8*gsy)
-                    gy = gs+0.5*gw+8*gsy;                  // grating position Y
-                else if (X.y < gs+gw+9*gsy)
-                    gy = gs+0.5*gw+9*gsy;                  // grating position Y
-                else if (X.y < gs+gw+10*gsy)
-                    gy = gs+0.5*gw+10*gsy;                 // grating position Y
-                else if (X.y < gs+gw+11*gsy)
-                    gy = gs+0.5*gw+11*gsy;                 // grating position Y
-                else if (X.y < gs+gw+12*gsy)
-                    gy = gs+0.5*gw+12*gsy;                 // grating position Y
-                else if (X.y < gs+gw+13*gsy)
-                    gy = gs+0.5*gw+13*gsy;                 // grating position Y
-                else if (X.y < gs+gw+14*gsy)
-                    gy = gs+0.5*gw+14*gsy;                 // grating position Y
-                else if (X.y < gs+gw+15*gsy)
-                    gy = gs+0.5*gw+15*gsy;                 // grating position Y
-                else if (X.y < gs+gw+16*gsy)
-                    gy = gs+0.5*gw+16*gsy;                 // grating position Y
-                else if (X.y < gs+gw+17*gsy)
-                    gy = gs+0.5*gw+17*gsy;                 // grating position Y
-                else if (X.y < gs+gw+18*gsy)
-                    gy = gs+0.5*gw+18*gsy;                 // grating position Y
-                else if (X.y < gs+gw+19*gsy)
-                    gy = gs+0.5*gw+19*gsy;                 // grating position Y
-                else if (X.y < gs+gw+20*gsy)
-                    gy = gs+0.5*gw+20*gsy;                 // grating position Y
-                else if (X.y < gs+gw+21*gsy)
-                    gy = gs+0.5*gw+21*gsy;                 // grating position Y
-                else if (X.y < gs+gw+22*gsy)
-                    gy = gs+0.5*gw+22*gsy;                 // grating position Y
-                else if (X.y < gs+gw+23*gsy)
-                    gy = gs+0.5*gw+23*gsy;                 // grating position Y
-                else if (X.y < gs+gw+24*gsy)
-                    gy = gs+0.5*gw+24*gsy;                 // grating position Y
-                else if (X.y < gs+gw+25*gsy)
-                    gy = gs+0.5*gw+25*gsy;                 // grating position Y
-                else if (X.y < gs+gw+26*gsy)
-                    gy = gs+0.5*gw+26*gsy;                 // grating position Y
-                else if (X.y < gs+gw+27*gsy)
-                    gy = gs+0.5*gw+27*gsy;                 // grating position Y
-                else if (X.y < gs+gw+28*gsy)
-                    gy = gs+0.5*gw+28*gsy;                 // grating position Y
-                else if (X.y < gs+gw+29*gsy)
-                    gy = gs+0.5*gw+29*gsy;                 // grating position Y
-                else if (X.y < gs+gw+30*gsy)
-                    gy = gs+0.5*gw+30*gsy;                 // grating position Y
-                else if (X.y < gs+gw+31*gsy)
-                    gy = gs+0.5*gw+31*gsy;                 // grating position Y
-                else if (X.y < gs+gw+32*gsy)
-                    gy = gs+0.5*gw+32*gsy;                 // grating position Y
+                if (X.y < gb+gw+0*gsy)
+                    gy = gb+0.5*gw+0*gsy;                  // grating position Y
+                else if (X.y < gb+gw+1*gsy)
+                    gy = gb+0.5*gw+1*gsy;                  // grating position Y
+                else if (X.y < gb+gw+2*gsy)
+                    gy = gb+0.5*gw+2*gsy;                  // grating position Y
+                else if (X.y < gb+gw+3*gsy)
+                    gy = gb+0.5*gw+3*gsy;                  // grating position Y
+                else if (X.y < gb+gw+4*gsy)
+                    gy = gb+0.5*gw+4*gsy;                  // grating position Y
+                else if (X.y < gb+gw+5*gsy)
+                    gy = gb+0.5*gw+5*gsy;                  // grating position Y
+                else if (X.y < gb+gw+6*gsy)
+                    gy = gb+0.5*gw+6*gsy;                  // grating position Y
+                else if (X.y < gb+gw+7*gsy)
+                    gy = gb+0.5*gw+7*gsy;                  // grating position Y
+                else if (X.y < gb+gw+8*gsy)
+                    gy = gb+0.5*gw+8*gsy;                  // grating position Y
+                else if (X.y < gb+gw+9*gsy)
+                    gy = gb+0.5*gw+9*gsy;                  // grating position Y
+                else if (X.y < gb+gw+10*gsy)
+                    gy = gb+0.5*gw+10*gsy;                 // grating position Y
+                else if (X.y < gb+gw+11*gsy)
+                    gy = gb+0.5*gw+11*gsy;                 // grating position Y
+                else if (X.y < gb+gw+12*gsy)
+                    gy = gb+0.5*gw+12*gsy;                 // grating position Y
+                else if (X.y < gb+gw+13*gsy)
+                    gy = gb+0.5*gw+13*gsy;                 // grating position Y
+                else if (X.y < gb+gw+14*gsy)
+                    gy = gb+0.5*gw+14*gsy;                 // grating position Y
+                else if (X.y < gb+gw+15*gsy)
+                    gy = gb+0.5*gw+15*gsy;                 // grating position Y
+                else if (X.y < gb+gw+16*gsy)
+                    gy = gb+0.5*gw+16*gsy;                 // grating position Y
+                else if (X.y < gb+gw+17*gsy)
+                    gy = gb+0.5*gw+17*gsy;                 // grating position Y
+                else if (X.y < gb+gw+18*gsy)
+                    gy = gb+0.5*gw+18*gsy;                 // grating position Y
+                else if (X.y < gb+gw+19*gsy)
+                    gy = gb+0.5*gw+19*gsy;                 // grating position Y
+                else if (X.y < gb+gw+20*gsy)
+                    gy = gb+0.5*gw+20*gsy;                 // grating position Y
+                else if (X.y < gb+gw+21*gsy)
+                    gy = gb+0.5*gw+21*gsy;                 // grating position Y
+                else if (X.y < gb+gw+22*gsy)
+                    gy = gb+0.5*gw+22*gsy;                 // grating position Y
+                else if (X.y < gb+gw+23*gsy)
+                    gy = gb+0.5*gw+23*gsy;                 // grating position Y
+                else if (X.y < gb+gw+24*gsy)
+                    gy = gb+0.5*gw+24*gsy;                 // grating position Y
+                else if (X.y < gb+gw+25*gsy)
+                    gy = gb+0.5*gw+25*gsy;                 // grating position Y
+                else if (X.y < gb+gw+26*gsy)
+                    gy = gb+0.5*gw+26*gsy;                 // grating position Y
+                else if (X.y < gb+gw+27*gsy)
+                    gy = gb+0.5*gw+27*gsy;                 // grating position Y
+                else if (X.y < gb+gw+28*gsy)
+                    gy = gb+0.5*gw+28*gsy;                 // grating position Y
+                else if (X.y < gb+gw+29*gsy)
+                    gy = gb+0.5*gw+29*gsy;                 // grating position Y
+                else if (X.y < gb+gw+30*gsy)
+                    gy = gb+0.5*gw+30*gsy;                 // grating position Y
 
                 if (decimal == 2)
-                    fprintf (paraview_xyz, "\n%d %9.2lf %9.2lf %9.2lf", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta), 0.0);
+                    fprintf (paraview_xyz, "\n%d %9.2lf %9.2lf %9.2lf", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta)-gm, 0.0);
                 else if (decimal == 3)
-                    fprintf (paraview_xyz, "\n%d %9.3lf %9.3lf %9.3lf", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta), 0.0);
+                    fprintf (paraview_xyz, "\n%d %9.3lf %9.3lf %9.3lf", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta)-gm, 0.0);
                 else if (decimal == 4)
-                    fprintf (paraview_xyz, "\n%d %9.4lf %9.4lf %9.4lf", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta), 0.0);
+                    fprintf (paraview_xyz, "\n%d %9.4lf %9.4lf %9.4lf", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta)-gm, 0.0);
                 else if (decimal == 5)
-                    fprintf (paraview_xyz, "\n%d %9.5lf %9.5lf %9.5lf", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta), 0.0);
+                    fprintf (paraview_xyz, "\n%d %9.5lf %9.5lf %9.5lf", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta)-gm, 0.0);
                 else if (decimal == 6)
-                    fprintf (paraview_xyz, "\n%d %9.6lf %9.6lf %9.6lf", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta), 0.0);
+                    fprintf (paraview_xyz, "\n%d %9.6lf %9.6lf %9.6lf", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta)-gm, 0.0);
                 else if (decimal == 7)
-                    fprintf (paraview_xyz, "\n%d %9.7lf %9.7lf %9.7lf", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta), 0.0);
+                    fprintf (paraview_xyz, "\n%d %9.7lf %9.7lf %9.7lf", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta)-gm, 0.0);
                 else if (decimal == 8)
-                    fprintf (paraview_xyz, "\n%d %9.8lf %9.8lf %9.8lf", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta), 0.0);
+                    fprintf (paraview_xyz, "\n%d %9.8lf %9.8lf %9.8lf", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta)-gm, 0.0);
                 else if (decimal == 9)
-                    fprintf (paraview_xyz, "\n%d %9.9lf %9.9lf %9.9lf", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta), 0.0);
+                    fprintf (paraview_xyz, "\n%d %9.9lf %9.9lf %9.9lf", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta)-gm, 0.0);
                 else if (decimal == 10)
-                    fprintf (paraview_xyz, "\n%d %9.10lf %9.10lf %9.10lf", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta), 0.0);
+                    fprintf (paraview_xyz, "\n%d %9.10lf %9.10lf %9.10lf", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta)-gm, 0.0);
             }
             
         }
@@ -409,9 +407,11 @@ struct Particle
     {
         double theta = 45*M_PI/180;                 // grating angle
         double gx = 0.90;                           // grating position X
-        double gs = 0.050;                          // grating spacing
-        double gw = 0.020;                          // grating width
+        double gs = 0.010;                          // grating spacing
+        double gb = 0.010;                          // space between tank bottom and first grating element
+        double gw = 0.005;                          // grating width
         double gsy = (gs+gw)/cos(theta);            // grating spacing Y
+        double gm = 0.013767767;                    // move granting downward Y
         double gy;
 
         fprintf (mps_grid, "%d\n%ld", 0, cont);
@@ -442,91 +442,87 @@ struct Particle
             }
             else
             {
-                if (X.y < gs+gw+0*gsy)
-                    gy = gs+0.5*gw+0*gsy;                  // grating position Y
-                else if (X.y < gs+gw+1*gsy)
-                    gy = gs+0.5*gw+1*gsy;                  // grating position Y
-                else if (X.y < gs+gw+2*gsy)
-                    gy = gs+0.5*gw+2*gsy;                  // grating position Y
-                else if (X.y < gs+gw+3*gsy)
-                    gy = gs+0.5*gw+3*gsy;                  // grating position Y
-                else if (X.y < gs+gw+4*gsy)
-                    gy = gs+0.5*gw+4*gsy;                  // grating position Y
-                else if (X.y < gs+gw+5*gsy)
-                    gy = gs+0.5*gw+5*gsy;                  // grating position Y
-                else if (X.y < gs+gw+6*gsy)
-                    gy = gs+0.5*gw+6*gsy;                  // grating position Y
-                else if (X.y < gs+gw+7*gsy)
-                    gy = gs+0.5*gw+7*gsy;                  // grating position Y
-                else if (X.y < gs+gw+8*gsy)
-                    gy = gs+0.5*gw+8*gsy;                  // grating position Y
-                else if (X.y < gs+gw+9*gsy)
-                    gy = gs+0.5*gw+9*gsy;                  // grating position Y
-                else if (X.y < gs+gw+10*gsy)
-                    gy = gs+0.5*gw+10*gsy;                 // grating position Y
-                else if (X.y < gs+gw+11*gsy)
-                    gy = gs+0.5*gw+11*gsy;                 // grating position Y
-                else if (X.y < gs+gw+12*gsy)
-                    gy = gs+0.5*gw+12*gsy;                 // grating position Y
-                else if (X.y < gs+gw+13*gsy)
-                    gy = gs+0.5*gw+13*gsy;                 // grating position Y
-                else if (X.y < gs+gw+14*gsy)
-                    gy = gs+0.5*gw+14*gsy;                 // grating position Y
-                else if (X.y < gs+gw+15*gsy)
-                    gy = gs+0.5*gw+15*gsy;                 // grating position Y
-                else if (X.y < gs+gw+16*gsy)
-                    gy = gs+0.5*gw+16*gsy;                 // grating position Y
-                else if (X.y < gs+gw+17*gsy)
-                    gy = gs+0.5*gw+17*gsy;                 // grating position Y
-                else if (X.y < gs+gw+18*gsy)
-                    gy = gs+0.5*gw+18*gsy;                 // grating position Y
-                else if (X.y < gs+gw+19*gsy)
-                    gy = gs+0.5*gw+19*gsy;                 // grating position Y
-                else if (X.y < gs+gw+20*gsy)
-                    gy = gs+0.5*gw+20*gsy;                 // grating position Y
-                else if (X.y < gs+gw+21*gsy)
-                    gy = gs+0.5*gw+21*gsy;                 // grating position Y
-                else if (X.y < gs+gw+22*gsy)
-                    gy = gs+0.5*gw+22*gsy;                 // grating position Y
-                else if (X.y < gs+gw+23*gsy)
-                    gy = gs+0.5*gw+23*gsy;                 // grating position Y
-                else if (X.y < gs+gw+24*gsy)
-                    gy = gs+0.5*gw+24*gsy;                 // grating position Y
-                else if (X.y < gs+gw+25*gsy)
-                    gy = gs+0.5*gw+25*gsy;                 // grating position Y
-                else if (X.y < gs+gw+26*gsy)
-                    gy = gs+0.5*gw+26*gsy;                 // grating position Y
-                else if (X.y < gs+gw+27*gsy)
-                    gy = gs+0.5*gw+27*gsy;                 // grating position Y
-                else if (X.y < gs+gw+28*gsy)
-                    gy = gs+0.5*gw+28*gsy;                 // grating position Y
-                else if (X.y < gs+gw+29*gsy)
-                    gy = gs+0.5*gw+29*gsy;                 // grating position Y
-                else if (X.y < gs+gw+30*gsy)
-                    gy = gs+0.5*gw+30*gsy;                 // grating position Y
-                else if (X.y < gs+gw+31*gsy)
-                    gy = gs+0.5*gw+31*gsy;                 // grating position Y
-                else if (X.y < gs+gw+32*gsy)
-                    gy = gs+0.5*gw+32*gsy;                 // grating position Y
+                if (X.y < gb+gw+0*gsy)
+                    gy = gb+0.5*gw+0*gsy;                  // grating position Y
+                else if (X.y < gb+gw+1*gsy)
+                    gy = gb+0.5*gw+1*gsy;                  // grating position Y
+                else if (X.y < gb+gw+2*gsy)
+                    gy = gb+0.5*gw+2*gsy;                  // grating position Y
+                else if (X.y < gb+gw+3*gsy)
+                    gy = gb+0.5*gw+3*gsy;                  // grating position Y
+                else if (X.y < gb+gw+4*gsy)
+                    gy = gb+0.5*gw+4*gsy;                  // grating position Y
+                else if (X.y < gb+gw+5*gsy)
+                    gy = gb+0.5*gw+5*gsy;                  // grating position Y
+                else if (X.y < gb+gw+6*gsy)
+                    gy = gb+0.5*gw+6*gsy;                  // grating position Y
+                else if (X.y < gb+gw+7*gsy)
+                    gy = gb+0.5*gw+7*gsy;                  // grating position Y
+                else if (X.y < gb+gw+8*gsy)
+                    gy = gb+0.5*gw+8*gsy;                  // grating position Y
+                else if (X.y < gb+gw+9*gsy)
+                    gy = gb+0.5*gw+9*gsy;                  // grating position Y
+                else if (X.y < gb+gw+10*gsy)
+                    gy = gb+0.5*gw+10*gsy;                 // grating position Y
+                else if (X.y < gb+gw+11*gsy)
+                    gy = gb+0.5*gw+11*gsy;                 // grating position Y
+                else if (X.y < gb+gw+12*gsy)
+                    gy = gb+0.5*gw+12*gsy;                 // grating position Y
+                else if (X.y < gb+gw+13*gsy)
+                    gy = gb+0.5*gw+13*gsy;                 // grating position Y
+                else if (X.y < gb+gw+14*gsy)
+                    gy = gb+0.5*gw+14*gsy;                 // grating position Y
+                else if (X.y < gb+gw+15*gsy)
+                    gy = gb+0.5*gw+15*gsy;                 // grating position Y
+                else if (X.y < gb+gw+16*gsy)
+                    gy = gb+0.5*gw+16*gsy;                 // grating position Y
+                else if (X.y < gb+gw+17*gsy)
+                    gy = gb+0.5*gw+17*gsy;                 // grating position Y
+                else if (X.y < gb+gw+18*gsy)
+                    gy = gb+0.5*gw+18*gsy;                 // grating position Y
+                else if (X.y < gb+gw+19*gsy)
+                    gy = gb+0.5*gw+19*gsy;                 // grating position Y
+                else if (X.y < gb+gw+20*gsy)
+                    gy = gb+0.5*gw+20*gsy;                 // grating position Y
+                else if (X.y < gb+gw+21*gsy)
+                    gy = gb+0.5*gw+21*gsy;                 // grating position Y
+                else if (X.y < gb+gw+22*gsy)
+                    gy = gb+0.5*gw+22*gsy;                 // grating position Y
+                else if (X.y < gb+gw+23*gsy)
+                    gy = gb+0.5*gw+23*gsy;                 // grating position Y
+                else if (X.y < gb+gw+24*gsy)
+                    gy = gb+0.5*gw+24*gsy;                 // grating position Y
+                else if (X.y < gb+gw+25*gsy)
+                    gy = gb+0.5*gw+25*gsy;                 // grating position Y
+                else if (X.y < gb+gw+26*gsy)
+                    gy = gb+0.5*gw+26*gsy;                 // grating position Y
+                else if (X.y < gb+gw+27*gsy)
+                    gy = gb+0.5*gw+27*gsy;                 // grating position Y
+                else if (X.y < gb+gw+28*gsy)
+                    gy = gb+0.5*gw+28*gsy;                 // grating position Y
+                else if (X.y < gb+gw+29*gsy)
+                    gy = gb+0.5*gw+29*gsy;                 // grating position Y
+                else if (X.y < gb+gw+30*gsy)
+                    gy = gb+0.5*gw+30*gsy;                 // grating position Y
 
                 if (decimal == 2)
-                    fprintf (mps_grid, "\n%d %9.2lf %9.2lf %9.2lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta), 0.0);
+                    fprintf (mps_grid, "\n%d %9.2lf %9.2lf %9.2lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta)-gm, 0.0);
                 else if (decimal == 3)
-                    fprintf (mps_grid, "\n%d %9.3lf %9.3lf %9.3lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta), 0.0);
+                    fprintf (mps_grid, "\n%d %9.3lf %9.3lf %9.3lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta)-gm, 0.0);
                 else if (decimal == 4)
-                    fprintf (mps_grid, "\n%d %9.4lf %9.4lf %9.4lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta), 0.0);
+                    fprintf (mps_grid, "\n%d %9.4lf %9.4lf %9.4lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta)-gm, 0.0);
                 else if (decimal == 5)
-                    fprintf (mps_grid, "\n%d %9.5lf %9.5lf %9.5lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta), 0.0);
+                    fprintf (mps_grid, "\n%d %9.5lf %9.5lf %9.5lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta)-gm, 0.0);
                 else if (decimal == 6)
-                    fprintf (mps_grid, "\n%d %9.6lf %9.6lf %9.6lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta), 0.0);
+                    fprintf (mps_grid, "\n%d %9.6lf %9.6lf %9.6lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta)-gm, 0.0);
                 else if (decimal == 7)
-                    fprintf (mps_grid, "\n%d %9.7lf %9.7lf %9.7lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta), 0.0);
+                    fprintf (mps_grid, "\n%d %9.7lf %9.7lf %9.7lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta)-gm, 0.0);
                 else if (decimal == 8)
-                    fprintf (mps_grid, "\n%d %9.8lf %9.8lf %9.8lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta), 0.0);
+                    fprintf (mps_grid, "\n%d %9.8lf %9.8lf %9.8lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta)-gm, 0.0);
                 else if (decimal == 9)
-                    fprintf (mps_grid, "\n%d %9.9lf %9.9lf %9.9lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta), 0.0);
+                    fprintf (mps_grid, "\n%d %9.9lf %9.9lf %9.9lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta)-gm, 0.0);
                 else if (decimal == 10)
-                    fprintf (mps_grid, "\n%d %9.10lf %9.10lf %9.10lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta), 0.0);
+                    fprintf (mps_grid, "\n%d %9.10lf %9.10lf %9.10lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta)-gm, 0.0);
             }
         }
         printf ("MPS.grid: Done!\n");
@@ -578,10 +574,13 @@ struct Particle
     {
         double theta = 45*M_PI/180;                 // grating angle
         double gx = 0.90;                           // grating position X
-        double gs = 0.050;                          // grating spacing
-        double gw = 0.020;                          // grating width
+        double gs = 0.010;                          // grating spacing
+        double gb = 0.010;                          // space between tank bottom and first grating element
+        double gw = 0.005;                          // grating width
         double gsy = (gs+gw)/cos(theta);            // grating spacing Y
+        double gm = 0.013767767;                    // move granting downward Y
         double gy;
+
 
         int rmin[3];
         int rmax[3];
@@ -631,75 +630,71 @@ struct Particle
                         }
                         else
                         {
-                            if (X.y < gs+gw+0*gsy)
-                                gy = gs+0.5*gw+0*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+1*gsy)
-                                gy = gs+0.5*gw+1*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+2*gsy)
-                                gy = gs+0.5*gw+2*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+3*gsy)
-                                gy = gs+0.5*gw+3*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+4*gsy)
-                                gy = gs+0.5*gw+4*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+5*gsy)
-                                gy = gs+0.5*gw+5*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+6*gsy)
-                                gy = gs+0.5*gw+6*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+7*gsy)
-                                gy = gs+0.5*gw+7*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+8*gsy)
-                                gy = gs+0.5*gw+8*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+9*gsy)
-                                gy = gs+0.5*gw+9*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+10*gsy)
-                                gy = gs+0.5*gw+10*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+11*gsy)
-                                gy = gs+0.5*gw+11*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+12*gsy)
-                                gy = gs+0.5*gw+12*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+13*gsy)
-                                gy = gs+0.5*gw+13*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+14*gsy)
-                                gy = gs+0.5*gw+14*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+15*gsy)
-                                gy = gs+0.5*gw+15*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+16*gsy)
-                                gy = gs+0.5*gw+16*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+17*gsy)
-                                gy = gs+0.5*gw+17*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+18*gsy)
-                                gy = gs+0.5*gw+18*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+19*gsy)
-                                gy = gs+0.5*gw+19*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+20*gsy)
-                                gy = gs+0.5*gw+20*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+21*gsy)
-                                gy = gs+0.5*gw+21*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+22*gsy)
-                                gy = gs+0.5*gw+22*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+23*gsy)
-                                gy = gs+0.5*gw+23*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+24*gsy)
-                                gy = gs+0.5*gw+24*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+25*gsy)
-                                gy = gs+0.5*gw+25*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+26*gsy)
-                                gy = gs+0.5*gw+26*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+27*gsy)
-                                gy = gs+0.5*gw+27*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+28*gsy)
-                                gy = gs+0.5*gw+28*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+29*gsy)
-                                gy = gs+0.5*gw+29*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+30*gsy)
-                                gy = gs+0.5*gw+30*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+31*gsy)
-                                gy = gs+0.5*gw+31*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+32*gsy)
-                                gy = gs+0.5*gw+32*gsy;                 // grating position Y
+                            if (X.y < gb+gw+0*gsy)
+                                gy = gb+0.5*gw+0*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+1*gsy)
+                                gy = gb+0.5*gw+1*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+2*gsy)
+                                gy = gb+0.5*gw+2*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+3*gsy)
+                                gy = gb+0.5*gw+3*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+4*gsy)
+                                gy = gb+0.5*gw+4*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+5*gsy)
+                                gy = gb+0.5*gw+5*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+6*gsy)
+                                gy = gb+0.5*gw+6*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+7*gsy)
+                                gy = gb+0.5*gw+7*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+8*gsy)
+                                gy = gb+0.5*gw+8*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+9*gsy)
+                                gy = gb+0.5*gw+9*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+10*gsy)
+                                gy = gb+0.5*gw+10*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+11*gsy)
+                                gy = gb+0.5*gw+11*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+12*gsy)
+                                gy = gb+0.5*gw+12*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+13*gsy)
+                                gy = gb+0.5*gw+13*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+14*gsy)
+                                gy = gb+0.5*gw+14*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+15*gsy)
+                                gy = gb+0.5*gw+15*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+16*gsy)
+                                gy = gb+0.5*gw+16*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+17*gsy)
+                                gy = gb+0.5*gw+17*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+18*gsy)
+                                gy = gb+0.5*gw+18*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+19*gsy)
+                                gy = gb+0.5*gw+19*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+20*gsy)
+                                gy = gb+0.5*gw+20*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+21*gsy)
+                                gy = gb+0.5*gw+21*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+22*gsy)
+                                gy = gb+0.5*gw+22*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+23*gsy)
+                                gy = gb+0.5*gw+23*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+24*gsy)
+                                gy = gb+0.5*gw+24*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+25*gsy)
+                                gy = gb+0.5*gw+25*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+26*gsy)
+                                gy = gb+0.5*gw+26*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+27*gsy)
+                                gy = gb+0.5*gw+27*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+28*gsy)
+                                gy = gb+0.5*gw+28*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+29*gsy)
+                                gy = gb+0.5*gw+29*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+30*gsy)
+                                gy = gb+0.5*gw+30*gsy;                 // grating position Y
 
                             fprintf (dmps_grid, "%9d %10.2lf %10.2lf %10.2lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                                particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta), 0.0, zero, zero, zero, zero, zero, zero);
+                                particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta)-gm, 0.0, zero, zero, zero, zero, zero, zero);
                         }
                     }
         }
@@ -724,75 +719,71 @@ struct Particle
                         }
                         else
                         {
-                            if (X.y < gs+gw+0*gsy)
-                                gy = gs+0.5*gw+0*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+1*gsy)
-                                gy = gs+0.5*gw+1*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+2*gsy)
-                                gy = gs+0.5*gw+2*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+3*gsy)
-                                gy = gs+0.5*gw+3*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+4*gsy)
-                                gy = gs+0.5*gw+4*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+5*gsy)
-                                gy = gs+0.5*gw+5*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+6*gsy)
-                                gy = gs+0.5*gw+6*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+7*gsy)
-                                gy = gs+0.5*gw+7*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+8*gsy)
-                                gy = gs+0.5*gw+8*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+9*gsy)
-                                gy = gs+0.5*gw+9*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+10*gsy)
-                                gy = gs+0.5*gw+10*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+11*gsy)
-                                gy = gs+0.5*gw+11*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+12*gsy)
-                                gy = gs+0.5*gw+12*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+13*gsy)
-                                gy = gs+0.5*gw+13*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+14*gsy)
-                                gy = gs+0.5*gw+14*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+15*gsy)
-                                gy = gs+0.5*gw+15*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+16*gsy)
-                                gy = gs+0.5*gw+16*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+17*gsy)
-                                gy = gs+0.5*gw+17*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+18*gsy)
-                                gy = gs+0.5*gw+18*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+19*gsy)
-                                gy = gs+0.5*gw+19*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+20*gsy)
-                                gy = gs+0.5*gw+20*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+21*gsy)
-                                gy = gs+0.5*gw+21*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+22*gsy)
-                                gy = gs+0.5*gw+22*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+23*gsy)
-                                gy = gs+0.5*gw+23*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+24*gsy)
-                                gy = gs+0.5*gw+24*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+25*gsy)
-                                gy = gs+0.5*gw+25*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+26*gsy)
-                                gy = gs+0.5*gw+26*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+27*gsy)
-                                gy = gs+0.5*gw+27*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+28*gsy)
-                                gy = gs+0.5*gw+28*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+29*gsy)
-                                gy = gs+0.5*gw+29*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+30*gsy)
-                                gy = gs+0.5*gw+30*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+31*gsy)
-                                gy = gs+0.5*gw+31*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+32*gsy)
-                                gy = gs+0.5*gw+32*gsy;                 // grating position Y
+                            if (X.y < gb+gw+0*gsy)
+                                gy = gb+0.5*gw+0*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+1*gsy)
+                                gy = gb+0.5*gw+1*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+2*gsy)
+                                gy = gb+0.5*gw+2*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+3*gsy)
+                                gy = gb+0.5*gw+3*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+4*gsy)
+                                gy = gb+0.5*gw+4*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+5*gsy)
+                                gy = gb+0.5*gw+5*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+6*gsy)
+                                gy = gb+0.5*gw+6*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+7*gsy)
+                                gy = gb+0.5*gw+7*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+8*gsy)
+                                gy = gb+0.5*gw+8*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+9*gsy)
+                                gy = gb+0.5*gw+9*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+10*gsy)
+                                gy = gb+0.5*gw+10*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+11*gsy)
+                                gy = gb+0.5*gw+11*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+12*gsy)
+                                gy = gb+0.5*gw+12*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+13*gsy)
+                                gy = gb+0.5*gw+13*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+14*gsy)
+                                gy = gb+0.5*gw+14*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+15*gsy)
+                                gy = gb+0.5*gw+15*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+16*gsy)
+                                gy = gb+0.5*gw+16*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+17*gsy)
+                                gy = gb+0.5*gw+17*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+18*gsy)
+                                gy = gb+0.5*gw+18*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+19*gsy)
+                                gy = gb+0.5*gw+19*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+20*gsy)
+                                gy = gb+0.5*gw+20*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+21*gsy)
+                                gy = gb+0.5*gw+21*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+22*gsy)
+                                gy = gb+0.5*gw+22*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+23*gsy)
+                                gy = gb+0.5*gw+23*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+24*gsy)
+                                gy = gb+0.5*gw+24*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+25*gsy)
+                                gy = gb+0.5*gw+25*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+26*gsy)
+                                gy = gb+0.5*gw+26*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+27*gsy)
+                                gy = gb+0.5*gw+27*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+28*gsy)
+                                gy = gb+0.5*gw+28*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+29*gsy)
+                                gy = gb+0.5*gw+29*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+30*gsy)
+                                gy = gb+0.5*gw+30*gsy;                 // grating position Y
 
                             fprintf (dmps_grid, "%9d %10.3lf %10.3lf %10.3lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                                particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta), 0.0, zero, zero, zero, zero, zero, zero);
+                                particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta)-gm, 0.0, zero, zero, zero, zero, zero, zero);
                         }
                         
                     }
@@ -818,75 +809,71 @@ struct Particle
                         }
                         else
                         {
-                            if (X.y < gs+gw+0*gsy)
-                                gy = gs+0.5*gw+0*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+1*gsy)
-                                gy = gs+0.5*gw+1*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+2*gsy)
-                                gy = gs+0.5*gw+2*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+3*gsy)
-                                gy = gs+0.5*gw+3*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+4*gsy)
-                                gy = gs+0.5*gw+4*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+5*gsy)
-                                gy = gs+0.5*gw+5*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+6*gsy)
-                                gy = gs+0.5*gw+6*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+7*gsy)
-                                gy = gs+0.5*gw+7*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+8*gsy)
-                                gy = gs+0.5*gw+8*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+9*gsy)
-                                gy = gs+0.5*gw+9*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+10*gsy)
-                                gy = gs+0.5*gw+10*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+11*gsy)
-                                gy = gs+0.5*gw+11*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+12*gsy)
-                                gy = gs+0.5*gw+12*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+13*gsy)
-                                gy = gs+0.5*gw+13*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+14*gsy)
-                                gy = gs+0.5*gw+14*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+15*gsy)
-                                gy = gs+0.5*gw+15*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+16*gsy)
-                                gy = gs+0.5*gw+16*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+17*gsy)
-                                gy = gs+0.5*gw+17*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+18*gsy)
-                                gy = gs+0.5*gw+18*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+19*gsy)
-                                gy = gs+0.5*gw+19*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+20*gsy)
-                                gy = gs+0.5*gw+20*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+21*gsy)
-                                gy = gs+0.5*gw+21*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+22*gsy)
-                                gy = gs+0.5*gw+22*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+23*gsy)
-                                gy = gs+0.5*gw+23*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+24*gsy)
-                                gy = gs+0.5*gw+24*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+25*gsy)
-                                gy = gs+0.5*gw+25*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+26*gsy)
-                                gy = gs+0.5*gw+26*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+27*gsy)
-                                gy = gs+0.5*gw+27*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+28*gsy)
-                                gy = gs+0.5*gw+28*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+29*gsy)
-                                gy = gs+0.5*gw+29*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+30*gsy)
-                                gy = gs+0.5*gw+30*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+31*gsy)
-                                gy = gs+0.5*gw+31*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+32*gsy)
-                                gy = gs+0.5*gw+32*gsy;                 // grating position Y
+                            if (X.y < gb+gw+0*gsy)
+                                gy = gb+0.5*gw+0*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+1*gsy)
+                                gy = gb+0.5*gw+1*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+2*gsy)
+                                gy = gb+0.5*gw+2*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+3*gsy)
+                                gy = gb+0.5*gw+3*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+4*gsy)
+                                gy = gb+0.5*gw+4*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+5*gsy)
+                                gy = gb+0.5*gw+5*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+6*gsy)
+                                gy = gb+0.5*gw+6*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+7*gsy)
+                                gy = gb+0.5*gw+7*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+8*gsy)
+                                gy = gb+0.5*gw+8*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+9*gsy)
+                                gy = gb+0.5*gw+9*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+10*gsy)
+                                gy = gb+0.5*gw+10*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+11*gsy)
+                                gy = gb+0.5*gw+11*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+12*gsy)
+                                gy = gb+0.5*gw+12*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+13*gsy)
+                                gy = gb+0.5*gw+13*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+14*gsy)
+                                gy = gb+0.5*gw+14*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+15*gsy)
+                                gy = gb+0.5*gw+15*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+16*gsy)
+                                gy = gb+0.5*gw+16*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+17*gsy)
+                                gy = gb+0.5*gw+17*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+18*gsy)
+                                gy = gb+0.5*gw+18*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+19*gsy)
+                                gy = gb+0.5*gw+19*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+20*gsy)
+                                gy = gb+0.5*gw+20*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+21*gsy)
+                                gy = gb+0.5*gw+21*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+22*gsy)
+                                gy = gb+0.5*gw+22*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+23*gsy)
+                                gy = gb+0.5*gw+23*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+24*gsy)
+                                gy = gb+0.5*gw+24*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+25*gsy)
+                                gy = gb+0.5*gw+25*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+26*gsy)
+                                gy = gb+0.5*gw+26*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+27*gsy)
+                                gy = gb+0.5*gw+27*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+28*gsy)
+                                gy = gb+0.5*gw+28*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+29*gsy)
+                                gy = gb+0.5*gw+29*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+30*gsy)
+                                gy = gb+0.5*gw+30*gsy;                 // grating position Y
 
                             fprintf (dmps_grid, "%9d %10.4lf %10.4lf %10.4lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                                particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta), 0.0, zero, zero, zero, zero, zero, zero);
+                                particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta)-gm, 0.0, zero, zero, zero, zero, zero, zero);
                         }
                     }
         }
@@ -911,75 +898,71 @@ struct Particle
                         }
                         else
                         {
-                            if (X.y < gs+gw+0*gsy)
-                                gy = gs+0.5*gw+0*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+1*gsy)
-                                gy = gs+0.5*gw+1*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+2*gsy)
-                                gy = gs+0.5*gw+2*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+3*gsy)
-                                gy = gs+0.5*gw+3*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+4*gsy)
-                                gy = gs+0.5*gw+4*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+5*gsy)
-                                gy = gs+0.5*gw+5*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+6*gsy)
-                                gy = gs+0.5*gw+6*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+7*gsy)
-                                gy = gs+0.5*gw+7*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+8*gsy)
-                                gy = gs+0.5*gw+8*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+9*gsy)
-                                gy = gs+0.5*gw+9*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+10*gsy)
-                                gy = gs+0.5*gw+10*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+11*gsy)
-                                gy = gs+0.5*gw+11*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+12*gsy)
-                                gy = gs+0.5*gw+12*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+13*gsy)
-                                gy = gs+0.5*gw+13*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+14*gsy)
-                                gy = gs+0.5*gw+14*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+15*gsy)
-                                gy = gs+0.5*gw+15*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+16*gsy)
-                                gy = gs+0.5*gw+16*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+17*gsy)
-                                gy = gs+0.5*gw+17*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+18*gsy)
-                                gy = gs+0.5*gw+18*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+19*gsy)
-                                gy = gs+0.5*gw+19*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+20*gsy)
-                                gy = gs+0.5*gw+20*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+21*gsy)
-                                gy = gs+0.5*gw+21*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+22*gsy)
-                                gy = gs+0.5*gw+22*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+23*gsy)
-                                gy = gs+0.5*gw+23*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+24*gsy)
-                                gy = gs+0.5*gw+24*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+25*gsy)
-                                gy = gs+0.5*gw+25*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+26*gsy)
-                                gy = gs+0.5*gw+26*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+27*gsy)
-                                gy = gs+0.5*gw+27*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+28*gsy)
-                                gy = gs+0.5*gw+28*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+29*gsy)
-                                gy = gs+0.5*gw+29*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+30*gsy)
-                                gy = gs+0.5*gw+30*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+31*gsy)
-                                gy = gs+0.5*gw+31*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+32*gsy)
-                                gy = gs+0.5*gw+32*gsy;                 // grating position Y
+                            if (X.y < gb+gw+0*gsy)
+                                gy = gb+0.5*gw+0*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+1*gsy)
+                                gy = gb+0.5*gw+1*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+2*gsy)
+                                gy = gb+0.5*gw+2*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+3*gsy)
+                                gy = gb+0.5*gw+3*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+4*gsy)
+                                gy = gb+0.5*gw+4*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+5*gsy)
+                                gy = gb+0.5*gw+5*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+6*gsy)
+                                gy = gb+0.5*gw+6*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+7*gsy)
+                                gy = gb+0.5*gw+7*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+8*gsy)
+                                gy = gb+0.5*gw+8*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+9*gsy)
+                                gy = gb+0.5*gw+9*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+10*gsy)
+                                gy = gb+0.5*gw+10*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+11*gsy)
+                                gy = gb+0.5*gw+11*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+12*gsy)
+                                gy = gb+0.5*gw+12*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+13*gsy)
+                                gy = gb+0.5*gw+13*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+14*gsy)
+                                gy = gb+0.5*gw+14*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+15*gsy)
+                                gy = gb+0.5*gw+15*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+16*gsy)
+                                gy = gb+0.5*gw+16*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+17*gsy)
+                                gy = gb+0.5*gw+17*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+18*gsy)
+                                gy = gb+0.5*gw+18*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+19*gsy)
+                                gy = gb+0.5*gw+19*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+20*gsy)
+                                gy = gb+0.5*gw+20*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+21*gsy)
+                                gy = gb+0.5*gw+21*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+22*gsy)
+                                gy = gb+0.5*gw+22*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+23*gsy)
+                                gy = gb+0.5*gw+23*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+24*gsy)
+                                gy = gb+0.5*gw+24*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+25*gsy)
+                                gy = gb+0.5*gw+25*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+26*gsy)
+                                gy = gb+0.5*gw+26*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+27*gsy)
+                                gy = gb+0.5*gw+27*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+28*gsy)
+                                gy = gb+0.5*gw+28*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+29*gsy)
+                                gy = gb+0.5*gw+29*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+30*gsy)
+                                gy = gb+0.5*gw+30*gsy;                 // grating position Y
 
                             fprintf (dmps_grid, "%9d %10.5lf %10.5lf %10.5lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                                particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta), 0.0, zero, zero, zero, zero, zero, zero);
+                                particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta)-gm, 0.0, zero, zero, zero, zero, zero, zero);
                         }
                     }
         }
@@ -1004,75 +987,71 @@ struct Particle
                         }
                         else
                         {
-                            if (X.y < gs+gw+0*gsy)
-                                gy = gs+0.5*gw+0*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+1*gsy)
-                                gy = gs+0.5*gw+1*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+2*gsy)
-                                gy = gs+0.5*gw+2*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+3*gsy)
-                                gy = gs+0.5*gw+3*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+4*gsy)
-                                gy = gs+0.5*gw+4*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+5*gsy)
-                                gy = gs+0.5*gw+5*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+6*gsy)
-                                gy = gs+0.5*gw+6*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+7*gsy)
-                                gy = gs+0.5*gw+7*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+8*gsy)
-                                gy = gs+0.5*gw+8*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+9*gsy)
-                                gy = gs+0.5*gw+9*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+10*gsy)
-                                gy = gs+0.5*gw+10*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+11*gsy)
-                                gy = gs+0.5*gw+11*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+12*gsy)
-                                gy = gs+0.5*gw+12*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+13*gsy)
-                                gy = gs+0.5*gw+13*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+14*gsy)
-                                gy = gs+0.5*gw+14*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+15*gsy)
-                                gy = gs+0.5*gw+15*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+16*gsy)
-                                gy = gs+0.5*gw+16*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+17*gsy)
-                                gy = gs+0.5*gw+17*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+18*gsy)
-                                gy = gs+0.5*gw+18*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+19*gsy)
-                                gy = gs+0.5*gw+19*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+20*gsy)
-                                gy = gs+0.5*gw+20*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+21*gsy)
-                                gy = gs+0.5*gw+21*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+22*gsy)
-                                gy = gs+0.5*gw+22*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+23*gsy)
-                                gy = gs+0.5*gw+23*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+24*gsy)
-                                gy = gs+0.5*gw+24*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+25*gsy)
-                                gy = gs+0.5*gw+25*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+26*gsy)
-                                gy = gs+0.5*gw+26*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+27*gsy)
-                                gy = gs+0.5*gw+27*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+28*gsy)
-                                gy = gs+0.5*gw+28*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+29*gsy)
-                                gy = gs+0.5*gw+29*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+30*gsy)
-                                gy = gs+0.5*gw+30*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+31*gsy)
-                                gy = gs+0.5*gw+31*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+32*gsy)
-                                gy = gs+0.5*gw+32*gsy;                 // grating position Y
+                            if (X.y < gb+gw+0*gsy)
+                                gy = gb+0.5*gw+0*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+1*gsy)
+                                gy = gb+0.5*gw+1*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+2*gsy)
+                                gy = gb+0.5*gw+2*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+3*gsy)
+                                gy = gb+0.5*gw+3*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+4*gsy)
+                                gy = gb+0.5*gw+4*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+5*gsy)
+                                gy = gb+0.5*gw+5*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+6*gsy)
+                                gy = gb+0.5*gw+6*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+7*gsy)
+                                gy = gb+0.5*gw+7*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+8*gsy)
+                                gy = gb+0.5*gw+8*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+9*gsy)
+                                gy = gb+0.5*gw+9*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+10*gsy)
+                                gy = gb+0.5*gw+10*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+11*gsy)
+                                gy = gb+0.5*gw+11*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+12*gsy)
+                                gy = gb+0.5*gw+12*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+13*gsy)
+                                gy = gb+0.5*gw+13*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+14*gsy)
+                                gy = gb+0.5*gw+14*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+15*gsy)
+                                gy = gb+0.5*gw+15*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+16*gsy)
+                                gy = gb+0.5*gw+16*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+17*gsy)
+                                gy = gb+0.5*gw+17*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+18*gsy)
+                                gy = gb+0.5*gw+18*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+19*gsy)
+                                gy = gb+0.5*gw+19*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+20*gsy)
+                                gy = gb+0.5*gw+20*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+21*gsy)
+                                gy = gb+0.5*gw+21*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+22*gsy)
+                                gy = gb+0.5*gw+22*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+23*gsy)
+                                gy = gb+0.5*gw+23*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+24*gsy)
+                                gy = gb+0.5*gw+24*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+25*gsy)
+                                gy = gb+0.5*gw+25*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+26*gsy)
+                                gy = gb+0.5*gw+26*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+27*gsy)
+                                gy = gb+0.5*gw+27*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+28*gsy)
+                                gy = gb+0.5*gw+28*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+29*gsy)
+                                gy = gb+0.5*gw+29*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+30*gsy)
+                                gy = gb+0.5*gw+30*gsy;                 // grating position Y
 
                             fprintf (dmps_grid, "%9d %10.6lf %10.6lf %10.6lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                                particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta), 0.0, zero, zero, zero, zero, zero, zero);
+                                particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta)-gm, 0.0, zero, zero, zero, zero, zero, zero);
                         }
                     }
         }
@@ -1097,75 +1076,71 @@ struct Particle
                         }
                         else
                         {
-                            if (X.y < gs+gw+0*gsy)
-                                gy = gs+0.5*gw+0*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+1*gsy)
-                                gy = gs+0.5*gw+1*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+2*gsy)
-                                gy = gs+0.5*gw+2*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+3*gsy)
-                                gy = gs+0.5*gw+3*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+4*gsy)
-                                gy = gs+0.5*gw+4*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+5*gsy)
-                                gy = gs+0.5*gw+5*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+6*gsy)
-                                gy = gs+0.5*gw+6*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+7*gsy)
-                                gy = gs+0.5*gw+7*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+8*gsy)
-                                gy = gs+0.5*gw+8*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+9*gsy)
-                                gy = gs+0.5*gw+9*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+10*gsy)
-                                gy = gs+0.5*gw+10*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+11*gsy)
-                                gy = gs+0.5*gw+11*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+12*gsy)
-                                gy = gs+0.5*gw+12*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+13*gsy)
-                                gy = gs+0.5*gw+13*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+14*gsy)
-                                gy = gs+0.5*gw+14*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+15*gsy)
-                                gy = gs+0.5*gw+15*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+16*gsy)
-                                gy = gs+0.5*gw+16*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+17*gsy)
-                                gy = gs+0.5*gw+17*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+18*gsy)
-                                gy = gs+0.5*gw+18*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+19*gsy)
-                                gy = gs+0.5*gw+19*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+20*gsy)
-                                gy = gs+0.5*gw+20*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+21*gsy)
-                                gy = gs+0.5*gw+21*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+22*gsy)
-                                gy = gs+0.5*gw+22*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+23*gsy)
-                                gy = gs+0.5*gw+23*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+24*gsy)
-                                gy = gs+0.5*gw+24*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+25*gsy)
-                                gy = gs+0.5*gw+25*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+26*gsy)
-                                gy = gs+0.5*gw+26*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+27*gsy)
-                                gy = gs+0.5*gw+27*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+28*gsy)
-                                gy = gs+0.5*gw+28*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+29*gsy)
-                                gy = gs+0.5*gw+29*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+30*gsy)
-                                gy = gs+0.5*gw+30*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+31*gsy)
-                                gy = gs+0.5*gw+31*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+32*gsy)
-                                gy = gs+0.5*gw+32*gsy;                 // grating position Y
+                            if (X.y < gb+gw+0*gsy)
+                                gy = gb+0.5*gw+0*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+1*gsy)
+                                gy = gb+0.5*gw+1*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+2*gsy)
+                                gy = gb+0.5*gw+2*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+3*gsy)
+                                gy = gb+0.5*gw+3*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+4*gsy)
+                                gy = gb+0.5*gw+4*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+5*gsy)
+                                gy = gb+0.5*gw+5*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+6*gsy)
+                                gy = gb+0.5*gw+6*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+7*gsy)
+                                gy = gb+0.5*gw+7*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+8*gsy)
+                                gy = gb+0.5*gw+8*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+9*gsy)
+                                gy = gb+0.5*gw+9*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+10*gsy)
+                                gy = gb+0.5*gw+10*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+11*gsy)
+                                gy = gb+0.5*gw+11*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+12*gsy)
+                                gy = gb+0.5*gw+12*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+13*gsy)
+                                gy = gb+0.5*gw+13*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+14*gsy)
+                                gy = gb+0.5*gw+14*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+15*gsy)
+                                gy = gb+0.5*gw+15*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+16*gsy)
+                                gy = gb+0.5*gw+16*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+17*gsy)
+                                gy = gb+0.5*gw+17*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+18*gsy)
+                                gy = gb+0.5*gw+18*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+19*gsy)
+                                gy = gb+0.5*gw+19*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+20*gsy)
+                                gy = gb+0.5*gw+20*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+21*gsy)
+                                gy = gb+0.5*gw+21*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+22*gsy)
+                                gy = gb+0.5*gw+22*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+23*gsy)
+                                gy = gb+0.5*gw+23*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+24*gsy)
+                                gy = gb+0.5*gw+24*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+25*gsy)
+                                gy = gb+0.5*gw+25*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+26*gsy)
+                                gy = gb+0.5*gw+26*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+27*gsy)
+                                gy = gb+0.5*gw+27*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+28*gsy)
+                                gy = gb+0.5*gw+28*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+29*gsy)
+                                gy = gb+0.5*gw+29*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+30*gsy)
+                                gy = gb+0.5*gw+30*gsy;                 // grating position Y
 
                             fprintf (dmps_grid, "%9d %10.7lf %10.7lf %10.7lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                                particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta), 0.0, zero, zero, zero, zero, zero, zero);
+                                particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta)-gm, 0.0, zero, zero, zero, zero, zero, zero);
                         }
                     }
         }
@@ -1190,75 +1165,71 @@ struct Particle
                         }
                         else
                         {
-                            if (X.y < gs+gw+0*gsy)
-                                gy = gs+0.5*gw+0*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+1*gsy)
-                                gy = gs+0.5*gw+1*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+2*gsy)
-                                gy = gs+0.5*gw+2*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+3*gsy)
-                                gy = gs+0.5*gw+3*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+4*gsy)
-                                gy = gs+0.5*gw+4*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+5*gsy)
-                                gy = gs+0.5*gw+5*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+6*gsy)
-                                gy = gs+0.5*gw+6*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+7*gsy)
-                                gy = gs+0.5*gw+7*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+8*gsy)
-                                gy = gs+0.5*gw+8*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+9*gsy)
-                                gy = gs+0.5*gw+9*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+10*gsy)
-                                gy = gs+0.5*gw+10*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+11*gsy)
-                                gy = gs+0.5*gw+11*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+12*gsy)
-                                gy = gs+0.5*gw+12*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+13*gsy)
-                                gy = gs+0.5*gw+13*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+14*gsy)
-                                gy = gs+0.5*gw+14*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+15*gsy)
-                                gy = gs+0.5*gw+15*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+16*gsy)
-                                gy = gs+0.5*gw+16*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+17*gsy)
-                                gy = gs+0.5*gw+17*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+18*gsy)
-                                gy = gs+0.5*gw+18*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+19*gsy)
-                                gy = gs+0.5*gw+19*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+20*gsy)
-                                gy = gs+0.5*gw+20*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+21*gsy)
-                                gy = gs+0.5*gw+21*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+22*gsy)
-                                gy = gs+0.5*gw+22*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+23*gsy)
-                                gy = gs+0.5*gw+23*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+24*gsy)
-                                gy = gs+0.5*gw+24*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+25*gsy)
-                                gy = gs+0.5*gw+25*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+26*gsy)
-                                gy = gs+0.5*gw+26*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+27*gsy)
-                                gy = gs+0.5*gw+27*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+28*gsy)
-                                gy = gs+0.5*gw+28*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+29*gsy)
-                                gy = gs+0.5*gw+29*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+30*gsy)
-                                gy = gs+0.5*gw+30*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+31*gsy)
-                                gy = gs+0.5*gw+31*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+32*gsy)
-                                gy = gs+0.5*gw+32*gsy;                 // grating position Y
+                            if (X.y < gb+gw+0*gsy)
+                                gy = gb+0.5*gw+0*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+1*gsy)
+                                gy = gb+0.5*gw+1*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+2*gsy)
+                                gy = gb+0.5*gw+2*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+3*gsy)
+                                gy = gb+0.5*gw+3*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+4*gsy)
+                                gy = gb+0.5*gw+4*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+5*gsy)
+                                gy = gb+0.5*gw+5*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+6*gsy)
+                                gy = gb+0.5*gw+6*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+7*gsy)
+                                gy = gb+0.5*gw+7*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+8*gsy)
+                                gy = gb+0.5*gw+8*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+9*gsy)
+                                gy = gb+0.5*gw+9*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+10*gsy)
+                                gy = gb+0.5*gw+10*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+11*gsy)
+                                gy = gb+0.5*gw+11*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+12*gsy)
+                                gy = gb+0.5*gw+12*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+13*gsy)
+                                gy = gb+0.5*gw+13*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+14*gsy)
+                                gy = gb+0.5*gw+14*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+15*gsy)
+                                gy = gb+0.5*gw+15*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+16*gsy)
+                                gy = gb+0.5*gw+16*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+17*gsy)
+                                gy = gb+0.5*gw+17*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+18*gsy)
+                                gy = gb+0.5*gw+18*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+19*gsy)
+                                gy = gb+0.5*gw+19*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+20*gsy)
+                                gy = gb+0.5*gw+20*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+21*gsy)
+                                gy = gb+0.5*gw+21*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+22*gsy)
+                                gy = gb+0.5*gw+22*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+23*gsy)
+                                gy = gb+0.5*gw+23*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+24*gsy)
+                                gy = gb+0.5*gw+24*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+25*gsy)
+                                gy = gb+0.5*gw+25*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+26*gsy)
+                                gy = gb+0.5*gw+26*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+27*gsy)
+                                gy = gb+0.5*gw+27*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+28*gsy)
+                                gy = gb+0.5*gw+28*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+29*gsy)
+                                gy = gb+0.5*gw+29*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+30*gsy)
+                                gy = gb+0.5*gw+30*gsy;                 // grating position Y
 
                             fprintf (dmps_grid, "%9d %10.8lf %10.8lf %10.8lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                                particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta), 0.0, zero, zero, zero, zero, zero, zero);
+                                particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta)-gm, 0.0, zero, zero, zero, zero, zero, zero);
                         }
                     }
         }
@@ -1283,75 +1254,71 @@ struct Particle
                         }
                         else
                         {
-                            if (X.y < gs+gw+0*gsy)
-                                gy = gs+0.5*gw+0*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+1*gsy)
-                                gy = gs+0.5*gw+1*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+2*gsy)
-                                gy = gs+0.5*gw+2*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+3*gsy)
-                                gy = gs+0.5*gw+3*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+4*gsy)
-                                gy = gs+0.5*gw+4*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+5*gsy)
-                                gy = gs+0.5*gw+5*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+6*gsy)
-                                gy = gs+0.5*gw+6*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+7*gsy)
-                                gy = gs+0.5*gw+7*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+8*gsy)
-                                gy = gs+0.5*gw+8*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+9*gsy)
-                                gy = gs+0.5*gw+9*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+10*gsy)
-                                gy = gs+0.5*gw+10*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+11*gsy)
-                                gy = gs+0.5*gw+11*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+12*gsy)
-                                gy = gs+0.5*gw+12*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+13*gsy)
-                                gy = gs+0.5*gw+13*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+14*gsy)
-                                gy = gs+0.5*gw+14*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+15*gsy)
-                                gy = gs+0.5*gw+15*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+16*gsy)
-                                gy = gs+0.5*gw+16*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+17*gsy)
-                                gy = gs+0.5*gw+17*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+18*gsy)
-                                gy = gs+0.5*gw+18*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+19*gsy)
-                                gy = gs+0.5*gw+19*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+20*gsy)
-                                gy = gs+0.5*gw+20*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+21*gsy)
-                                gy = gs+0.5*gw+21*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+22*gsy)
-                                gy = gs+0.5*gw+22*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+23*gsy)
-                                gy = gs+0.5*gw+23*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+24*gsy)
-                                gy = gs+0.5*gw+24*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+25*gsy)
-                                gy = gs+0.5*gw+25*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+26*gsy)
-                                gy = gs+0.5*gw+26*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+27*gsy)
-                                gy = gs+0.5*gw+27*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+28*gsy)
-                                gy = gs+0.5*gw+28*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+29*gsy)
-                                gy = gs+0.5*gw+29*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+30*gsy)
-                                gy = gs+0.5*gw+30*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+31*gsy)
-                                gy = gs+0.5*gw+31*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+32*gsy)
-                                gy = gs+0.5*gw+32*gsy;                 // grating position Y
+                            if (X.y < gb+gw+0*gsy)
+                                gy = gb+0.5*gw+0*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+1*gsy)
+                                gy = gb+0.5*gw+1*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+2*gsy)
+                                gy = gb+0.5*gw+2*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+3*gsy)
+                                gy = gb+0.5*gw+3*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+4*gsy)
+                                gy = gb+0.5*gw+4*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+5*gsy)
+                                gy = gb+0.5*gw+5*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+6*gsy)
+                                gy = gb+0.5*gw+6*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+7*gsy)
+                                gy = gb+0.5*gw+7*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+8*gsy)
+                                gy = gb+0.5*gw+8*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+9*gsy)
+                                gy = gb+0.5*gw+9*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+10*gsy)
+                                gy = gb+0.5*gw+10*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+11*gsy)
+                                gy = gb+0.5*gw+11*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+12*gsy)
+                                gy = gb+0.5*gw+12*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+13*gsy)
+                                gy = gb+0.5*gw+13*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+14*gsy)
+                                gy = gb+0.5*gw+14*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+15*gsy)
+                                gy = gb+0.5*gw+15*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+16*gsy)
+                                gy = gb+0.5*gw+16*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+17*gsy)
+                                gy = gb+0.5*gw+17*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+18*gsy)
+                                gy = gb+0.5*gw+18*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+19*gsy)
+                                gy = gb+0.5*gw+19*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+20*gsy)
+                                gy = gb+0.5*gw+20*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+21*gsy)
+                                gy = gb+0.5*gw+21*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+22*gsy)
+                                gy = gb+0.5*gw+22*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+23*gsy)
+                                gy = gb+0.5*gw+23*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+24*gsy)
+                                gy = gb+0.5*gw+24*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+25*gsy)
+                                gy = gb+0.5*gw+25*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+26*gsy)
+                                gy = gb+0.5*gw+26*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+27*gsy)
+                                gy = gb+0.5*gw+27*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+28*gsy)
+                                gy = gb+0.5*gw+28*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+29*gsy)
+                                gy = gb+0.5*gw+29*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+30*gsy)
+                                gy = gb+0.5*gw+30*gsy;                 // grating position Y
 
                             fprintf (dmps_grid, "%9d %10.9lf %10.9lf %10.9lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                                particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta), 0.0, zero, zero, zero, zero, zero, zero);
+                                particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta)-gm, 0.0, zero, zero, zero, zero, zero, zero);
                         }
                     }
         }
@@ -1376,75 +1343,71 @@ struct Particle
                         }
                         else
                         {
-                            if (X.y < gs+gw+0*gsy)
-                                gy = gs+0.5*gw+0*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+1*gsy)
-                                gy = gs+0.5*gw+1*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+2*gsy)
-                                gy = gs+0.5*gw+2*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+3*gsy)
-                                gy = gs+0.5*gw+3*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+4*gsy)
-                                gy = gs+0.5*gw+4*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+5*gsy)
-                                gy = gs+0.5*gw+5*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+6*gsy)
-                                gy = gs+0.5*gw+6*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+7*gsy)
-                                gy = gs+0.5*gw+7*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+8*gsy)
-                                gy = gs+0.5*gw+8*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+9*gsy)
-                                gy = gs+0.5*gw+9*gsy;                  // grating position Y
-                            else if (X.y < gs+gw+10*gsy)
-                                gy = gs+0.5*gw+10*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+11*gsy)
-                                gy = gs+0.5*gw+11*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+12*gsy)
-                                gy = gs+0.5*gw+12*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+13*gsy)
-                                gy = gs+0.5*gw+13*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+14*gsy)
-                                gy = gs+0.5*gw+14*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+15*gsy)
-                                gy = gs+0.5*gw+15*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+16*gsy)
-                                gy = gs+0.5*gw+16*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+17*gsy)
-                                gy = gs+0.5*gw+17*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+18*gsy)
-                                gy = gs+0.5*gw+18*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+19*gsy)
-                                gy = gs+0.5*gw+19*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+20*gsy)
-                                gy = gs+0.5*gw+20*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+21*gsy)
-                                gy = gs+0.5*gw+21*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+22*gsy)
-                                gy = gs+0.5*gw+22*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+23*gsy)
-                                gy = gs+0.5*gw+23*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+24*gsy)
-                                gy = gs+0.5*gw+24*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+25*gsy)
-                                gy = gs+0.5*gw+25*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+26*gsy)
-                                gy = gs+0.5*gw+26*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+27*gsy)
-                                gy = gs+0.5*gw+27*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+28*gsy)
-                                gy = gs+0.5*gw+28*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+29*gsy)
-                                gy = gs+0.5*gw+29*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+30*gsy)
-                                gy = gs+0.5*gw+30*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+31*gsy)
-                                gy = gs+0.5*gw+31*gsy;                 // grating position Y
-                            else if (X.y < gs+gw+32*gsy)
-                                gy = gs+0.5*gw+32*gsy;                 // grating position Y
+                            if (X.y < gb+gw+0*gsy)
+                                gy = gb+0.5*gw+0*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+1*gsy)
+                                gy = gb+0.5*gw+1*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+2*gsy)
+                                gy = gb+0.5*gw+2*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+3*gsy)
+                                gy = gb+0.5*gw+3*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+4*gsy)
+                                gy = gb+0.5*gw+4*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+5*gsy)
+                                gy = gb+0.5*gw+5*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+6*gsy)
+                                gy = gb+0.5*gw+6*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+7*gsy)
+                                gy = gb+0.5*gw+7*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+8*gsy)
+                                gy = gb+0.5*gw+8*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+9*gsy)
+                                gy = gb+0.5*gw+9*gsy;                  // grating position Y
+                            else if (X.y < gb+gw+10*gsy)
+                                gy = gb+0.5*gw+10*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+11*gsy)
+                                gy = gb+0.5*gw+11*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+12*gsy)
+                                gy = gb+0.5*gw+12*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+13*gsy)
+                                gy = gb+0.5*gw+13*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+14*gsy)
+                                gy = gb+0.5*gw+14*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+15*gsy)
+                                gy = gb+0.5*gw+15*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+16*gsy)
+                                gy = gb+0.5*gw+16*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+17*gsy)
+                                gy = gb+0.5*gw+17*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+18*gsy)
+                                gy = gb+0.5*gw+18*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+19*gsy)
+                                gy = gb+0.5*gw+19*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+20*gsy)
+                                gy = gb+0.5*gw+20*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+21*gsy)
+                                gy = gb+0.5*gw+21*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+22*gsy)
+                                gy = gb+0.5*gw+22*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+23*gsy)
+                                gy = gb+0.5*gw+23*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+24*gsy)
+                                gy = gb+0.5*gw+24*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+25*gsy)
+                                gy = gb+0.5*gw+25*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+26*gsy)
+                                gy = gb+0.5*gw+26*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+27*gsy)
+                                gy = gb+0.5*gw+27*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+28*gsy)
+                                gy = gb+0.5*gw+28*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+29*gsy)
+                                gy = gb+0.5*gw+29*gsy;                 // grating position Y
+                            else if (X.y < gb+gw+30*gsy)
+                                gy = gb+0.5*gw+30*gsy;                 // grating position Y
 
                             fprintf (dmps_grid, "%9d %10.10lf %10.10lf %10.10lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                                particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta), 0.0, zero, zero, zero, zero, zero, zero);
+                                particle[i].id, (X.x-gx)*cos(theta)+gx-(X.y-gy)*sin(theta), (X.y-gy)*cos(theta)+gy+(X.x-gx)*sin(theta)-gm, 0.0, zero, zero, zero, zero, zero, zero);
                         }
                     }
         }

@@ -21,7 +21,7 @@ int Particle::ioside (double DP, double geometry[])
     //////////////////////////////////////////
     //// Dam break tank 2D with grating elements
     //// Variaveis (double, Point, etc..)
-    bool grating = false;                       // grating flag
+    bool grating = true;                       // grating flag
     double H = 0.3;                             // water column
     double W = 0.4;                             // water length
     double L = 1.6;                             // tank length
@@ -29,49 +29,61 @@ int Particle::ioside (double DP, double geometry[])
     double Hb = 0.01;                           // water height tank bottom
     double Wb = 1.6;                            // water length tank bottom
     double gs = 0.010;                          // grating spacing
-    double gw = 0.004;                          // grating width
+    double gb = 0.010;                          // space between tank bottom and first grating element
+    double gw = 0.005;                          // grating width
     double gx = 0.90;                           // grating position X
+    double glx = 0.12;                          // grating length X
     double theta = 45*M_PI/180;                 // grating angle
-    double gl = 0.12/cos(theta);                // grating length
+    double gl = glx/cos(theta);                 // grating length
     double gsy = (gs+gw)/cos(theta);            // grating spacing Y
+    double ch = gw/cos(theta)-0.5*DP;           // chamfer length
+    double gm;                                  // move granting downward Y
+    if (DP == 0.001)
+        gm = 0.013767767; 
+    else if (DP == 0.0005)
+        gm = 0.013767767;
+    else if (DP == 0.0002)
+        gm = 0.013767767;
 
-    Point GE1 (gx,gs+0*gsy,0.0);
-    Point GE2 (gx,gs+1*gsy,0.0);
-    Point GE3 (gx,gs+2*gsy,0.0);
-    Point GE4 (gx,gs+3*gsy,0.0);
-    Point GE5 (gx,gs+4*gsy,0.0);
-    Point GE6 (gx,gs+5*gsy,0.0);
-    Point GE7 (gx,gs+6*gsy,0.0);
-    Point GE8 (gx,gs+7*gsy,0.0);
-    Point GE9 (gx,gs+8*gsy,0.0);
-    Point GE10 (gx,gs+9*gsy,0.0);
-    Point GE11 (gx,gs+10*gsy,0.0);
-    Point GE12 (gx,gs+11*gsy,0.0);
-    Point GE13 (gx,gs+12*gsy,0.0);
-    Point GE14 (gx,gs+13*gsy,0.0);
-    Point GE15 (gx,gs+14*gsy,0.0);
-    Point GE16 (gx,gs+15*gsy,0.0);
-    Point GE17 (gx,gs+16*gsy,0.0);
-    Point GE18 (gx,gs+17*gsy,0.0);
-    Point GE19 (gx,gs+18*gsy,0.0);
-    Point GE20 (gx,gs+19*gsy,0.0);
-    Point GE21 (gx,gs+20*gsy,0.0);
-    Point GE22 (gx,gs+21*gsy,0.0);
-    Point GE23 (gx,gs+22*gsy,0.0);
-    Point GE24 (gx,gs+23*gsy,0.0);
-    Point GE25 (gx,gs+24*gsy,0.0);
-    Point GE26 (gx,gs+25*gsy,0.0);
-    Point GE27 (gx,gs+26*gsy,0.0);
-    Point GE28 (gx,gs+27*gsy,0.0);
-    Point GE29 (gx,gs+28*gsy,0.0);
-    Point GE30 (gx,gs+29*gsy,0.0);
-    Point GE31 (gx,gs+30*gsy,0.0);
-    Point GE32 (gx,gs+31*gsy,0.0);
+    Point BF2 (gx+0.015,0.0,0.0);
+
+    Point GE1 (gx,gb+0*gsy,0.0);
+    Point GE2 (gx,gb+1*gsy,0.0);
+    Point GE3 (gx,gb+2*gsy,0.0);
+    Point GE4 (gx,gb+3*gsy,0.0);
+    Point GE5 (gx,gb+4*gsy,0.0);
+    Point GE6 (gx,gb+5*gsy,0.0);
+    Point GE7 (gx,gb+6*gsy,0.0);
+    Point GE8 (gx,gb+7*gsy,0.0);
+    Point GE9 (gx,gb+8*gsy,0.0);
+    Point GE10 (gx,gb+9*gsy,0.0);
+    Point GE11 (gx,gb+10*gsy,0.0);
+    Point GE12 (gx,gb+11*gsy,0.0);
+    Point GE13 (gx,gb+12*gsy,0.0);
+    Point GE14 (gx,gb+13*gsy,0.0);
+    Point GE15 (gx,gb+14*gsy,0.0);
+    Point GE16 (gx,gb+15*gsy,0.0);
+    Point GE17 (gx,gb+16*gsy,0.0);
+    Point GE18 (gx,gb+17*gsy,0.0);
+    Point GE19 (gx,gb+18*gsy,0.0);
+    Point GE20 (gx,gb+19*gsy,0.0);
+    Point GE21 (gx,gb+20*gsy,0.0);
+    Point GE22 (gx,gb+21*gsy,0.0);
+    Point GE23 (gx,gb+22*gsy,0.0);
+    Point GE24 (gx,gb+23*gsy,0.0);
+    Point GE25 (gx,gb+24*gsy,0.0);
+    Point GE26 (gx,gb+25*gsy,0.0);
+    Point GE27 (gx,gb+26*gsy,0.0);
+    Point GE28 (gx,gb+27*gsy,0.0);
+    Point GE29 (gx,gb+28*gsy,0.0);
+    Point GE30 (gx,gb+29*gsy,0.0);
 
     ///Regiões (Region)
     Region fluid = P.rectangleXY(W, H, DP);
-    Region bottomFluid = P.rectangleXY(Wb, Hb, DP);
+    Region bottomFluid1 = P.rectangleXY(gx-0.002, Hb, DP);
+    Region bottomFluid2 = P.transformation(BF2,Z,0).rectangleXY(Wb-gx-0.015, Hb, DP);
     Region tank  = P.rectangleXY(L, th, 10*DP);
+    Region chamfer = P.transformation(GE1,Z,theta*180/M_PI).rectangleXYCenter(ch, ch, 10*DP);
 
     Region gratingElement1 = P.transformation(GE1,Z,0).rectangleXY(gl, gw, 10*DP);
     Region gratingElement2 = P.transformation(GE2,Z,0).rectangleXY(gl, gw, 10*DP);
@@ -103,24 +115,21 @@ int Particle::ioside (double DP, double geometry[])
     Region gratingElement28 = P.transformation(GE28,Z,0).rectangleXY(gl, gw, 10*DP);
     Region gratingElement29 = P.transformation(GE29,Z,0).rectangleXY(gl, gw, 10*DP);
     Region gratingElement30 = P.transformation(GE30,Z,0).rectangleXY(gl, gw, 10*DP);
-    Region gratingElement31 = P.transformation(GE31,Z,0).rectangleXY(gl, gw, 10*DP);
-    Region gratingElement32 = P.transformation(GE32,Z,0).rectangleXY(gl, gw, 10*DP);
 
     ///Operações
     if (tank)
     {
-        if (fluid || bottomFluid) 
+        if (fluid || bottomFluid1 || bottomFluid2) 
             return 0;
 
         if (grating)
         {
-            if (gratingElement1 || gratingElement2 || gratingElement3 || gratingElement4 || gratingElement5 || 
+            if ((gratingElement1 && !(chamfer)) || gratingElement2 || gratingElement3 || gratingElement4 || gratingElement5 || 
             gratingElement6 || gratingElement7 || gratingElement8 || gratingElement9 || gratingElement10||
             gratingElement11|| gratingElement12|| gratingElement13|| gratingElement14|| gratingElement15||
             gratingElement16|| gratingElement17|| gratingElement18|| gratingElement19|| gratingElement20||
             gratingElement21|| gratingElement22|| gratingElement23|| gratingElement24|| gratingElement25||
-            gratingElement26|| gratingElement27|| gratingElement28|| gratingElement29|| gratingElement30||
-            gratingElement31|| gratingElement32)
+            gratingElement26|| gratingElement27|| gratingElement28|| gratingElement29|| gratingElement30)
             return 4;
         }
 

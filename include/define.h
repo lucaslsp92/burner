@@ -14,9 +14,9 @@ typedef bool Region;
 #define NUMMAXPARTICLES 20000000
 #define NUMMAXCELLS 150000
 
-#define CELLDIAMETER 80
-#define CELLRADIUS 25
-#define CELLBORDER 12
+#define CELLDIAMETER 40
+#define CELLRADIUS 20
+#define CELLBORDER 5
 
 #define SIMPLECUBE 1
 
