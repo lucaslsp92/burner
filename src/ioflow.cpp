@@ -20,10 +20,10 @@ int Particle::ioflow (double DP, double geometry[])
     //////////////////////////////////////////
     //// Dam break tank 2D
 
-    if (z < 0.0 || z >= DP)
+    /*if (z < 0.0 || z >= DP)
     {
         return -1;
-    }
+    }*/
 
     ///Return padrão (caso nenhuma operação seja feita)
     return id;
