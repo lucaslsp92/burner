@@ -19,25 +19,17 @@ int Particle::ioside (double DP, double geometry[])
     Point Z (0,0,1);
 
     //////////////////////////////////////////
-    //// Dam break tank 2D
+    //// Poiseuille flow 2D
     //// Variaveis (double, Point, etc..)
-    double H = 0.4;         // water column
-    double W = 0.2;         // water length
-    double L = 0.8;         // tank length
-    double th = 0.5;        // tank height
+    double D = 0.1;         // pipe diameter
+    double L = 0.5;         // pipe length
 
     ///Regiões (Region)
-    Region fluid = P.rectangleXY(W, H, DP);
-    Region tank  = P.rectangleXY(L, th, 10*DP);
+    Region fluid = P.rectangleXY(L, D, DP);
 
     ///Operações
-    if (tank)
-    {
-        if (fluid) 
-            return 0;
-
-    	return -1;
-    }
+    if (fluid) 
+        return 0;
 
     ///Return padrão (constrói a parede externa)
     // DO NOT CHANGE HERE !!!
