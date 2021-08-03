@@ -28,14 +28,9 @@ int Particle::ioflow (double DP, double geometry[])
         return -1;
     }
 
-    if (y > D && y <= D+DP)
+    if (y > D)
     {
-        return 4;
-    }
-
-    if (y > D+DP)
-    {
-        return 5;
+        return id+2;
     }
 
     /*if (x < 0.0 && y >= 0.0 && y <= D)
