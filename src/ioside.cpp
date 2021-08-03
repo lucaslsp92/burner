@@ -19,13 +19,13 @@ int Particle::ioside (double DP, double geometry[])
     Point Z (0,0,1);
 
     //////////////////////////////////////////
-    //// Poiseuille flow 2D
+    //// Lid-driven cavity flow 2D
     //// Variaveis (double, Point, etc..)
-    double D = 0.1;         // pipe diameter
-    double L = 0.5;         // pipe length
+    double D = 0.15;        // cavity length
+    double W = DP;         // cavity width
 
     ///Regiões (Region)
-    Region fluid = P.rectangleXY(L, D, DP);
+    Region fluid = P.rectangleXY(D, D, W);
 
     ///Operações
     if (fluid) 

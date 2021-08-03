@@ -168,15 +168,18 @@ int main() {
     long contParticles = zeroPoint.burnCells(temp, particle, DP, geometry, fluidID, numFluidID, solidID, numSolidID);
 
     Particle print;
-    if (mode % 2 == 0) {
-        print.print_Paraview_2D(paraview_2D_xyz, contParticles, particle, DP, geometry, numGeometry, section, d, decimal);
-        print.print_MPS_2D(mps_2D_grid, contParticles, particle, DP, section, d, decimal);
+    if (DIMENSION == 2) {
+        print.print_Paraview_2D(paraview_xyz, contParticles, particle, DP, geometry, numGeometry, decimal);
+        print.print_MPS_2D(mps_grid, contParticles, particle, DP, decimal);
+        if (DMPS == 1) 
+            print.print_dMPS_2D(dmps_grid, contParticles, particle, DP, decimal);
     }
 
-    if (mode % 3 == 0) {
-        print.print_Paraview(paraview_xyz, contParticles, particle, DP, geometry, numGeometry, decimal);
-        print.print_MPS(mps_grid, contParticles, particle, DP, decimal);
-        if (DMPS == 1) print.print_dMPS(dmps_grid, contParticles, particle, DP, decimal);
+    if (DIMENSION == 3) {
+        print.print_Paraview_3D(paraview_xyz, contParticles, particle, DP, geometry, numGeometry, decimal);
+        print.print_MPS_3D(mps_grid, contParticles, particle, DP, decimal);
+        if (DMPS == 1) 
+            print.print_dMPS_3D(dmps_grid, contParticles, particle, DP, decimal);
     }
 
     if (ALT == 1) { //condition, random position, random velocity

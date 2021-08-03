@@ -228,7 +228,7 @@ struct Particle
 
     }
 
-    void print_Paraview (FILE *paraview_xyz, long cont, Particle particle[], double DP, double geometry[], int numgeometry, int decimal)
+    void print_Paraview_2D (FILE *paraview_xyz, long cont, Particle particle[], double DP, double geometry[], int numgeometry, int decimal)
     {
         fprintf (paraview_xyz, "%ld\n", cont);
 
@@ -265,48 +265,44 @@ struct Particle
         printf ("\a\a\a");
     }
 
-    void print_Paraview_2D (FILE *paraview_2D_xyz, long cont, Particle particle[], double DP, double geometry[], int numgeometry, long section, char d, int decimal)
+    void print_Paraview_3D (FILE *paraview_xyz, long cont, Particle particle[], double DP, double geometry[], int numgeometry, int decimal)
     {
-        long cont2D = 0;
-        int dim = d-120;
-
-        for (long i = 0; i < cont; i++)
-            if (particle[i].r[dim] == section)
-                cont2D++;
-
-        fprintf (paraview_2D_xyz, "%ld\n", cont2D);
+        fprintf (paraview_xyz, "%ld\n", cont);
 
         for (int i = 0; i < numgeometry; i++)
-            fprintf (paraview_2D_xyz, "geometry[%d] = %9lf   ", i, geometry[i]);
+            fprintf (paraview_xyz, "geometry[%d] = %9lf   ", i, geometry[i]);
 
         for (long i = 0; i < cont; i++)
-            if (particle[i].r[dim] == section)
-            {
-                Point X (particle[i].r , DP);
-                if (decimal == 2)
-                    fprintf (paraview_2D_xyz, "\n%d %9.2lf %9.2lf %9.2lf", particle[i].id, X.x, X.y, 0.0);
-                else if (decimal == 3)
-                    fprintf (paraview_2D_xyz, "\n%d %9.3lf %9.3lf %9.3lf", particle[i].id, X.x, X.y, 0.0);
-                else if (decimal == 4)
-                    fprintf (paraview_2D_xyz, "\n%d %9.4lf %9.4lf %9.4lf", particle[i].id, X.x, X.y, 0.0);
-                else if (decimal == 5)
-                    fprintf (paraview_2D_xyz, "\n%d %9.5lf %9.5lf %9.5lf", particle[i].id, X.x, X.y, 0.0);
-                else if (decimal == 6)
-                    fprintf (paraview_2D_xyz, "\n%d %9.6lf %9.6lf %9.6lf", particle[i].id, X.x, X.y, 0.0);
-                else if (decimal == 7)
-                    fprintf (paraview_2D_xyz, "\n%d %9.7lf %9.7lf %9.7lf", particle[i].id, X.x, X.y, 0.0);
-                else if (decimal == 8)
-                    fprintf (paraview_2D_xyz, "\n%d %9.8lf %9.8lf %9.8lf", particle[i].id, X.x, X.y, 0.0);
-                else if (decimal == 9)
-                    fprintf (paraview_2D_xyz, "\n%d %9.9lf %9.9lf %9.9lf", particle[i].id, X.x, X.y, 0.0);
-                else if (decimal == 10)
-                    fprintf (paraview_2D_xyz, "\n%d %9.10lf %9.10lf %9.10lf", particle[i].id, X.x, X.y, 0.0);
-            }
+        {
+            Point X (particle[i].r , DP);
+            if (decimal == 2)
+                fprintf (paraview_xyz, "\n%d %9.2lf %9.2lf %9.2lf", particle[i].id, X.x, X.y, X.z);
+            else if (decimal == 3)
+                fprintf (paraview_xyz, "\n%d %9.3lf %9.3lf %9.3lf", particle[i].id, X.x, X.y, X.z);
+            else if (decimal == 4)
+                fprintf (paraview_xyz, "\n%d %9.4lf %9.4lf %9.4lf", particle[i].id, X.x, X.y, X.z);
+            else if (decimal == 5)
+                fprintf (paraview_xyz, "\n%d %9.5lf %9.5lf %9.5lf", particle[i].id, X.x, X.y, X.z);
+            else if (decimal == 6)
+                fprintf (paraview_xyz, "\n%d %9.6lf %9.6lf %9.6lf", particle[i].id, X.x, X.y, X.z);
+            else if (decimal == 7)
+                fprintf (paraview_xyz, "\n%d %9.7lf %9.7lf %9.7lf", particle[i].id, X.x, X.y, X.z);
+            else if (decimal == 8)
+                fprintf (paraview_xyz, "\n%d %9.8lf %9.8lf %9.8lf", particle[i].id, X.x, X.y, X.z);
+            else if (decimal == 9)
+                fprintf (paraview_xyz, "\n%d %9.9lf %9.9lf %9.9lf", particle[i].id, X.x, X.y, X.z);
+            else if (decimal == 10)
+                fprintf (paraview_xyz, "\n%d %9.10lf %9.10lf %9.10lf", particle[i].id, X.x, X.y, X.z);
+        }
 
-        printf ("paraview_2D.xyz: Done!\n");
+        printf ("paraview.xyz: Done!\n");
+
+        fclose (paraview_xyz);
+
+        printf ("\a\a\a");
     }
 
-    void print_MPS (FILE *mps_grid, long cont, Particle particle[], double DP, int decimal)
+    void print_MPS_2D (FILE *mps_grid, long cont, Particle particle[], double DP, int decimal)
     {
         fprintf (mps_grid, "%d\n%ld", 0, cont);
 
@@ -339,45 +335,40 @@ struct Particle
         printf ("\a\a\a");
     }
 
-    void print_MPS_2D (FILE *grid_2D, long cont, Particle particle[], double DP, int section, char d, int decimal)
+    void print_MPS_3D (FILE *mps_grid, long cont, Particle particle[], double DP, int decimal)
     {
-        long cont2D = 0;
-        int dim = d-120;
+        fprintf (mps_grid, "%d\n%ld", 0, cont);
 
         for (long i = 0; i < cont; i++)
-            if (particle[i].r[dim] == section)
-                cont2D++;
+        {
+            Point X (particle[i].r , DP);
+            if (decimal == 2)
+                fprintf (mps_grid, "\n%d %9.2lf %9.2lf %9.2lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, X.z);
+            else if (decimal == 3)
+                fprintf (mps_grid, "\n%d %9.3lf %9.3lf %9.3lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, X.z);
+            else if (decimal == 4)
+                fprintf (mps_grid, "\n%d %9.4lf %9.4lf %9.4lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, X.z);
+            else if (decimal == 5)
+                fprintf (mps_grid, "\n%d %9.5lf %9.5lf %9.5lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, X.z);
+            else if (decimal == 6)
+                fprintf (mps_grid, "\n%d %9.6lf %9.6lf %9.6lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, X.z);
+            else if (decimal == 7)
+                fprintf (mps_grid, "\n%d %9.7lf %9.7lf %9.7lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, X.z);
+            else if (decimal == 8)
+                fprintf (mps_grid, "\n%d %9.8lf %9.8lf %9.8lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, X.z);
+            else if (decimal == 9)
+                fprintf (mps_grid, "\n%d %9.9lf %9.9lf %9.9lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, X.z);
+            else if (decimal == 10)
+                fprintf (mps_grid, "\n%d %9.10lf %9.10lf %9.10lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, X.z);
+        }
+        printf ("MPS.grid: Done!\n");
 
-        fprintf (grid_2D, "%d\n%ld", 0, cont2D);
+        fclose (mps_grid);
 
-        for (long i = 0; i < cont; i++)
-            if (particle[i].r[dim] == section)
-            {
-                Point X (particle[i].r , DP);
-                if (decimal == 2)
-                    fprintf (grid_2D, "\n%d %9.2lf %9.2lf %9.2lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, 0.0);
-                else if (decimal == 3)
-                    fprintf (grid_2D, "\n%d %9.3lf %9.3lf %9.3lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, 0.0);
-                else if (decimal == 4)
-                    fprintf (grid_2D, "\n%d %9.4lf %9.4lf %9.4lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, 0.0);
-                else if (decimal == 5)
-                    fprintf (grid_2D, "\n%d %9.5lf %9.5lf %9.5lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, 0.0);
-                else if (decimal == 6)
-                    fprintf (grid_2D, "\n%d %9.6lf %9.6lf %9.6lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, 0.0);
-                else if (decimal == 7)
-                    fprintf (grid_2D, "\n%d %9.7lf %9.7lf %9.7lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, 0.0);
-                else if (decimal == 8)
-                    fprintf (grid_2D, "\n%d %9.8lf %9.8lf %9.8lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, 0.0);
-                else if (decimal == 9)
-                    fprintf (grid_2D, "\n%d %9.9lf %9.9lf %9.9lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, 0.0);
-                else if (decimal == 10)
-                    fprintf (grid_2D, "\n%d %9.10lf %9.10lf %9.10lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, 0.0);
-            }
-
-        printf ("MPS_2D.grid: Done!\n");
+        printf ("\a\a\a");
     }
 
-    void print_dMPS (FILE *dmps_grid, long cont, Particle particle[], double DP, int decimal)
+    void print_dMPS_2D (FILE *dmps_grid, long cont, Particle particle[], double DP, int decimal)
     {
         int rmin[3];
         int rmax[3];
@@ -421,7 +412,7 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.2lf %10.2lf %10.2lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.x, X.y, 0.0, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.x, X.y, zero, zero, zero, zero, zero, zero, zero);
                     }
         }
         else if (decimal == 3)
@@ -439,7 +430,7 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.3lf %10.3lf %10.3lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.x, X.y, 0.0, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.x, X.y, zero, zero, zero, zero, zero, zero, zero);
                     }
         }
         else if (decimal == 4)
@@ -457,7 +448,7 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.4lf %10.4lf %10.4lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.x, X.y, 0.0, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.x, X.y, zero, zero, zero, zero, zero, zero, zero);
                     }
         }
         else if (decimal == 5)
@@ -475,7 +466,7 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.5lf %10.5lf %10.5lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.x, X.y, 0.0, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.x, X.y, zero, zero, zero, zero, zero, zero, zero);
                     }
         }
         else if (decimal == 6)
@@ -493,7 +484,7 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.6lf %10.6lf %10.6lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.x, X.y, 0.0, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.x, X.y, zero, zero, zero, zero, zero, zero, zero);
                     }
         }
         else if (decimal == 7)
@@ -511,7 +502,7 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.7lf %10.7lf %10.7lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.x, X.y, 0.0, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.x, X.y, zero, zero, zero, zero, zero, zero, zero);
                     }
         }
         else if (decimal == 8)
@@ -529,7 +520,7 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.8lf %10.8lf %10.8lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.x, X.y, 0.0, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.x, X.y, zero, zero, zero, zero, zero, zero, zero);
                     }
         }
         else if (decimal == 9)
@@ -547,7 +538,7 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.9lf %10.9lf %10.9lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.x, X.y, 0.0, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.x, X.y, zero, zero, zero, zero, zero, zero, zero);
                     }
         }
         else if (decimal == 10)
@@ -565,7 +556,207 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.10lf %10.10lf %10.10lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.x, X.y, 0.0, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.x, X.y, zero, zero, zero, zero, zero, zero, zero);
+                    }
+        }
+
+        printf ("dMPS.grid: Done!\n\n");
+
+        fclose(dmps_grid);
+
+        printf ("\a\a\a");
+
+    }
+
+    void print_dMPS_3D (FILE *dmps_grid, long cont, Particle particle[], double DP, int decimal)
+    {
+        int rmin[3];
+        int rmax[3];
+        int delta[3];
+        double zero = 0.0;
+
+        for (int i = 0; i < 3; i++)
+        {
+            rmin[i] = particle[0].r[i];
+            rmax[i] = particle[0].r[i];
+        }
+
+        for (long p = 0; p < cont; p++)
+            for (int i = 0; i < 3; i++)
+            {
+                if (rmin[i] > particle[p].r[i]) rmin[i] = particle[p].r[i];
+                if (rmax[i] < particle[p].r[i]) rmax[i] = particle[p].r[i];
+            }
+
+        for (int i = 0; i < 3; i++)
+            delta[i] = rmax[i] - rmin[i];
+
+        char axis;
+
+        if (delta[0] >= delta [1] && delta[0] >= delta[2]) axis = 'x';
+        else if (delta[1] >= delta [2] && delta[1] >= delta[0]) axis = 'y';
+        else if (delta[2] >= delta [0] && delta[2] >= delta[1]) axis = 'z';
+
+        if (decimal == 2)
+        {
+            fprintf(dmps_grid, "%9d %10d %10d %10d %10.2lf %10.2lf %10.2lf %10.1lf %10.1lf %10.1lf\n",
+                0, (axis == 'x'), (axis == 'y'), (axis == 'z'), zero, zero, zero, zero, zero, zero);
+            fprintf(dmps_grid, "%9ld %10.2lf %10.2lf %10.2lf %10.2lf %10.2lf %10.2lf %10.1lf %10.1lf %10.1lf\n", cont,
+                 (rmin[0]+POSITIONX*0.5)*DP, (rmax[0]+POSITIONX*0.5)*DP,
+                 (rmin[1]+POSITIONY*0.5)*DP, (rmax[1]+POSITIONY*0.5)*DP,
+                 zero, zero, zero, zero, zero);
+
+            for (long r = rmin[axis-120]; r <= rmax[axis-120]; r++)
+                for (long i = 0; i < cont; i++)
+                    if (particle[i].r[axis-120] == r)
+                    {
+                        Point X (particle[i].r , DP);
+                        fprintf (dmps_grid, "%9d %10.2lf %10.2lf %10.2lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
+                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
+                    }
+        }
+        else if (decimal == 3)
+        {
+            fprintf(dmps_grid, "%9d %10d %10d %10d %10.3lf %10.3lf %10.3lf %10.1lf %10.1lf %10.1lf\n",
+                0, (axis == 'x'), (axis == 'y'), (axis == 'z'), zero, zero, zero, zero, zero, zero);
+            fprintf(dmps_grid, "%9ld %10.3lf %10.3lf %10.3lf %10.3lf %10.3lf %10.3lf %10.1lf %10.1lf %10.1lf\n", cont,
+                 (rmin[0]+POSITIONX*0.5)*DP, (rmax[0]+POSITIONX*0.5)*DP,
+                 (rmin[1]+POSITIONY*0.5)*DP, (rmax[1]+POSITIONY*0.5)*DP,
+                 zero, zero, zero, zero, zero);
+
+            for (long r = rmin[axis-120]; r <= rmax[axis-120]; r++)
+                for (long i = 0; i < cont; i++)
+                    if (particle[i].r[axis-120] == r)
+                    {
+                        Point X (particle[i].r , DP);
+                        fprintf (dmps_grid, "%9d %10.3lf %10.3lf %10.3lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
+                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
+                    }
+        }
+        else if (decimal == 4)
+        {
+            fprintf(dmps_grid, "%9d %10d %10d %10d %10.4lf %10.4lf %10.4lf %10.1lf %10.1lf %10.1lf\n",
+                0, (axis == 'x'), (axis == 'y'), (axis == 'z'), zero, zero, zero, zero, zero, zero);
+            fprintf(dmps_grid, "%9ld %10.4lf %10.4lf %10.4lf %10.4lf %10.4lf %10.4lf %10.1lf %10.1lf %10.1lf\n", cont,
+                 (rmin[0]+POSITIONX*0.5)*DP, (rmax[0]+POSITIONX*0.5)*DP,
+                 (rmin[1]+POSITIONY*0.5)*DP, (rmax[1]+POSITIONY*0.5)*DP,
+                 zero, zero, zero, zero, zero);
+
+            for (long r = rmin[axis-120]; r <= rmax[axis-120]; r++)
+                for (long i = 0; i < cont; i++)
+                    if (particle[i].r[axis-120] == r)
+                    {
+                        Point X (particle[i].r , DP);
+                        fprintf (dmps_grid, "%9d %10.4lf %10.4lf %10.4lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
+                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
+                    }
+        }
+        else if (decimal == 5)
+        {
+            fprintf(dmps_grid, "%9d %10d %10d %10d %10.5lf %10.5lf %10.5lf %10.1lf %10.1lf %10.1lf\n",
+                0, (axis == 'x'), (axis == 'y'), (axis == 'z'), zero, zero, zero, zero, zero, zero);
+            fprintf(dmps_grid, "%9ld %10.5lf %10.5lf %10.5lf %10.5lf %10.5lf %10.5lf %10.1lf %10.1lf %10.1lf\n", cont,
+                 (rmin[0]+POSITIONX*0.5)*DP, (rmax[0]+POSITIONX*0.5)*DP,
+                 (rmin[1]+POSITIONY*0.5)*DP, (rmax[1]+POSITIONY*0.5)*DP,
+                 zero, zero, zero, zero, zero);
+
+            for (long r = rmin[axis-120]; r <= rmax[axis-120]; r++)
+                for (long i = 0; i < cont; i++)
+                    if (particle[i].r[axis-120] == r)
+                    {
+                        Point X (particle[i].r , DP);
+                        fprintf (dmps_grid, "%9d %10.5lf %10.5lf %10.5lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
+                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
+                    }
+        }
+        else if (decimal == 6)
+        {
+            fprintf(dmps_grid, "%9d %10d %10d %10d %10.6lf %10.6lf %10.6lf %10.1lf %10.1lf %10.1lf\n",
+                0, (axis == 'x'), (axis == 'y'), (axis == 'z'), zero, zero, zero, zero, zero, zero);
+            fprintf(dmps_grid, "%9ld %10.6lf %10.6lf %10.6lf %10.6lf %10.6lf %10.6lf %10.1lf %10.1lf %10.1lf\n", cont,
+                 (rmin[0]+POSITIONX*0.5)*DP, (rmax[0]+POSITIONX*0.5)*DP,
+                 (rmin[1]+POSITIONY*0.5)*DP, (rmax[1]+POSITIONY*0.5)*DP,
+                 zero, zero, zero, zero, zero);
+
+            for (long r = rmin[axis-120]; r <= rmax[axis-120]; r++)
+                for (long i = 0; i < cont; i++)
+                    if (particle[i].r[axis-120] == r)
+                    {
+                        Point X (particle[i].r , DP);
+                        fprintf (dmps_grid, "%9d %10.6lf %10.6lf %10.6lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
+                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
+                    }
+        }
+        else if (decimal == 7)
+        {
+            fprintf(dmps_grid, "%9d %10d %10d %10d %10.7lf %10.7lf %10.7lf %10.1lf %10.1lf %10.1lf\n",
+                0, (axis == 'x'), (axis == 'y'), (axis == 'z'), zero, zero, zero, zero, zero, zero);
+            fprintf(dmps_grid, "%9ld %10.7lf %10.7lf %10.7lf %10.7lf %10.7lf %10.7lf %10.1lf %10.1lf %10.1lf\n", cont,
+                 (rmin[0]+POSITIONX*0.5)*DP, (rmax[0]+POSITIONX*0.5)*DP,
+                 (rmin[1]+POSITIONY*0.5)*DP, (rmax[1]+POSITIONY*0.5)*DP,
+                 zero, zero, zero, zero, zero);
+
+            for (long r = rmin[axis-120]; r <= rmax[axis-120]; r++)
+                for (long i = 0; i < cont; i++)
+                    if (particle[i].r[axis-120] == r)
+                    {
+                        Point X (particle[i].r , DP);
+                        fprintf (dmps_grid, "%9d %10.7lf %10.7lf %10.7lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
+                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
+                    }
+        }
+        else if (decimal == 8)
+        {
+            fprintf(dmps_grid, "%9d %10d %10d %10d %10.8lf %10.8lf %10.8lf %10.1lf %10.1lf %10.1lf\n",
+                0, (axis == 'x'), (axis == 'y'), (axis == 'z'), zero, zero, zero, zero, zero, zero);
+            fprintf(dmps_grid, "%9ld %10.8lf %10.8lf %10.8lf %10.8lf %10.8lf %10.8lf %10.1lf %10.1lf %10.1lf\n", cont,
+                 (rmin[0]+POSITIONX*0.5)*DP, (rmax[0]+POSITIONX*0.5)*DP,
+                 (rmin[1]+POSITIONY*0.5)*DP, (rmax[1]+POSITIONY*0.5)*DP,
+                 zero, zero, zero, zero, zero);
+
+            for (long r = rmin[axis-120]; r <= rmax[axis-120]; r++)
+                for (long i = 0; i < cont; i++)
+                    if (particle[i].r[axis-120] == r)
+                    {
+                        Point X (particle[i].r , DP);
+                        fprintf (dmps_grid, "%9d %10.8lf %10.8lf %10.8lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
+                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
+                    }
+        }
+        else if (decimal == 9)
+        {
+            fprintf(dmps_grid, "%9d %10d %10d %10d %10.9lf %10.9lf %10.9lf %10.1lf %10.1lf %10.1lf\n",
+                0, (axis == 'x'), (axis == 'y'), (axis == 'z'), zero, zero, zero, zero, zero, zero);
+            fprintf(dmps_grid, "%9ld %10.9lf %10.9lf %10.9lf %10.9lf %10.9lf %10.9lf %10.1lf %10.1lf %10.1lf\n", cont,
+                 (rmin[0]+POSITIONX*0.5)*DP, (rmax[0]+POSITIONX*0.5)*DP,
+                 (rmin[1]+POSITIONY*0.5)*DP, (rmax[1]+POSITIONY*0.5)*DP,
+                 zero, zero, zero, zero, zero);
+
+            for (long r = rmin[axis-120]; r <= rmax[axis-120]; r++)
+                for (long i = 0; i < cont; i++)
+                    if (particle[i].r[axis-120] == r)
+                    {
+                        Point X (particle[i].r , DP);
+                        fprintf (dmps_grid, "%9d %10.9lf %10.9lf %10.9lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
+                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
+                    }
+        }
+        else if (decimal == 10)
+        {
+            fprintf(dmps_grid, "%9d %10d %10d %10d %10.10lf %10.10lf %10.10lf %10.1lf %10.1lf %10.1lf\n",
+                0, (axis == 'x'), (axis == 'y'), (axis == 'z'), zero, zero, zero, zero, zero, zero);
+            fprintf(dmps_grid, "%9ld %10.10lf %10.10lf %10.10lf %10.10lf %10.10lf %10.10lf %10.1lf %10.1lf %10.1lf\n", cont,
+                 (rmin[0]+POSITIONX*0.5)*DP, (rmax[0]+POSITIONX*0.5)*DP,
+                 (rmin[1]+POSITIONY*0.5)*DP, (rmax[1]+POSITIONY*0.5)*DP,
+                 zero, zero, zero, zero, zero);
+
+            for (long r = rmin[axis-120]; r <= rmax[axis-120]; r++)
+                for (long i = 0; i < cont; i++)
+                    if (particle[i].r[axis-120] == r)
+                    {
+                        Point X (particle[i].r , DP);
+                        fprintf (dmps_grid, "%9d %10.10lf %10.10lf %10.10lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
+                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
                     }
         }
 
