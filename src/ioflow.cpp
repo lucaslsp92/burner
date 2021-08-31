@@ -38,7 +38,7 @@ int Particle::ioflow (double DP, double geometry[])
     double beta = 213.690067667;    // wave breaker chamfer angle right
     double WBP = 10.5;              // wave breaker bottom position
     double WTP = 13.7;              // wave breaker top position
-    double FH = 12.0;               // fluid height
+    double FH = 11.5;               // fluid height
 
     /// Points
     Point SCP(SL-0.8,0,-W/2);                  // step chamfer position
@@ -90,11 +90,11 @@ int Particle::ioflow (double DP, double geometry[])
     Region waveBreakerTRC = P.transformation(WTRC, Z, beta).rectangleXY(WC, WC, W);
     Region waveBreakerTRF = P.transformation(WTRF).rectangleXY(6*DP, WF, W);
 
-    if ((waveBreakerBL || (waveBreakerBLF)) ||      /// wave breaker bottom left
+    /*if ((waveBreakerBL || (waveBreakerBLF)) ||      /// wave breaker bottom left
         (waveBreakerTL || (waveBreakerTLF)))        /// wave breaker top left
     {
         return id+2;
-    }
+    }*/
 
     if (y > H)
     {

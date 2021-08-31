@@ -39,7 +39,7 @@ int Particle::ioside (double DP, double geometry[])
     double beta = 213.690067667;    // wave breaker chamfer angle right
     double WBP = 10.5;              // wave breaker bottom position
     double WTP = 13.7;              // wave breaker top position
-    double FH = 12.0;               // fluid height
+    double FH = 11.5;               // fluid height
 
     /// Points
     Point SCP(SL-0.8,0,-W/2);                   // step chamfer position
@@ -92,9 +92,9 @@ int Particle::ioside (double DP, double geometry[])
     Region waveBreakerTRF = P.transformation(WTRF).rectangleXY(6*DP, WF, W);
 
     ///Operações
-    if (tank && !(step && !(stepChamfer)) && 
-      !(waveBreakerBL /*&& !(waveBreakerBLR)*/ || (waveBreakerBLF) /*||  (waveBreakerBLC && x <= WL && y >= WBP)*/) &&      /// wave breaker bottom left
-      !(waveBreakerTL /*&& !(waveBreakerTLR)*/ || (waveBreakerTLF) /*||  (waveBreakerTLC && x <= WL && y >= WTP)*/) /*&&*/  /// wave breaker top left
+    if (tank && !(step && !(stepChamfer)) //&& 
+      //!(waveBreakerBL /*&& !(waveBreakerBLR)*/ || (waveBreakerBLF) /*||  (waveBreakerBLC && x <= WL && y >= WBP)*/) &&      /// wave breaker bottom left
+      //!(waveBreakerTL /*&& !(waveBreakerTLR)*/ || (waveBreakerTLF) /*||  (waveBreakerTLC && x <= WL && y >= WTP)*/) /*&&*/  /// wave breaker top left
       /*!(waveBreakerBR && !(waveBreakerBRR) || (waveBreakerBRF) ||  (waveBreakerBRC && x >= L-WL && y >= WBP)) &&          /// wave breaker bottom rigth
       !(waveBreakerTR && !(waveBreakerTRR) || (waveBreakerTRF) ||  (waveBreakerTRC && x >= L-WL && y >= WTP))*/)            /// wave breaker top rigth
     {
