@@ -773,9 +773,82 @@ struct Particle
         for (long i = 0; i < cont; i++)
         {
             Point X (particle[i].r , DP);
+            if (particle[i].id == 4 && 
+                X.x >= 0.0-0.5*DP && X.x < 0.0+0.5*DP &&
+                X.y >= 11.5-0.5*DP && X.y < 11.5+0.5*DP &&
+                X.z >= 0.4-0.5*DP && X.z < 0.4+0.5*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" y=\"0\" z=\"0\" x=\"0\" rz=\"0\" ry=\"0\" rx=\"0\" />", i );
+
             if (particle[i].id == 2 && 
-                X.x >= 0.5-0.5*DP && X.x < 0.5+0.5*DP &&
-                X.y >= 0.0-1.0*DP && X.y < 0.0+0.0*DP)
+                X.x >= 38.4-0.0*DP && X.x < 38.4+1.0*DP &&
+                X.y >= 11.5-0.5*DP && X.y < 11.5+0.5*DP &&
+                X.z >= 0.4-0.5*DP && X.z < 0.4+0.5*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" y=\"0\" z=\"0\" x=\"0\" rz=\"0\" ry=\"0\" rx=\"0\" />", i );
+
+            if (particle[i].id == 4 && 
+                X.x >= 0.0-0.5*DP && X.x < 0.0+0.5*DP &&
+                X.y >= 8.35-0.5*DP && X.y < 8.35+0.5*DP &&
+                X.z >= 0.4-0.5*DP && X.z < 0.4+0.5*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" y=\"0\" z=\"0\" x=\"0\" rz=\"0\" ry=\"0\" rx=\"0\" />", i );
+
+            if (particle[i].id == 2 && 
+                X.x >= 38.4-0.0*DP && X.x < 38.4+1.0*DP &&
+                X.y >= 8.35-0.5*DP && X.y < 8.35+0.5*DP &&
+                X.z >= 0.4-0.5*DP && X.z < 0.4+0.5*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" y=\"0\" z=\"0\" x=\"0\" rz=\"0\" ry=\"0\" rx=\"0\" />", i );
+
+            if (particle[i].id == 4 && 
+                X.x >= 0.0-0.5*DP && X.x < 0.0+0.5*DP &&
+                X.y >= 7.5625-0.5*DP && X.y < 7.5625+0.5*DP &&
+                X.z >= 0.4-0.5*DP && X.z < 0.4+0.5*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" y=\"0\" z=\"0\" x=\"0\" rz=\"0\" ry=\"0\" rx=\"0\" />", i );
+
+            if (particle[i].id == 2 && 
+                X.x >= 38.4-0.0*DP && X.x < 38.4+1.0*DP &&
+                X.y >= 7.5625-0.5*DP && X.y < 7.5625+0.5*DP &&
+                X.z >= 0.4-0.5*DP && X.z < 0.4+0.5*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" y=\"0\" z=\"0\" x=\"0\" rz=\"0\" ry=\"0\" rx=\"0\" />", i );
+
+            if (particle[i].id == 2 && 
+                X.x >= 12.8-0.5*DP && X.x < 12.8+0.5*DP &&
+                X.y >= 6.25-0.5*DP && X.y < 6.25+0.5*DP&&
+                X.z >= 0.4-0.5*DP && X.z < 0.4+0.5*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" y=\"0\" z=\"0\" x=\"0\" rz=\"0\" ry=\"0\" rx=\"0\" />", i );
+
+            if (particle[i].id == 2 && 
+                X.x >= 38.4-0.0*DP && X.x < 38.4+1.0*DP &&
+                X.y >= 6.25-0.5*DP && X.y < 6.25+0.5*DP &&
+                X.z >= 0.4-0.5*DP && X.z < 0.4+0.5*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" y=\"0\" z=\"0\" x=\"0\" rz=\"0\" ry=\"0\" rx=\"0\" />", i );
+
+            if (particle[i].id == 2 && 
+                X.x >= 12.8-0.5*DP && X.x < 12.8+0.5*DP &&
+                X.y >= 5.2-0.5*DP && X.y < 5.2+0.5*DP &&
+                X.z >= 0.4-0.5*DP && X.z < 0.4+0.5*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" y=\"0\" z=\"0\" x=\"0\" rz=\"0\" ry=\"0\" rx=\"0\" />", i );
+
+            if (particle[i].id == 2 && 
+                X.x >= 38.4-0.0*DP && X.x < 38.4+1.0*DP &&
+                X.y >= 5.2-0.5*DP && X.y < 5.2+0.5*DP &&
+                X.z >= 0.4-0.5*DP && X.z < 0.4+0.5*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" y=\"0\" z=\"0\" x=\"0\" rz=\"0\" ry=\"0\" rx=\"0\" />", i );
+
+            if (particle[i].id == 2 && 
+                X.x >= 12.8-0.5*DP && X.x < 12.8+0.5*DP &&
+                X.y >= 2.875-0.5*DP && X.y < 2.875+0.5*DP &&
+                X.z >= 0.4-0.5*DP && X.z < 0.4+0.5*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" y=\"0\" z=\"0\" x=\"0\" rz=\"0\" ry=\"0\" rx=\"0\" />", i );
+
+            if (particle[i].id == 2 && 
+                X.x >= 38.4-0.0*DP && X.x < 38.4+1.0*DP &&
+                X.y >= 2.875-0.5*DP && X.y < 2.875+0.5*DP &&
+                X.z >= 0.4-0.5*DP && X.z < 0.4+0.5*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" y=\"0\" z=\"0\" x=\"0\" rz=\"0\" ry=\"0\" rx=\"0\" />", i );
+
+            if (particle[i].id == 2 && 
+                X.x >= 38.4-0.0*DP && X.x < 38.4+1.0*DP &&
+                X.y >= 0.71875-0.5*DP && X.y < 0.71875+0.5*DP &&
+                X.z >= 0.4-0.5*DP && X.z < 0.4+0.5*DP)
                 fprintf (alt, "\n<condition id=\"%ld\" y=\"0\" z=\"0\" x=\"0\" rz=\"0\" ry=\"0\" rx=\"0\" />", i );
         }
 

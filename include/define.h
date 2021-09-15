@@ -11,7 +11,7 @@ typedef bool Region;
 
 #define NUMMAXID 30
 #define NUMMAXGEOMETRY 30
-#define NUMMAXPARTICLES 20000000
+#define NUMMAXPARTICLES 80000000
 #define NUMMAXCELLS 150000
 
 #define CELLDIAMETER 25
@@ -29,7 +29,7 @@ typedef bool Region;
 #define PI 3.14159265
 
 #define DMPS 1
-#define ALT 0
-#define DIMENSION 2
+#define ALT 1
+#define DIMENSION 3
 
 #endif
