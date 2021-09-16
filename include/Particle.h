@@ -239,23 +239,23 @@ struct Particle
         {
             Point X (particle[i].r , DP);
             if (decimal == 2)
-                fprintf (paraview_xyz, "\n%d %9.2lf %9.2lf %9.2lf", particle[i].id, X.x, X.y, 0.0);
+                fprintf (paraview_xyz, "\n%d %9.2lf %9.2lf %9.2lf", particle[i].id, X.x, X.y, X.z);
             else if (decimal == 3)
-                fprintf (paraview_xyz, "\n%d %9.3lf %9.3lf %9.3lf", particle[i].id, X.x, X.y, 0.0);
+                fprintf (paraview_xyz, "\n%d %9.3lf %9.3lf %9.3lf", particle[i].id, X.x, X.y, X.z);
             else if (decimal == 4)
-                fprintf (paraview_xyz, "\n%d %9.4lf %9.4lf %9.4lf", particle[i].id, X.x, X.y, 0.0);
+                fprintf (paraview_xyz, "\n%d %9.4lf %9.4lf %9.4lf", particle[i].id, X.x, X.y, X.z);
             else if (decimal == 5)
-                fprintf (paraview_xyz, "\n%d %9.5lf %9.5lf %9.5lf", particle[i].id, X.x, X.y, 0.0);
+                fprintf (paraview_xyz, "\n%d %9.5lf %9.5lf %9.5lf", particle[i].id, X.x, X.y, X.z);
             else if (decimal == 6)
-                fprintf (paraview_xyz, "\n%d %9.6lf %9.6lf %9.6lf", particle[i].id, X.x, X.y, 0.0);
+                fprintf (paraview_xyz, "\n%d %9.6lf %9.6lf %9.6lf", particle[i].id, X.x, X.y, X.z);
             else if (decimal == 7)
-                fprintf (paraview_xyz, "\n%d %9.7lf %9.7lf %9.7lf", particle[i].id, X.x, X.y, 0.0);
+                fprintf (paraview_xyz, "\n%d %9.7lf %9.7lf %9.7lf", particle[i].id, X.x, X.y, X.z);
             else if (decimal == 8)
-                fprintf (paraview_xyz, "\n%d %9.8lf %9.8lf %9.8lf", particle[i].id, X.x, X.y, 0.0);
+                fprintf (paraview_xyz, "\n%d %9.8lf %9.8lf %9.8lf", particle[i].id, X.x, X.y, X.z);
             else if (decimal == 9)
-                fprintf (paraview_xyz, "\n%d %9.9lf %9.9lf %9.9lf", particle[i].id, X.x, X.y, 0.0);
+                fprintf (paraview_xyz, "\n%d %9.9lf %9.9lf %9.9lf", particle[i].id, X.x, X.y, X.z);
             else if (decimal == 10)
-                fprintf (paraview_xyz, "\n%d %9.10lf %9.10lf %9.10lf", particle[i].id, X.x, X.y, 0.0);
+                fprintf (paraview_xyz, "\n%d %9.10lf %9.10lf %9.10lf", particle[i].id, X.x, X.y, X.z);
         }
 
         printf ("paraview.xyz: Done!\n");
@@ -314,23 +314,23 @@ struct Particle
         {
             Point X (particle[i].r , DP);
             if (decimal == 2)
-                fprintf (mps_grid, "\n%d %9.2lf %9.2lf %9.2lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, 0.0);
+                fprintf (mps_grid, "\n%d %9.2lf %9.2lf %9.2lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, X.z);
             else if (decimal == 3)
-                fprintf (mps_grid, "\n%d %9.3lf %9.3lf %9.3lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, 0.0);
+                fprintf (mps_grid, "\n%d %9.3lf %9.3lf %9.3lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, X.z);
             else if (decimal == 4)
-                fprintf (mps_grid, "\n%d %9.4lf %9.4lf %9.4lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, 0.0);
+                fprintf (mps_grid, "\n%d %9.4lf %9.4lf %9.4lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, X.z);
             else if (decimal == 5)
-                fprintf (mps_grid, "\n%d %9.5lf %9.5lf %9.5lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, 0.0);
+                fprintf (mps_grid, "\n%d %9.5lf %9.5lf %9.5lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, X.z);
             else if (decimal == 6)
-                fprintf (mps_grid, "\n%d %9.6lf %9.6lf %9.6lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, 0.0);
+                fprintf (mps_grid, "\n%d %9.6lf %9.6lf %9.6lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, X.z);
             else if (decimal == 7)
-                fprintf (mps_grid, "\n%d %9.7lf %9.7lf %9.7lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, 0.0);
+                fprintf (mps_grid, "\n%d %9.7lf %9.7lf %9.7lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, X.z);
             else if (decimal == 8)
-                fprintf (mps_grid, "\n%d %9.8lf %9.8lf %9.8lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, 0.0);
+                fprintf (mps_grid, "\n%d %9.8lf %9.8lf %9.8lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, X.z);
             else if (decimal == 9)
-                fprintf (mps_grid, "\n%d %9.9lf %9.9lf %9.9lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, 0.0);
+                fprintf (mps_grid, "\n%d %9.9lf %9.9lf %9.9lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, X.z);
             else if (decimal == 10)
-                fprintf (mps_grid, "\n%d %9.10lf %9.10lf %9.10lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, 0.0);
+                fprintf (mps_grid, "\n%d %9.10lf %9.10lf %9.10lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, X.z);
         }
         printf ("MPS.grid: Done!\n");
 
@@ -406,6 +406,8 @@ struct Particle
         else if (delta[1] >= delta [2] && delta[1] >= delta[0]) axis = 'y';
         else if (delta[2] >= delta [0] && delta[2] >= delta[1]) axis = 'z';
 
+        axis = 'x';
+
         if (decimal == 2)
         {
             fprintf(dmps_grid, "%9d %10d %10d %10d %10.2lf %10.2lf %10.2lf %10.1lf %10.1lf %10.1lf\n",
@@ -421,7 +423,7 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.2lf %10.2lf %10.2lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.x, X.y, 0.0, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
                     }
         }
         else if (decimal == 3)
@@ -439,7 +441,7 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.3lf %10.3lf %10.3lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.x, X.y, 0.0, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
                     }
         }
         else if (decimal == 4)
@@ -457,7 +459,7 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.4lf %10.4lf %10.4lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.x, X.y, 0.0, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
                     }
         }
         else if (decimal == 5)
@@ -475,7 +477,7 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.5lf %10.5lf %10.5lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.x, X.y, 0.0, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
                     }
         }
         else if (decimal == 6)
@@ -493,7 +495,7 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.6lf %10.6lf %10.6lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.x, X.y, 0.0, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
                     }
         }
         else if (decimal == 7)
@@ -511,7 +513,7 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.7lf %10.7lf %10.7lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.x, X.y, 0.0, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
                     }
         }
         else if (decimal == 8)
@@ -529,7 +531,7 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.8lf %10.8lf %10.8lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.x, X.y, 0.0, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
                     }
         }
         else if (decimal == 9)
@@ -547,7 +549,7 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.9lf %10.9lf %10.9lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.x, X.y, 0.0, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
                     }
         }
         else if (decimal == 10)
@@ -565,7 +567,7 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.10lf %10.10lf %10.10lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.x, X.y, 0.0, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
                     }
         }
 
