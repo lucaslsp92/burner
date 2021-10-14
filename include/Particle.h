@@ -276,23 +276,23 @@ struct Particle
         {
             Point X (particle[i].r , DP);
             if (decimal == 2)
-                fprintf (paraview_xyz, "\n%d %9.2lf %9.2lf %9.2lf", particle[i].id, X.x, X.y, X.z);
+                fprintf (paraview_xyz, "\n%d %9.2lf %9.2lf %9.2lf", particle[i].id, X.z, X.y, X.x);
             else if (decimal == 3)
-                fprintf (paraview_xyz, "\n%d %9.3lf %9.3lf %9.3lf", particle[i].id, X.x, X.y, X.z);
+                fprintf (paraview_xyz, "\n%d %9.3lf %9.3lf %9.3lf", particle[i].id, X.z, X.y, X.x);
             else if (decimal == 4)
-                fprintf (paraview_xyz, "\n%d %9.4lf %9.4lf %9.4lf", particle[i].id, X.x, X.y, X.z);
+                fprintf (paraview_xyz, "\n%d %9.4lf %9.4lf %9.4lf", particle[i].id, X.z, X.y, X.x);
             else if (decimal == 5)
-                fprintf (paraview_xyz, "\n%d %9.5lf %9.5lf %9.5lf", particle[i].id, X.x, X.y, X.z);
+                fprintf (paraview_xyz, "\n%d %9.5lf %9.5lf %9.5lf", particle[i].id, X.z, X.y, X.x);
             else if (decimal == 6)
-                fprintf (paraview_xyz, "\n%d %9.6lf %9.6lf %9.6lf", particle[i].id, X.x, X.y, X.z);
+                fprintf (paraview_xyz, "\n%d %9.6lf %9.6lf %9.6lf", particle[i].id, X.z, X.y, X.x);
             else if (decimal == 7)
-                fprintf (paraview_xyz, "\n%d %9.7lf %9.7lf %9.7lf", particle[i].id, X.x, X.y, X.z);
+                fprintf (paraview_xyz, "\n%d %9.7lf %9.7lf %9.7lf", particle[i].id, X.z, X.y, X.x);
             else if (decimal == 8)
-                fprintf (paraview_xyz, "\n%d %9.8lf %9.8lf %9.8lf", particle[i].id, X.x, X.y, X.z);
+                fprintf (paraview_xyz, "\n%d %9.8lf %9.8lf %9.8lf", particle[i].id, X.z, X.y, X.x);
             else if (decimal == 9)
-                fprintf (paraview_xyz, "\n%d %9.9lf %9.9lf %9.9lf", particle[i].id, X.x, X.y, X.z);
+                fprintf (paraview_xyz, "\n%d %9.9lf %9.9lf %9.9lf", particle[i].id, X.z, X.y, X.x);
             else if (decimal == 10)
-                fprintf (paraview_xyz, "\n%d %9.10lf %9.10lf %9.10lf", particle[i].id, X.x, X.y, X.z);
+                fprintf (paraview_xyz, "\n%d %9.10lf %9.10lf %9.10lf", particle[i].id, X.z, X.y, X.x);
         }
 
         printf ("paraview.xyz: Done!\n");
@@ -597,14 +597,16 @@ struct Particle
         else if (delta[1] >= delta [2] && delta[1] >= delta[0]) axis = 'y';
         else if (delta[2] >= delta [0] && delta[2] >= delta[1]) axis = 'z';
 
+        axis = 'x';
+
         if (decimal == 2)
         {
             fprintf(dmps_grid, "%9d %10d %10d %10d %10.2lf %10.2lf %10.2lf %10.1lf %10.1lf %10.1lf\n",
-                0, (axis == 'x'), (axis == 'y'), (axis == 'z'), zero, zero, zero, zero, zero, zero);
+                0, (axis == 'z'), (axis == 'y'), (axis == 'x'), zero, zero, zero, zero, zero, zero);
             fprintf(dmps_grid, "%9ld %10.2lf %10.2lf %10.2lf %10.2lf %10.2lf %10.2lf %10.1lf %10.1lf %10.1lf\n", cont,
-                 (rmin[0]+POSITIONX*0.5)*DP, (rmax[0]+POSITIONX*0.5)*DP,
+                 (rmin[2]+POSITIONX*0.5)*DP, (rmax[2]+POSITIONX*0.5)*DP,
                  (rmin[1]+POSITIONY*0.5)*DP, (rmax[1]+POSITIONY*0.5)*DP,
-                 zero, zero, zero, zero, zero);
+                 (rmin[0]+POSITIONY*0.5)*DP, (rmax[0]+POSITIONY*0.5)*DP, zero, zero, zero);
 
             for (long r = rmin[axis-120]; r <= rmax[axis-120]; r++)
                 for (long i = 0; i < cont; i++)
@@ -612,17 +614,17 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.2lf %10.2lf %10.2lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.z, X.y, X.x, zero, zero, zero, zero, zero, zero);
                     }
         }
         else if (decimal == 3)
         {
             fprintf(dmps_grid, "%9d %10d %10d %10d %10.3lf %10.3lf %10.3lf %10.1lf %10.1lf %10.1lf\n",
-                0, (axis == 'x'), (axis == 'y'), (axis == 'z'), zero, zero, zero, zero, zero, zero);
+                0, (axis == 'z'), (axis == 'y'), (axis == 'x'), zero, zero, zero, zero, zero, zero);
             fprintf(dmps_grid, "%9ld %10.3lf %10.3lf %10.3lf %10.3lf %10.3lf %10.3lf %10.1lf %10.1lf %10.1lf\n", cont,
-                 (rmin[0]+POSITIONX*0.5)*DP, (rmax[0]+POSITIONX*0.5)*DP,
+                 (rmin[2]+POSITIONX*0.5)*DP, (rmax[2]+POSITIONX*0.5)*DP,
                  (rmin[1]+POSITIONY*0.5)*DP, (rmax[1]+POSITIONY*0.5)*DP,
-                 zero, zero, zero, zero, zero);
+                 (rmin[0]+POSITIONY*0.5)*DP, (rmax[0]+POSITIONY*0.5)*DP, zero, zero, zero);
 
             for (long r = rmin[axis-120]; r <= rmax[axis-120]; r++)
                 for (long i = 0; i < cont; i++)
@@ -630,17 +632,17 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.3lf %10.3lf %10.3lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.z, X.y, X.x, zero, zero, zero, zero, zero, zero);
                     }
         }
         else if (decimal == 4)
         {
             fprintf(dmps_grid, "%9d %10d %10d %10d %10.4lf %10.4lf %10.4lf %10.1lf %10.1lf %10.1lf\n",
-                0, (axis == 'x'), (axis == 'y'), (axis == 'z'), zero, zero, zero, zero, zero, zero);
+                0, (axis == 'z'), (axis == 'y'), (axis == 'x'), zero, zero, zero, zero, zero, zero);
             fprintf(dmps_grid, "%9ld %10.4lf %10.4lf %10.4lf %10.4lf %10.4lf %10.4lf %10.1lf %10.1lf %10.1lf\n", cont,
-                 (rmin[0]+POSITIONX*0.5)*DP, (rmax[0]+POSITIONX*0.5)*DP,
+                 (rmin[2]+POSITIONX*0.5)*DP, (rmax[2]+POSITIONX*0.5)*DP,
                  (rmin[1]+POSITIONY*0.5)*DP, (rmax[1]+POSITIONY*0.5)*DP,
-                 zero, zero, zero, zero, zero);
+                 (rmin[0]+POSITIONY*0.5)*DP, (rmax[0]+POSITIONY*0.5)*DP, zero, zero, zero);
 
             for (long r = rmin[axis-120]; r <= rmax[axis-120]; r++)
                 for (long i = 0; i < cont; i++)
@@ -648,17 +650,17 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.4lf %10.4lf %10.4lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.z, X.y, X.x, zero, zero, zero, zero, zero, zero);
                     }
         }
         else if (decimal == 5)
         {
             fprintf(dmps_grid, "%9d %10d %10d %10d %10.5lf %10.5lf %10.5lf %10.1lf %10.1lf %10.1lf\n",
-                0, (axis == 'x'), (axis == 'y'), (axis == 'z'), zero, zero, zero, zero, zero, zero);
+                0, (axis == 'z'), (axis == 'y'), (axis == 'x'), zero, zero, zero, zero, zero, zero);
             fprintf(dmps_grid, "%9ld %10.5lf %10.5lf %10.5lf %10.5lf %10.5lf %10.5lf %10.1lf %10.1lf %10.1lf\n", cont,
-                 (rmin[0]+POSITIONX*0.5)*DP, (rmax[0]+POSITIONX*0.5)*DP,
+                 (rmin[2]+POSITIONX*0.5)*DP, (rmax[2]+POSITIONX*0.5)*DP,
                  (rmin[1]+POSITIONY*0.5)*DP, (rmax[1]+POSITIONY*0.5)*DP,
-                 zero, zero, zero, zero, zero);
+                 (rmin[0]+POSITIONY*0.5)*DP, (rmax[0]+POSITIONY*0.5)*DP, zero, zero, zero);
 
             for (long r = rmin[axis-120]; r <= rmax[axis-120]; r++)
                 for (long i = 0; i < cont; i++)
@@ -666,17 +668,17 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.5lf %10.5lf %10.5lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.z, X.y, X.x, zero, zero, zero, zero, zero, zero);
                     }
         }
         else if (decimal == 6)
         {
             fprintf(dmps_grid, "%9d %10d %10d %10d %10.6lf %10.6lf %10.6lf %10.1lf %10.1lf %10.1lf\n",
-                0, (axis == 'x'), (axis == 'y'), (axis == 'z'), zero, zero, zero, zero, zero, zero);
+                0, (axis == 'z'), (axis == 'y'), (axis == 'x'), zero, zero, zero, zero, zero, zero);
             fprintf(dmps_grid, "%9ld %10.6lf %10.6lf %10.6lf %10.6lf %10.6lf %10.6lf %10.1lf %10.1lf %10.1lf\n", cont,
-                 (rmin[0]+POSITIONX*0.5)*DP, (rmax[0]+POSITIONX*0.5)*DP,
+                 (rmin[2]+POSITIONX*0.5)*DP, (rmax[2]+POSITIONX*0.5)*DP,
                  (rmin[1]+POSITIONY*0.5)*DP, (rmax[1]+POSITIONY*0.5)*DP,
-                 zero, zero, zero, zero, zero);
+                 (rmin[0]+POSITIONY*0.5)*DP, (rmax[0]+POSITIONY*0.5)*DP, zero, zero, zero);
 
             for (long r = rmin[axis-120]; r <= rmax[axis-120]; r++)
                 for (long i = 0; i < cont; i++)
@@ -684,17 +686,17 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.6lf %10.6lf %10.6lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.z, X.y, X.x, zero, zero, zero, zero, zero, zero);
                     }
         }
         else if (decimal == 7)
         {
             fprintf(dmps_grid, "%9d %10d %10d %10d %10.7lf %10.7lf %10.7lf %10.1lf %10.1lf %10.1lf\n",
-                0, (axis == 'x'), (axis == 'y'), (axis == 'z'), zero, zero, zero, zero, zero, zero);
+                0, (axis == 'z'), (axis == 'y'), (axis == 'x'), zero, zero, zero, zero, zero, zero);
             fprintf(dmps_grid, "%9ld %10.7lf %10.7lf %10.7lf %10.7lf %10.7lf %10.7lf %10.1lf %10.1lf %10.1lf\n", cont,
-                 (rmin[0]+POSITIONX*0.5)*DP, (rmax[0]+POSITIONX*0.5)*DP,
+                 (rmin[2]+POSITIONX*0.5)*DP, (rmax[2]+POSITIONX*0.5)*DP,
                  (rmin[1]+POSITIONY*0.5)*DP, (rmax[1]+POSITIONY*0.5)*DP,
-                 zero, zero, zero, zero, zero);
+                 (rmin[0]+POSITIONY*0.5)*DP, (rmax[0]+POSITIONY*0.5)*DP, zero, zero, zero);
 
             for (long r = rmin[axis-120]; r <= rmax[axis-120]; r++)
                 for (long i = 0; i < cont; i++)
@@ -702,17 +704,17 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.7lf %10.7lf %10.7lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.z, X.y, X.x, zero, zero, zero, zero, zero, zero);
                     }
         }
         else if (decimal == 8)
         {
             fprintf(dmps_grid, "%9d %10d %10d %10d %10.8lf %10.8lf %10.8lf %10.1lf %10.1lf %10.1lf\n",
-                0, (axis == 'x'), (axis == 'y'), (axis == 'z'), zero, zero, zero, zero, zero, zero);
+                0, (axis == 'z'), (axis == 'y'), (axis == 'x'), zero, zero, zero, zero, zero, zero);
             fprintf(dmps_grid, "%9ld %10.8lf %10.8lf %10.8lf %10.8lf %10.8lf %10.8lf %10.1lf %10.1lf %10.1lf\n", cont,
-                 (rmin[0]+POSITIONX*0.5)*DP, (rmax[0]+POSITIONX*0.5)*DP,
+                 (rmin[2]+POSITIONX*0.5)*DP, (rmax[2]+POSITIONX*0.5)*DP,
                  (rmin[1]+POSITIONY*0.5)*DP, (rmax[1]+POSITIONY*0.5)*DP,
-                 zero, zero, zero, zero, zero);
+                 (rmin[0]+POSITIONY*0.5)*DP, (rmax[0]+POSITIONY*0.5)*DP, zero, zero, zero);
 
             for (long r = rmin[axis-120]; r <= rmax[axis-120]; r++)
                 for (long i = 0; i < cont; i++)
@@ -720,17 +722,17 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.8lf %10.8lf %10.8lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.z, X.y, X.x, zero, zero, zero, zero, zero, zero);
                     }
         }
         else if (decimal == 9)
         {
             fprintf(dmps_grid, "%9d %10d %10d %10d %10.9lf %10.9lf %10.9lf %10.1lf %10.1lf %10.1lf\n",
-                0, (axis == 'x'), (axis == 'y'), (axis == 'z'), zero, zero, zero, zero, zero, zero);
+                0, (axis == 'z'), (axis == 'y'), (axis == 'x'), zero, zero, zero, zero, zero, zero);
             fprintf(dmps_grid, "%9ld %10.9lf %10.9lf %10.9lf %10.9lf %10.9lf %10.9lf %10.1lf %10.1lf %10.1lf\n", cont,
-                 (rmin[0]+POSITIONX*0.5)*DP, (rmax[0]+POSITIONX*0.5)*DP,
+                 (rmin[2]+POSITIONX*0.5)*DP, (rmax[2]+POSITIONX*0.5)*DP,
                  (rmin[1]+POSITIONY*0.5)*DP, (rmax[1]+POSITIONY*0.5)*DP,
-                 zero, zero, zero, zero, zero);
+                 (rmin[0]+POSITIONY*0.5)*DP, (rmax[0]+POSITIONY*0.5)*DP, zero, zero, zero);
 
             for (long r = rmin[axis-120]; r <= rmax[axis-120]; r++)
                 for (long i = 0; i < cont; i++)
@@ -738,17 +740,17 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.9lf %10.9lf %10.9lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.z, X.y, X.x, zero, zero, zero, zero, zero, zero);
                     }
         }
         else if (decimal == 10)
         {
             fprintf(dmps_grid, "%9d %10d %10d %10d %10.10lf %10.10lf %10.10lf %10.1lf %10.1lf %10.1lf\n",
-                0, (axis == 'x'), (axis == 'y'), (axis == 'z'), zero, zero, zero, zero, zero, zero);
+                0, (axis == 'z'), (axis == 'y'), (axis == 'x'), zero, zero, zero, zero, zero, zero);
             fprintf(dmps_grid, "%9ld %10.10lf %10.10lf %10.10lf %10.10lf %10.10lf %10.10lf %10.1lf %10.1lf %10.1lf\n", cont,
-                 (rmin[0]+POSITIONX*0.5)*DP, (rmax[0]+POSITIONX*0.5)*DP,
+                 (rmin[2]+POSITIONX*0.5)*DP, (rmax[2]+POSITIONX*0.5)*DP,
                  (rmin[1]+POSITIONY*0.5)*DP, (rmax[1]+POSITIONY*0.5)*DP,
-                 zero, zero, zero, zero, zero);
+                 (rmin[0]+POSITIONY*0.5)*DP, (rmax[0]+POSITIONY*0.5)*DP, zero, zero, zero);
 
             for (long r = rmin[axis-120]; r <= rmax[axis-120]; r++)
                 for (long i = 0; i < cont; i++)
@@ -756,7 +758,7 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.10lf %10.10lf %10.10lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.z, X.y, X.x, zero, zero, zero, zero, zero, zero);
                     }
         }
 
@@ -776,80 +778,104 @@ struct Particle
             if (particle[i].id == 4 && 
                 X.x >= 0.0-0.5*DP && X.x < 0.0+0.5*DP &&
                 X.y >= 11.5-0.5*DP && X.y < 11.5+0.5*DP &&
-                X.z >= 0.4-0.5*DP && X.z < 0.4+0.5*DP)
-                fprintf (alt, "\n<condition id=\"%ld\" y=\"0\" z=\"0\" x=\"0\" rz=\"0\" ry=\"0\" rx=\"0\" />", i );
+                X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" x=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.z, X.y, X.x);
 
             if (particle[i].id == 2 && 
                 X.x >= 38.4-0.0*DP && X.x < 38.4+1.0*DP &&
                 X.y >= 11.5-0.5*DP && X.y < 11.5+0.5*DP &&
-                X.z >= 0.4-0.5*DP && X.z < 0.4+0.5*DP)
-                fprintf (alt, "\n<condition id=\"%ld\" y=\"0\" z=\"0\" x=\"0\" rz=\"0\" ry=\"0\" rx=\"0\" />", i );
+                X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" x=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.z, X.y, X.x);
 
             if (particle[i].id == 4 && 
                 X.x >= 0.0-0.5*DP && X.x < 0.0+0.5*DP &&
                 X.y >= 8.35-0.5*DP && X.y < 8.35+0.5*DP &&
-                X.z >= 0.4-0.5*DP && X.z < 0.4+0.5*DP)
-                fprintf (alt, "\n<condition id=\"%ld\" y=\"0\" z=\"0\" x=\"0\" rz=\"0\" ry=\"0\" rx=\"0\" />", i );
+                X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" x=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.z, X.y, X.x);
 
             if (particle[i].id == 2 && 
                 X.x >= 38.4-0.0*DP && X.x < 38.4+1.0*DP &&
                 X.y >= 8.35-0.5*DP && X.y < 8.35+0.5*DP &&
-                X.z >= 0.4-0.5*DP && X.z < 0.4+0.5*DP)
-                fprintf (alt, "\n<condition id=\"%ld\" y=\"0\" z=\"0\" x=\"0\" rz=\"0\" ry=\"0\" rx=\"0\" />", i );
+                X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" x=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.z, X.y, X.x);
 
             if (particle[i].id == 4 && 
                 X.x >= 0.0-0.5*DP && X.x < 0.0+0.5*DP &&
                 X.y >= 7.5625-0.5*DP && X.y < 7.5625+0.5*DP &&
-                X.z >= 0.4-0.5*DP && X.z < 0.4+0.5*DP)
-                fprintf (alt, "\n<condition id=\"%ld\" y=\"0\" z=\"0\" x=\"0\" rz=\"0\" ry=\"0\" rx=\"0\" />", i );
+                X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" x=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.z, X.y, X.x);
 
             if (particle[i].id == 2 && 
                 X.x >= 38.4-0.0*DP && X.x < 38.4+1.0*DP &&
                 X.y >= 7.5625-0.5*DP && X.y < 7.5625+0.5*DP &&
-                X.z >= 0.4-0.5*DP && X.z < 0.4+0.5*DP)
-                fprintf (alt, "\n<condition id=\"%ld\" y=\"0\" z=\"0\" x=\"0\" rz=\"0\" ry=\"0\" rx=\"0\" />", i );
+                X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" x=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.z, X.y, X.x);
 
             if (particle[i].id == 2 && 
                 X.x >= 12.8-0.5*DP && X.x < 12.8+0.5*DP &&
                 X.y >= 6.25-0.5*DP && X.y < 6.25+0.5*DP&&
-                X.z >= 0.4-0.5*DP && X.z < 0.4+0.5*DP)
-                fprintf (alt, "\n<condition id=\"%ld\" y=\"0\" z=\"0\" x=\"0\" rz=\"0\" ry=\"0\" rx=\"0\" />", i );
+                X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" x=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.z, X.y, X.x);
 
             if (particle[i].id == 2 && 
                 X.x >= 38.4-0.0*DP && X.x < 38.4+1.0*DP &&
                 X.y >= 6.25-0.5*DP && X.y < 6.25+0.5*DP &&
-                X.z >= 0.4-0.5*DP && X.z < 0.4+0.5*DP)
-                fprintf (alt, "\n<condition id=\"%ld\" y=\"0\" z=\"0\" x=\"0\" rz=\"0\" ry=\"0\" rx=\"0\" />", i );
+                X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" x=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.z, X.y, X.x);
 
             if (particle[i].id == 2 && 
                 X.x >= 12.8-0.5*DP && X.x < 12.8+0.5*DP &&
                 X.y >= 5.2-0.5*DP && X.y < 5.2+0.5*DP &&
-                X.z >= 0.4-0.5*DP && X.z < 0.4+0.5*DP)
-                fprintf (alt, "\n<condition id=\"%ld\" y=\"0\" z=\"0\" x=\"0\" rz=\"0\" ry=\"0\" rx=\"0\" />", i );
+                X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" x=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.z, X.y, X.x);
 
             if (particle[i].id == 2 && 
                 X.x >= 38.4-0.0*DP && X.x < 38.4+1.0*DP &&
                 X.y >= 5.2-0.5*DP && X.y < 5.2+0.5*DP &&
-                X.z >= 0.4-0.5*DP && X.z < 0.4+0.5*DP)
-                fprintf (alt, "\n<condition id=\"%ld\" y=\"0\" z=\"0\" x=\"0\" rz=\"0\" ry=\"0\" rx=\"0\" />", i );
+                X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" x=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.z, X.y, X.x);
 
             if (particle[i].id == 2 && 
                 X.x >= 12.8-0.5*DP && X.x < 12.8+0.5*DP &&
                 X.y >= 2.875-0.5*DP && X.y < 2.875+0.5*DP &&
-                X.z >= 0.4-0.5*DP && X.z < 0.4+0.5*DP)
-                fprintf (alt, "\n<condition id=\"%ld\" y=\"0\" z=\"0\" x=\"0\" rz=\"0\" ry=\"0\" rx=\"0\" />", i );
+                X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" x=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.z, X.y, X.x);
 
             if (particle[i].id == 2 && 
                 X.x >= 38.4-0.0*DP && X.x < 38.4+1.0*DP &&
                 X.y >= 2.875-0.5*DP && X.y < 2.875+0.5*DP &&
-                X.z >= 0.4-0.5*DP && X.z < 0.4+0.5*DP)
-                fprintf (alt, "\n<condition id=\"%ld\" y=\"0\" z=\"0\" x=\"0\" rz=\"0\" ry=\"0\" rx=\"0\" />", i );
+                X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" x=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.z, X.y, X.x);
 
             if (particle[i].id == 2 && 
                 X.x >= 38.4-0.0*DP && X.x < 38.4+1.0*DP &&
                 X.y >= 0.71875-0.5*DP && X.y < 0.71875+0.5*DP &&
-                X.z >= 0.4-0.5*DP && X.z < 0.4+0.5*DP)
-                fprintf (alt, "\n<condition id=\"%ld\" y=\"0\" z=\"0\" x=\"0\" rz=\"0\" ry=\"0\" rx=\"0\" />", i );
+                X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" x=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.z, X.y, X.x);
+
+            if (particle[i].id == 4 && 
+                X.x >= 0.0-0.5*DP && X.x < 0.0+0.5*DP &&
+                X.y >= 13.4-0.5*DP && X.y < 13.4+0.5*DP &&
+                X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" x=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.z, X.y, X.x);
+
+            if (particle[i].id == 6 && 
+                X.x >= 0.15-0.5*DP && X.x < 0.15+0.5*DP &&
+                X.y >= 13.7-2.0*DP && X.y < 13.7-1.0*DP &&
+                X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" x=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.z, X.y, X.x);
+
+            if (particle[i].id == 6 && 
+                X.x >= 0.65-0.5*DP && X.x < 0.65+0.5*DP &&
+                X.y >= 13.7-2.0*DP && X.y < 13.7+1.0*DP &&
+                X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" x=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.z, X.y, X.x);
+
+            if (particle[i].id == 16 && 
+                X.x >= 12.8-6.5*DP && X.x < 12.8+0.5*DP &&
+                X.y >= 8.3-0.5*DP && X.y < 8.3+0.5*DP &&
+                X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" x=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.z, X.y, X.x);
         }
 
         printf ("alt.grid: Done!\n");
