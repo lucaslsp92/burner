@@ -861,19 +861,19 @@ struct Particle
 
             if (particle[i].id == 6 && 
                 X.x >= 0.15-0.5*DP && X.x < 0.15+0.5*DP &&
-                X.y >= 13.7-2.0*DP && X.y < 13.7-1.0*DP &&
+                X.y >= 13.7-3.0*DP && X.y < 13.7-2.0*DP &&
                 X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
                 fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" x=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.z, X.y, X.x);
 
             if (particle[i].id == 6 && 
-                X.x >= 0.65-0.5*DP && X.x < 0.65+0.5*DP &&
-                X.y >= 13.7-2.0*DP && X.y < 13.7+1.0*DP &&
+                X.x >= 0.40-0.5*DP && X.x < 0.40+0.5*DP &&
+                X.y >= 13.7-3.0*DP && X.y < 13.7+2.0*DP &&
                 X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
                 fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" x=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.z, X.y, X.x);
 
             if (particle[i].id == 16 && 
-                X.x >= 12.8-6.5*DP && X.x < 12.8+0.5*DP &&
-                X.y >= 8.3-0.5*DP && X.y < 8.3+0.5*DP &&
+                X.x >= 9.6-6.5*DP && X.x < 9.6+0.5*DP &&
+                X.y >= 7.8-0.5*DP && X.y < 7.8+0.5*DP &&
                 X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
                 fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" x=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.z, X.y, X.x);
         }

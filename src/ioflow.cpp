@@ -44,8 +44,10 @@ int Particle::ioflow (double DP, double geometry[])
     double DFA = 45;                // deflector angle
     double WBHD = 0.2;              // wave breaker hole diameter
     double WBHP = 0.4;              // wave breaker hole x and z position
-    double VDH = 2.0;               // division height
-    double VDP = 0.0;               // division position
+    double VDH = 1.0;               // division height
+    double VDP = 3.2;               // division position
+    double BTL = 26.4;              // bottom tank length
+    double BTH = 1.6;               // bottom tank height
 
     /// Points
     Point SCP2D(SL-0.8,0,-W/2);                 // step chamfer position
@@ -87,7 +89,7 @@ int Particle::ioflow (double DP, double geometry[])
     Region waveBreakerTLH3D = P.transformation(WTLH3D, Y).cylinder(WBHD/2,WH);
     Region deflector3D = P.transformation(DFP3D, Z, -DFA).rectangleXY(DFL, DFL, W);
 
-    if (y > H)
+    if (y > H || y < -2*BTH)
     {
         return -1;
     }    
@@ -104,15 +106,15 @@ int Particle::ioflow (double DP, double geometry[])
             return id+2;
         }
 
-        //if ((waveBreakerTL2D /*|| waveBreakerTLF2D */|| (deflector2D)) && y < WTP)        /// wave breaker top  (bottom half)
-        /*{
+        if ((waveBreakerTL2D || waveBreakerTLF2D /*|| (deflector2D)*/) && y < WTP)        /// wave breaker top  (bottom half)
+        {
             return id+4;
         }
 
         if ((waveBreakerTL2D) || waveBreakerTLF2D && y > WTP)        /// wave breaker top (top half)
         {
             return id+6;
-        }*/
+        }
 
         /*if (x > 0.0 && x <= WL && y > WBP-WF && y < WBP && z >= 0.0 && z <= W && (waveBreakerBL2D || waveBreakerBLF2D))        /// wave breaker bottom (bottom half)
         {
@@ -132,6 +134,11 @@ int Particle::ioflow (double DP, double geometry[])
         if (y > H/2)
         {
             return id+12;
+        }
+
+        if (y < -BTH && x > 12.0 && x < 38.4)
+        {
+            return id+16;
         }
     }
     else if (dim == 3)

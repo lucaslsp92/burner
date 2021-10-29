@@ -45,8 +45,10 @@ int Particle::ioside (double DP, double geometry[])
     double DFA = 45;                // deflector angle
     double WBHD = 0.2;              // wave breaker hole diameter
     double WBHP = 0.4;              // wave breaker hole x and z position
-    double VDH = 2.0;               // division height
-    double VDP = 0.0;               // division position
+    double VDH = 1.0;               // division height
+    double VDP = 3.2;               // division position
+    double BTL = 26.4;              // bottom tank length
+    double BTH = 1.6;               // bottom tank height
 
     /// Points
     Point SCP2D(SL-0.8,0,-W/2);                 // step chamfer position
@@ -56,6 +58,8 @@ int Particle::ioside (double DP, double geometry[])
     Point WTLF2D(WL-WH,WTP-WF/2,-W/2);          // wave breaker front top 
     Point DFP2D(0,WTP-WL-WH/2,-W/2);            // deflector position 
     Point TDP2D(SL-WH-VDP,SH,-W/2);                 // tank division position
+    Point BTT2D(SL-0.8,-BTH,-W/2);              // bottom tank position
+    Point EXT2D(SL-0.8,-BTH*2,-W/2);            // bottom tank extension
 
     Point SCP3D(SL-0.8,0,0);                 // step chamfer position
     Point WBL3D(0,WBP-WH/2,0);               // wave breaker position bottom 
@@ -76,6 +80,8 @@ int Particle::ioside (double DP, double geometry[])
     Region waveBreakerTLF2D = P.transformation(WTLF2D).rectangleXY(WH, WF, W);
     Region deflector2D = P.transformation(DFP2D, Z, -DFA).rectangleXY(DFL, DFL, W);
     Region division2D = P.transformation(TDP2D).rectangleXY(WH, VDH, W);
+    Region bottomTank2D = P.transformation(BTT2D).rectangleXY(BTL, BTH, DP);
+    Region extension2D = P.transformation(EXT2D).rectangleXY(BTL, BTH-3*DP, W);
 
     Region tank3D = P.rectangleXY(L, H, W);
     Region fluid3D = P.rectangleXY(L, FH, W);
@@ -87,16 +93,17 @@ int Particle::ioside (double DP, double geometry[])
     Region waveBreakerTLF3D = P.transformation(WTLF3D).rectangleXY(WH, WF, W);
     Region waveBreakerTLH3D = P.transformation(WTLH3D, Y).cylinder(WBHD/2,WH);
     Region deflector3D = P.transformation(DFP3D, Z, -DFA).rectangleXY(DFL, DFL, W);
+    Region bottomTank3D = P.transformation(BTT2D).rectangleXY(BTL, BTH, W);
 
     ///Operações
     if (dim == 2)
     {
-        if (tank2D && !(step2D && !(stepChamfer3D)) && 
-          //!(waveBreakerBL2D || (waveBreakerBLF2D)) &&                                                  /// wave breaker bottom 
-          //!((waveBreakerTL2D) /*|| (waveBreakerTLF2D)*/ || (deflector2D && x >= 0.0 && y <= WTP)))           /// wave breaker top 
-            !(division2D))
+        if ((tank2D && !(step2D && !(stepChamfer3D)) //&& 
+          //!(waveBreakerBL2D || (waveBreakerBLF2D)) &&                                                      /// wave breaker bottom 
+          /*!((waveBreakerTL2D) || (waveBreakerTLF2D) || (deflector2D && x >= 0.0 && y <= WTP)) &&*/           /// wave breaker top 
+          /*!(division2D)*/) || bottomTank3D || extension2D)
         {
-            if(fluid2D)
+            if(fluid2D || bottomTank2D)
                 return 0;
             else
                 return -1; 
