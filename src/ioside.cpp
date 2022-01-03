@@ -49,6 +49,8 @@ int Particle::ioside (double DP, double geometry[])
     double VDP = 3.2;               // division position
     double BTL = 26.4;              // bottom tank length
     double BTH = 1.6;               // bottom tank height
+    double BVL = 45.7;              // bottom length
+    double BVH = 7.3;               // bottom height
 
     /// Points
     Point SCP2D(SL-0.8,0,-W/2);                 // step chamfer position
@@ -57,9 +59,11 @@ int Particle::ioside (double DP, double geometry[])
     Point WTL2D(0,WTP-WH/2,-W/2);               // wave breaker position top 
     Point WTLF2D(WL-WH,WTP-WF/2,-W/2);          // wave breaker front top 
     Point DFP2D(0,WTP-WL-WH/2,-W/2);            // deflector position 
-    Point TDP2D(SL-WH-VDP,SH,-W/2);                 // tank division position
+    Point TDP2D(SL-WH-VDP,SH,-W/2);             // tank division position
     Point BTT2D(SL-0.8,-BTH,-W/2);              // bottom tank position
     Point EXT2D(SL-0.8,-BTH*2,-W/2);            // bottom tank extension
+    Point BOT2D(0,-BVH-BTH*2,-W/2);             // bottom tank
+    Point BTF2D(0,-BVH-BTH, 0);               // bottom fluid
 
     Point SCP3D(SL-0.8,0,0);                 // step chamfer position
     Point WBL3D(0,WBP-WH/2,0);               // wave breaker position bottom 
@@ -82,6 +86,8 @@ int Particle::ioside (double DP, double geometry[])
     Region division2D = P.transformation(TDP2D).rectangleXY(WH, VDH, W);
     Region bottomTank2D = P.transformation(BTT2D).rectangleXY(BTL, BTH, DP);
     Region extension2D = P.transformation(EXT2D).rectangleXY(BTL, BTH-3*DP, W);
+    Region fluidBottom2D = P.transformation(BTF2D).rectangleXY(BVL, BVH+BTH, DP);
+    Region bottom2D = P.transformation(BOT2D).rectangleXY(BVL, BTH-3*DP, W);
 
     Region tank3D = P.rectangleXY(L, H, W);
     Region fluid3D = P.rectangleXY(L, FH, W);
@@ -98,12 +104,13 @@ int Particle::ioside (double DP, double geometry[])
     ///Operações
     if (dim == 2)
     {
-        if ((tank2D && !(step2D && !(stepChamfer3D)) //&& 
-          //!(waveBreakerBL2D || (waveBreakerBLF2D)) &&                                                      /// wave breaker bottom 
-          /*!((waveBreakerTL2D) || (waveBreakerTLF2D) || (deflector2D && x >= 0.0 && y <= WTP)) &&*/           /// wave breaker top 
-          /*!(division2D)*/) || bottomTank3D || extension2D)
+        if ((tank2D && !(step2D && !(stepChamfer3D))) && 
+          !(waveBreakerBL2D || (waveBreakerBLF2D)) &&                                                      /// wave breaker bottom 
+          !((waveBreakerTL2D) || (waveBreakerTLF2D) /*|| (deflector2D && x >= 0.0 && y <= WTP)*/) //&&           /// wave breaker top 
+          /*!(division2D))*/ || bottomTank3D || extension2D)
+           /* || bottom2D || fluidBottom2D))*/
         {
-            if(fluid2D || bottomTank2D)
+            if(fluid2D || bottomTank2D /*|| fluidBottom2D*/)
                 return 0;
             else
                 return -1; 

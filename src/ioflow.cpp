@@ -47,7 +47,9 @@ int Particle::ioflow (double DP, double geometry[])
     double VDH = 1.0;               // division height
     double VDP = 3.2;               // division position
     double BTL = 26.4;              // bottom tank length
-    double BTH = 1.6;               // bottom tank height
+    double BTH = 1.5;               // bottom tank height
+    double BVL = 45.7;              // bottom length
+    double BVH = 7.3;               // bottom height
 
     /// Points
     Point SCP2D(SL-0.8,0,-W/2);                 // step chamfer position
@@ -89,10 +91,15 @@ int Particle::ioflow (double DP, double geometry[])
     Region waveBreakerTLH3D = P.transformation(WTLH3D, Y).cylinder(WBHD/2,WH);
     Region deflector3D = P.transformation(DFP3D, Z, -DFA).rectangleXY(DFL, DFL, W);
 
-    if (y > H || y < -2*BTH)
+    if (y > H || y <= -BTH*2 && x > 12.0 && x < L)
     {
         return -1;
-    }    
+    }
+
+    /*if (y > H || y <= -BVH-BTH*2 && x > 0.0 && x < BVL)
+    {
+        return -1;
+    }*/    
 
     if (dim == 2)
     {
@@ -101,12 +108,12 @@ int Particle::ioflow (double DP, double geometry[])
             return -1;
         }
 
-        if (x < 0.0 && y <= H/2)                                            /// left wall
+        if (x < 0.0 && y > 0.0 && y <= H/2)                                            /// left wall
         {
             return id+2;
         }
 
-        if ((waveBreakerTL2D || waveBreakerTLF2D /*|| (deflector2D)*/) && y < WTP)        /// wave breaker top  (bottom half)
+        if ((waveBreakerTL2D || waveBreakerTLF2D || (deflector2D)) && y < WTP)        /// wave breaker top  (bottom half)
         {
             return id+4;
         }
@@ -116,7 +123,7 @@ int Particle::ioflow (double DP, double geometry[])
             return id+6;
         }
 
-        /*if (x > 0.0 && x <= WL && y > WBP-WF && y < WBP && z >= 0.0 && z <= W && (waveBreakerBL2D || waveBreakerBLF2D))        /// wave breaker bottom (bottom half)
+        if (x > 0.0 && x <= WL && y > WBP-WF && y < WBP && z >= 0.0 && z <= W && (waveBreakerBL2D || waveBreakerBLF2D))        /// wave breaker bottom (bottom half)
         {
             return id+8;
         } 
@@ -124,7 +131,7 @@ int Particle::ioflow (double DP, double geometry[])
         if (x > 0.0 && x <= WL && y > WBP && y < WBP+WF && z >= 0.0 && z <= W && (waveBreakerBL2D || waveBreakerBLF2D))        /// wave breaker bottom (top half)
         {
             return id+10;
-        }*/
+        }
 
         if (division2D)
         {
@@ -136,10 +143,15 @@ int Particle::ioflow (double DP, double geometry[])
             return id+12;
         }
 
-        if (y < -BTH && x > 12.0 && x < 38.4)
+        if (y <= -BTH && x > 12.0 && x < L)
         {
             return id+16;
         }
+
+        /*if (y <= -BVH-BTH && x > 0.0 && x < BVL)
+        {
+            return id+16;
+        }*/
     }
     else if (dim == 3)
     {
