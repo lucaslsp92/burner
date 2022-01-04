@@ -21,113 +21,52 @@ int Particle::ioside (double DP, double geometry[])
     //////////////////////////////////////////
     //// Moonpool sloshing
     //// Variaveis (double, Point, etc..)
-    int dim = 2;
-    double L = 38.4;                // tank length
-    double H = 2*19.7;              // tank height
-    //double H = 19.7;                // tank height
-    double W = 10*DP;               // tank width
-    double WH = 6*DP;               // wave breaker height
-    //double H = 2*19.7;              // tank height
-    //double W = 0.8;                 // tank width
-    //double H = 19.7;                // tank height
-    //double W = 2.0;                 // tank width
-    //double WH = 4*DP;               // wave breaker height
-    double SL = 12.8;               // step length
-    double SH = 7.3;                // step height
-    double SC = 2.912043956;        // step chamfer length
-    double SA = 15.945395774;       // stpe chamfer angle
-    double WL = 0.8;                // wave breaker length
-    double WF = 0.5;                // wave breaker front
-    double WBP = 10.5;              // wave breaker bottom position
-    double WTP = 13.7;              // wave breaker top position
-    double FH = 11.5;               // fluid height
-    double DFL = 1.13137085;        // deflector length
-    double DFA = 45;                // deflector angle
-    double WBHD = 0.2;              // wave breaker hole diameter
-    double WBHP = 0.4;              // wave breaker hole x and z position
-    double VDH = 1.0;               // division height
-    double VDP = 3.2;               // division position
-    double BTL = 26.4;              // bottom tank length
-    double BTH = 1.6;               // bottom tank height
-    double BVL = 45.7;              // bottom length
-    double BVH = 7.3;               // bottom height
+    double waterDepth = 1.0;
+    double waterLength = 5.0;
+    double tankHeight = 1.3;
+    double tankLength = 8.0;
+    double draft = 0.11;
+    double vesselLength = 0.40;
+    double vesselHeight = 0.30;
+    double moonpoolLength = 0.20;
+    double recessLength = 0.10;
+    double recessHeight = 0.05;
+    double beachLength = 1.5;
+    double beachHypotenuse = 1.5*sqrt(beachLength*beachLength+tankHeight*tankHeight);
+    double leftBeachAngle = atan(waterDepth/beachLength)*180/M_PI-180;
+    double rightBeachAngle = 90-atan(waterDepth/beachLength)*180/M_PI;
 
     /// Points
-    Point SCP2D(SL-0.8,0,-W/2);                 // step chamfer position
-    Point WBL2D(0,WBP-WH/2,-W/2);               // wave breaker position bottom 
-    Point WBLF2D(WL-WH,WBP-WF/2,-W/2);          // wave breaker front bottom 
-    Point WTL2D(0,WTP-WH/2,-W/2);               // wave breaker position top 
-    Point WTLF2D(WL-WH,WTP-WF/2,-W/2);          // wave breaker front top 
-    Point DFP2D(0,WTP-WL-WH/2,-W/2);            // deflector position 
-    Point TDP2D(SL-WH-VDP,SH,-W/2);             // tank division position
-    Point BTT2D(SL-0.8,-BTH,-W/2);              // bottom tank position
-    Point EXT2D(SL-0.8,-BTH*2,-W/2);            // bottom tank extension
-    Point BOT2D(0,-BVH-BTH*2,-W/2);             // bottom tank
-    Point BTF2D(0,-BVH-BTH, 0);               // bottom fluid
-
-    Point SCP3D(SL-0.8,0,0);                 // step chamfer position
-    Point WBL3D(0,WBP-WH/2,0);               // wave breaker position bottom 
-    Point WBLF3D(WL-WH,WBP-WF/2,0);          // wave breaker front bottom 
-    Point WTL3D(0,WTP-WH/2,0);               // wave breaker position top 
-    Point WTLF3D(WL-WH,WTP-WF/2,0);          // wave breaker front top 
-    Point WTLH3D(WBHP, WTP-WH/2, WBHP);      // wave breaker hole top 
-    Point DFP3D(0,WTP-WL-WH/2,0);            // deflector position 
+    Point tankVertex(-tankLength/2,-waterDepth,-4*DP);
+    Point waterVertex(-waterLength/2,-waterDepth,0);
+    Point leftVesselVertex(-vesselLength-moonpoolLength/2,-draft,-4*DP);
+    Point rigthVesselVertex(moonpoolLength/2,-draft,-4*DP);
+    Point recessVertex(0,-draft,-4*DP);
+    Point leftBeachVertex(-waterLength/2+beachLength,-waterDepth,-4*DP);
+    Point rightBeachVertex(waterLength/2-beachLength,-waterDepth,-4*DP);
 
     ///Regiões (Region)
-    Region tank2D = P.rectangleXY(L, H, W);
-    Region fluid2D = P.rectangleXY(L, FH, DP);
-    Region step2D = P.rectangleXY(SL, SH, W);
-    Region stepChamfer2D = P.transformation(SCP2D, Z, SA).rectangleXY(SC, SC, W);
-    Region waveBreakerBL2D = P.transformation(WBL2D).rectangleXY(WL, WH, W);
-    Region waveBreakerBLF2D = P.transformation(WBLF2D).rectangleXY(WH, WF, W);
-    Region waveBreakerTL2D = P.transformation(WTL2D).rectangleXY(WL, WH, W);
-    Region waveBreakerTLF2D = P.transformation(WTLF2D).rectangleXY(WH, WF, W);
-    Region deflector2D = P.transformation(DFP2D, Z, -DFA).rectangleXY(DFL, DFL, W);
-    Region division2D = P.transformation(TDP2D).rectangleXY(WH, VDH, W);
-    Region bottomTank2D = P.transformation(BTT2D).rectangleXY(BTL, BTH, DP);
-    Region extension2D = P.transformation(EXT2D).rectangleXY(BTL, BTH-3*DP, W);
-    Region fluidBottom2D = P.transformation(BTF2D).rectangleXY(BVL, BVH+BTH, DP);
-    Region bottom2D = P.transformation(BOT2D).rectangleXY(BVL, BTH-3*DP, W);
-
-    Region tank3D = P.rectangleXY(L, H, W);
-    Region fluid3D = P.rectangleXY(L, FH, W);
-    Region step3D = P.rectangleXY(SL, SH, W);
-    Region stepChamfer3D = P.transformation(SCP3D, Z, SA).rectangleXY(SC, SC, W);
-    Region waveBreakerBL3D = P.transformation(WBL3D).rectangleXY(WL, WH, W);
-    Region waveBreakerBLF3D = P.transformation(WBLF3D).rectangleXY(WH, WF, W);
-    Region waveBreakerTL3D = P.transformation(WTL3D).rectangleXY(WL, WH, W);
-    Region waveBreakerTLF3D = P.transformation(WTLF3D).rectangleXY(WH, WF, W);
-    Region waveBreakerTLH3D = P.transformation(WTLH3D, Y).cylinder(WBHD/2,WH);
-    Region deflector3D = P.transformation(DFP3D, Z, -DFA).rectangleXY(DFL, DFL, W);
-    Region bottomTank3D = P.transformation(BTT2D).rectangleXY(BTL, BTH, W);
+    Region tank = P.transformation(tankVertex).rectangleXY(tankLength,tankHeight,8*DP);
+    Region water = P.transformation(waterVertex).rectangleXY(waterLength,waterDepth,DP);
+    Region leftVessel = P.transformation(leftVesselVertex).rectangleXY(vesselLength,vesselHeight,8*DP);
+    Region rigthVessel = P.transformation(rigthVesselVertex).rectangleXY(vesselLength,vesselHeight,8*DP);
+    Region recess = P.transformation(recessVertex).rectangleXY(recessLength,recessHeight,8*DP);
+    Region leftBeach = P.transformation(leftBeachVertex,Z,leftBeachAngle).rectangleXY(beachHypotenuse,beachHypotenuse,8*DP);
+    Region rightBeach = P.transformation(rightBeachVertex,Z,rightBeachAngle).rectangleXY(beachHypotenuse,beachHypotenuse,8*DP);
 
     ///Operações
-    if (dim == 2)
+    if(leftVessel || rigthVessel || recess)
     {
-        if ((tank2D && !(step2D && !(stepChamfer3D))) && 
-          !(waveBreakerBL2D || (waveBreakerBLF2D)) &&                                                      /// wave breaker bottom 
-          !((waveBreakerTL2D) || (waveBreakerTLF2D) /*|| (deflector2D && x >= 0.0 && y <= WTP)*/) //&&           /// wave breaker top 
-          /*!(division2D))*/ || bottomTank3D || extension2D)
-           /* || bottom2D || fluidBottom2D))*/
-        {
-            if(fluid2D || bottomTank2D /*|| fluidBottom2D*/)
-                return 0;
-            else
-                return -1; 
-        }  
+        return 4;
     }
-    else if (dim == 3)
+    if(water && !leftBeach && !rightBeach)
     {
-        if (tank3D && !(step3D && !(stepChamfer3D)))// && 
-          //!(waveBreakerBL3D || (waveBreakerBLF3D)) &&                                                                           /// wave breaker bottom 
-          //!((waveBreakerTL3D && !(waveBreakerTLH3D)) || (waveBreakerTLF3D) /*|| (deflector3D && x >= 0.0 && y <= WTP)*/))           /// wave breaker top 
-        {
-            if(fluid3D)
-                return 0;
-            else
-                return -1; 
-        }  
-    }           
+        return 0;
+    }
+    if(tank && !leftBeach && !rightBeach)
+    {
+        return -1;
+    }    
 
     ///Return padrão (constrói a parede externa)
     // DO NOT CHANGE HERE !!!
