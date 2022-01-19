@@ -28,7 +28,7 @@ int Particle::ioflow (double DP, double geometry[])
     ///Regiões (Region)
 
     ///Operações
-    if(y>tankHeight-waterDepth)
+    if(y>tankHeight-waterDepth && (id==2 || id==3))
     {
         return -1;
     }
