@@ -22,9 +22,9 @@ int Particle::ioside (double DP, double geometry[])
     //// Moonpool sloshing
     //// Variaveis (double, Point, etc..)
     double waterDepth = 1.0;
-    double waterLength = 3.4;
+    double waterLength = 2.2;
     double tankHeight = 1.3;
-    double tankLength = 3.4;
+    double tankLength = 2.2;
     double draft = 0.11;
     double vesselLength = 0.40;
     double vesselHeight = 0.40;
