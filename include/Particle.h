@@ -776,53 +776,10 @@ struct Particle
         {
             Point X (particle[i].r , DP);
             if (particle[i].id == 2 && 
-                X.x >= -0.3-0.5*DP && X.x < -0.3+0.5*DP &&
-                X.y >= -0.50-1.0*DP && X.y < -0.50+0.0*DP &&
+                X.x >= 9.0-0.0*DP && X.x < 9.0+1.0*DP &&
+                X.y >= 5.0-0.5*DP && X.y < 5.0+0.5*DP &&
                 X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
-                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" z=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.x, X.y, X.z);
-
-            if (particle[i].id == 2 && 
-                X.x >= 0.3-0.5*DP && X.x < 0.3+0.5*DP &&
-                X.y >= -0.50-1.0*DP && X.y < -0.50+0.0*DP &&
-                X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
-                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" z=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.x, X.y, X.z);
-
-            if (particle[i].id == 4 && 
-                X.x >= 0.1-0.0*DP && X.x < 0.1+1.0*DP &&
-                X.y >= 0.0-0.5*DP && X.y < 0.0+0.5*DP &&
-                X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
-                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" z=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.x, X.y, X.z);
-
-            if (particle[i].id == 4 && 
-                X.x >= 0.1-0.0*DP && X.x < 0.1+1.0*DP &&
-                X.y >= -0.045-0.5*DP && X.y < -0.045+0.5*DP &&
-                X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
-                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" z=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.x, X.y, X.z);
-
-            if (particle[i].id == 4 && 
-                X.x >= 0.0-0.0*DP && X.x < 0.0+1.0*DP &&
-                X.y >= -0.0825-0.5*DP && X.y < -0.0825+0.5*DP &&
-                X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
-                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" z=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.x, X.y, X.z);
-
-            if (particle[i].id == 4 && 
-                X.x >= -0.1-1.0*DP && X.x < -0.1-0.0*DP &&
-                X.y >= 0.0-0.5*DP && X.y < 0.0+0.5*DP &&
-                X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
-                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" z=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.x, X.y, X.z);
-
-            if (particle[i].id == 4 && 
-                X.x >= -0.1-1.0*DP && X.x < -0.1-0.0*DP &&
-                X.y >= -0.045-0.5*DP && X.y < -0.045+0.5*DP &&
-                X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
-                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" z=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.x, X.y, X.z);
-
-            if (particle[i].id == 4 && 
-                X.x >= -0.1-1.0*DP && X.x < -0.1-0.0*DP &&
-                X.y >= -0.0825-0.5*DP && X.y < -0.0825+0.5*DP &&
-                X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
-                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" z=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.x, X.y, X.z);
-            
+                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" z=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.x, X.y, X.z);            
         }
 
         printf ("alt.grid: Done!\n");
