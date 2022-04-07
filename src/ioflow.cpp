@@ -20,24 +20,28 @@ int Particle::ioflow (double DP, double geometry[])
     //////////////////////////////////////////
     //// Moonpool sloshing
     //// Variaveis (double, Point, etc..)
-    double cylinderDiameter = 1.0;
-    double cylinderPosition = 9.5;
-    double waterLength = 29.5;
-    double waterHeight = 10.0;
+    double cresthillHeight = 0.028;
+    double crestHillDistance = 9.0*cresthillHeight;
+    double channelHeight = 3.035*cresthillHeight;
 
     /// Points
 
     ///Regiões (Region)
 
     ///Operações
-    if(x<0.0 || x>waterLength || y<0.0 || y>waterHeight)
+    if(x<0.0 || x>crestHillDistance)
     {
         return -1;
     }
-    
+
     if(z<0.0 || z>=DP)
     {
         return -1;
+    }
+
+    if(y>channelHeight)
+    {
+        return id+2;
     }
 
     ///Return padrão (caso nenhuma operação seja feita)
