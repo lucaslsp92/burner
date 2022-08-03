@@ -230,7 +230,19 @@ struct Particle
 
     void print_Paraview_2D (FILE *paraview_xyz, long cont, Particle particle[], double DP, double geometry[], int numgeometry, int decimal)
     {
-        fprintf (paraview_xyz, "%ld\n", cont);
+        double x1 = -DP/2;
+        //double x2 = 15.3 + DP, y1 = 27.1, y2 = 27.9;                      /// DP = 0.2
+        double x2 = 15.3 + DP/2, y1 = 27.1 + DP/2, y2 = 27.9 + DP/2;      /// DP = 0.1
+        //double x2 = 15.3 + DP/2, y1 = 27.1 + DP/2, y2 = 27.9 - DP/2;      /// DP = 0.05
+        //double x2 = 15.3 + DP/2, y1 = 27.1 - DP/2, y2 = 27.9 - 1.5*DP;    /// DP = 0.025
+        //double x2 = 15.3 + DP/2, y1 = 27.1 - 1.5*DP, y2 = 27.9 - 3.5*DP;  /// DP = 0.0125
+        double dx = x2 - x1;
+        double dy = y2 - y1;
+        double dist = sqrt(dx*dx + dy*dy);
+        long nPart = floor(dist/DP)-1;
+        long contTotal = nPart*3 + cont;
+
+        fprintf (paraview_xyz, "%ld\n", contTotal);
 
         for (int i = 0; i < numgeometry; i++)
             fprintf (paraview_xyz, "geometry[%d] = %9lf   ", i, geometry[i]);
@@ -258,6 +270,28 @@ struct Particle
                 fprintf (paraview_xyz, "\n%d %9.10lf %9.10lf %9.10lf", particle[i].id, X.x, X.y, 0.0);
         }
 
+        int id;
+        double x, y, y0, alfa, dpSlope;
+        alfa = atan(dy/dx);
+        dpSlope = dist/((double)nPart+1);
+
+        for (int j = 0; j < 3; ++j)
+        {
+            if (j == 0)
+                id = 2;
+            else
+                id = 3;
+
+            y0 = y1 + j*DP;
+
+            for (long i = 1; i < nPart+1; ++i)
+            {
+                x = x1 + i*dpSlope*cos(alfa);
+                y = y0 + i*dpSlope*sin(alfa);
+                fprintf (paraview_xyz, "\n%d %9.10lf %9.10lf %9.10lf", id, x, y, 0.0);
+            }
+        }
+
         printf ("paraview.xyz: Done!\n");
 
         fclose (paraview_xyz);
@@ -271,6 +305,7 @@ struct Particle
 
         for (int i = 0; i < numgeometry; i++)
             fprintf (paraview_xyz, "geometry[%d] = %9lf   ", i, geometry[i]);
+
 
         for (long i = 0; i < cont; i++)
         {
@@ -304,30 +339,48 @@ struct Particle
 
     void print_MPS_2D (FILE *mps_grid, long cont, Particle particle[], double DP, int decimal)
     {
-        fprintf (mps_grid, "%d\n%ld", 0, cont);
+        double x1 = -DP/2;
+        //double x2 = 15.3 + DP, y1 = 27.1, y2 = 27.9;                      /// DP = 0.2
+        double x2 = 15.3 + DP/2, y1 = 27.1 + DP/2, y2 = 27.9 + DP/2;      /// DP = 0.1
+        //double x2 = 15.3 + DP/2, y1 = 27.1 + DP/2, y2 = 27.9 - DP/2;      /// DP = 0.05
+        //double x2 = 15.3 + DP/2, y1 = 27.1 - DP/2, y2 = 27.9 - 1.5*DP;    /// DP = 0.025
+        //double x2 = 15.3 + DP/2, y1 = 27.1 - 1.5*DP, y2 = 27.9 - 3.5*DP;  /// DP = 0.0125
+        double dx = x2 - x1;
+        double dy = y2 - y1;
+        double dist = sqrt(dx*dx + dy*dy);
+        long nPart = floor(dist/DP)-1;
+        long contTotal = nPart*3 + cont;
+
+        fprintf (mps_grid, "%d\n%ld", 0, contTotal);
 
         for (long i = 0; i < cont; i++)
         {
             Point X (particle[i].r , DP);
-            if (decimal == 2)
-                fprintf (mps_grid, "\n%d %9.2lf %9.2lf %9.2lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, 0.0);
-            else if (decimal == 3)
-                fprintf (mps_grid, "\n%d %9.3lf %9.3lf %9.3lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, 0.0);
-            else if (decimal == 4)
-                fprintf (mps_grid, "\n%d %9.4lf %9.4lf %9.4lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, 0.0);
-            else if (decimal == 5)
-                fprintf (mps_grid, "\n%d %9.5lf %9.5lf %9.5lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, 0.0);
-            else if (decimal == 6)
-                fprintf (mps_grid, "\n%d %9.6lf %9.6lf %9.6lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, 0.0);
-            else if (decimal == 7)
-                fprintf (mps_grid, "\n%d %9.7lf %9.7lf %9.7lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, 0.0);
-            else if (decimal == 8)
-                fprintf (mps_grid, "\n%d %9.8lf %9.8lf %9.8lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, 0.0);
-            else if (decimal == 9)
-                fprintf (mps_grid, "\n%d %9.9lf %9.9lf %9.9lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, 0.0);
-            else if (decimal == 10)
-                fprintf (mps_grid, "\n%d %9.10lf %9.10lf %9.10lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, 0.0);
+            fprintf (mps_grid, "\n%d %9.10lf %9.10lf %9.10lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, 0.0);
         }
+
+        int id;
+        double x, y, y0, alfa, dpSlope;
+        alfa = atan(dy/dx);
+        dpSlope = dist/((double)nPart+1);
+
+        for (int j = 0; j < 3; ++j)
+        {
+            if (j == 0)
+                id = 2;
+            else
+                id = 3;
+
+            y0 = y1 + j*DP;
+
+            for (long i = 1; i < nPart+1; ++i)
+            {
+                x = x1 + i*dpSlope*cos(alfa);
+                y = y0 + i*dpSlope*sin(alfa);
+                fprintf (mps_grid, "\n%d %9.10lf %9.10lf %9.10lf      0.0      0.0      0.0      0.0      0.0", id, x, y, 0.0);
+            }
+        }
+
         printf ("MPS.grid: Done!\n");
 
         fclose (mps_grid);
@@ -361,6 +414,7 @@ struct Particle
             else if (decimal == 10)
                 fprintf (mps_grid, "\n%d %9.10lf %9.10lf %9.10lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, X.z);
         }
+
         printf ("MPS.grid: Done!\n");
 
         fclose (mps_grid);
