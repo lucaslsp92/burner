@@ -20,27 +20,40 @@ int Particle::ioflow (double DP, double geometry[])
     //////////////////////////////////////////
     //// Moonpool sloshing
     //// Variaveis (double, Point, etc..)
-    double tankHeight = 27.856;
-    double tankBreadth = 15.302;
+    double centerX = 46.78;
+    double centerY = 25.455;        /// DP = 0.005 m
+    //double centerY = 25.455;         /// DP = 0.010 m
+    double centerZ = 28.5388;
+    double dumpValveRadius = 0.100;
+    double dumpValveHeight = 0.120;
+    double deckWidth = 0.800;
+    double dumpValveOpening = 0.060;
+    double inletRadius = 0.095;
+    double inletHeight = 0.180;
+
 
     /// Points
 
     ///Regiões (Region)
 
     ///Operações
-    if (z < 0 || z > DP)
-    {
-        return -1;
-    }
-
-    if (x > 0 && x < tankBreadth && y > 27.076)
-    {
-        return -1;
-    }
 
     ///Return padrão (caso nenhuma operação seja feita)
+    if ((z-centerX)*(z-centerX)+(y-centerY)*(y-centerY) < (inletRadius)*(inletRadius) && (x-centerZ+inletHeight) < 0)
+    {
+        return id+2;
+    }
+
+    if (((y-centerY) < -deckWidth/2 || (y-centerY) > deckWidth/2 || (z-centerX) < -deckWidth/2 || (z-centerX) > deckWidth/2) || (x-centerZ) > dumpValveHeight+deckWidth)
+    {
+        return -1;
+    }
+
+    if((x-centerZ) > dumpValveHeight)
+    {
+        return -1;
+    }
+
     return id;
-
 }
-
 #endif

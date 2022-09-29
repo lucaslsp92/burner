@@ -826,13 +826,46 @@ struct Particle
 
     void print_alt (FILE *alt, long cont, Particle particle[], double DP)
     {
+        /// DP = 0.005 m
+        /*double PX1 = 28.4075;
+        double PY1 = 25.4525;
+        double PZ1 = 46.6825;
+
+        double PX2 = 28.5075;
+        double PY2 = 25.4525;
+        double PZ2 = 46.6825;*/
+
+        /// DP = 0.01 m
+        /*double PX1 = 28.4050;
+        double PY1 = 25.3550;
+        double PZ1 = 46.7850;
+
+        double PX2 = 28.5050;
+        double PY2 = 25.3550;
+        double PZ2 = 46.7850;*/
+
+        /// DP = 0.025 m
+        double PX1 = 28.3875;
+        double PY1 = 25.4625;
+        double PZ1 = 46.8875;
+
+        double PX2 = 28.4875;
+        double PY2 = 25.4625;
+        double PZ2 = 46.8875;
+
         for (long i = 0; i < cont; i++)
         {
             Point X (particle[i].r , DP);
             if (particle[i].id == 2 && 
-                X.x >= 9.0-0.0*DP && X.x < 9.0+1.0*DP &&
-                X.y >= 5.0-0.5*DP && X.y < 5.0+0.5*DP &&
-                X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
+                X.x >= PX1-0.0*DP && X.x < PX1+1.0*DP &&
+                X.y >= PY1-0.0*DP && X.y < PY1+1.0*DP &&
+                X.z >= PZ1-0.0*DP && X.z < PZ1+1.0*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" z=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.x, X.y, X.z);            
+
+            if (particle[i].id == 2 && 
+                X.x >= PX2-0.0*DP && X.x < PX2+1.0*DP &&
+                X.y >= PY2-0.0*DP && X.y < PY2+1.0*DP &&
+                X.z >= PZ2-0.0*DP && X.z < PZ2+1.0*DP)
                 fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" z=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.x, X.y, X.z);            
         }
 
