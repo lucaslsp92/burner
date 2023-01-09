@@ -230,19 +230,29 @@ struct Particle
 
     void print_Paraview_2D (FILE *paraview_xyz, long cont, Particle particle[], double DP, double geometry[], int numgeometry, int decimal)
     {
-        double x1 = -DP/2;
-        //double x2 = 15.3 + DP, y1 = 27.1, y2 = 27.9;                      /// DP = 0.2
-        double x2 = 15.3 + DP/2, y1 = 27.1 + DP/2, y2 = 27.9 + DP/2;      /// DP = 0.1
-        //double x2 = 15.3 + DP/2, y1 = 27.1 + DP/2, y2 = 27.9 - DP/2;      /// DP = 0.05
-        //double x2 = 15.3 + DP/2, y1 = 27.1 - DP/2, y2 = 27.9 - 1.5*DP;    /// DP = 0.025
-        //double x2 = 15.3 + DP/2, y1 = 27.1 - 1.5*DP, y2 = 27.9 - 3.5*DP;  /// DP = 0.0125
-        double dx = x2 - x1;
-        double dy = y2 - y1;
-        double dist = sqrt(dx*dx + dy*dy);
-        long nPart = floor(dist/DP)-1;
-        long contTotal = nPart*3 + cont;
+        int erase = 15;                                 //erase = 15
+        double fgh = 0.008985;                          // fgh = 0.008985
+        double l0 = 0.300;
+        double l1 = 0.505;
+        double h2 = 0.150;
+        double gratingSpacing;
+        double gratingWidth = 6*DP;
+        //double gratingLength = 26*DP;               /// DP = 0.000234375
+        double gratingLength = 14*DP;               /// DP = 0.00046875      
+        double firstGratingHeight = h2 + fgh + gratingWidth/2;
+        double centerX, centerY;
+        double deltaX, deltaY;
+        double alfa = 45;
+        double cosAlfa = cos(alfa*M_PI/180);
+        double sinAlfa = sin(alfa*M_PI/180);
+        double auxX, auxY;
+        double rotX, rotY;
+        double firstGratingX = l0 + l1 - fgh - gratingWidth/2;
+        
 
-        fprintf (paraview_xyz, "%ld\n", contTotal);
+        fprintf (paraview_xyz, "%ld\n", cont-erase);
+        //fprintf (paraview_xyz, "%ld\n", cont);
+
 
         for (int i = 0; i < numgeometry; i++)
             fprintf (paraview_xyz, "geometry[%d] = %9lf   ", i, geometry[i]);
@@ -250,6 +260,70 @@ struct Particle
         for (long i = 0; i < cont; i++)
         {
             Point X (particle[i].r , DP);
+
+            if(particle[i].id == 12 || particle[i].id == 13)
+            {
+                //gratingSpacing = 0.008855;           /// DP = 0.000234375
+                gratingSpacing = 0.008855;           /// DP = 0.00046875
+                int nGrating = std::round((X.y-firstGratingHeight)/gratingSpacing);
+                centerX = l0+l1+gratingLength/2;
+                centerY = firstGratingHeight+nGrating*gratingSpacing;
+                //deltaX = 0.000477;                          /// DP = 0.000234375
+                //deltaY = 0.007912625;                       /// DP = 0.000234375
+                deltaX = 0.000165000;                       /// DP = 0.00046875
+                deltaY = 0.008664250;                       /// DP = 0.00046875
+
+                //deltaX = 0.0;                       /// DP = 0.00046875
+                //deltaY = 0.0;                       /// DP = 0.00046875
+
+                // translate point back to origin:
+                auxX = X.x - centerX;
+                auxY = X.y - centerY;
+
+                // rotate point
+                rotX = auxX*cosAlfa - auxY*sinAlfa;
+                rotY = auxX*sinAlfa + auxY*cosAlfa;
+
+                // translate point back:
+                X.x = rotX + centerX;
+                X.y = rotY + centerY;
+
+                X.x = X.x - deltaX;
+                X.y = X.y - deltaY;
+
+                //if (X.y < 0.150111)                            /// DP = 0.000234375
+                if (X.y < 0.15)                            /// DP = 0.00046875
+                    continue;
+            }
+
+            /*if(particle[i].id == 12 || particle[i].id == 13)
+            {
+                gratingSpacing = 0.00889;
+                int nGrating = std::round((X.x-firstGratingX)/gratingSpacing);
+                centerX = firstGratingX+nGrating*gratingSpacing;
+                centerY = h2-gratingLength/2;
+                deltaX = 0.008046625;   
+                deltaY = 0.0005;
+
+                // translate point back to origin:
+                auxX = X.x - centerX;
+                auxY = X.y - centerY;
+
+                // rotate point
+                rotX = auxX*cosAlfa - auxY*sinAlfa;
+                rotY = auxX*sinAlfa + auxY*cosAlfa;
+
+                // translate point back:
+                X.x = rotX + centerX;
+                X.y = rotY + centerY;
+
+                X.x = X.x + deltaX;
+                X.y = X.y + deltaY;
+
+                if (X.x >= 0.805)
+                    continue;
+            }*/
+
             if (decimal == 2)
                 fprintf (paraview_xyz, "\n%d %9.2lf %9.2lf %9.2lf", particle[i].id, X.x, X.y, 0.0);
             else if (decimal == 3)
@@ -268,28 +342,6 @@ struct Particle
                 fprintf (paraview_xyz, "\n%d %9.9lf %9.9lf %9.9lf", particle[i].id, X.x, X.y, 0.0);
             else if (decimal == 10)
                 fprintf (paraview_xyz, "\n%d %9.10lf %9.10lf %9.10lf", particle[i].id, X.x, X.y, 0.0);
-        }
-
-        int id;
-        double x, y, y0, alfa, dpSlope;
-        alfa = atan(dy/dx);
-        dpSlope = dist/((double)nPart+1);
-
-        for (int j = 0; j < 3; ++j)
-        {
-            if (j == 0)
-                id = 2;
-            else
-                id = 3;
-
-            y0 = y1 + j*DP;
-
-            for (long i = 1; i < nPart+1; ++i)
-            {
-                x = x1 + i*dpSlope*cos(alfa);
-                y = y0 + i*dpSlope*sin(alfa);
-                fprintf (paraview_xyz, "\n%d %9.10lf %9.10lf %9.10lf", id, x, y, 0.0);
-            }
         }
 
         printf ("paraview.xyz: Done!\n");
@@ -311,23 +363,23 @@ struct Particle
         {
             Point X (particle[i].r , DP);
             if (decimal == 2)
-                fprintf (paraview_xyz, "\n%d %9.2lf %9.2lf %9.2lf", particle[i].id, X.z, X.y, X.x);
+                fprintf (paraview_xyz, "\n%d %9.2lf %9.2lf %9.2lf", particle[i].id, X.x, X.y, X.z);
             else if (decimal == 3)
-                fprintf (paraview_xyz, "\n%d %9.3lf %9.3lf %9.3lf", particle[i].id, X.z, X.y, X.x);
+                fprintf (paraview_xyz, "\n%d %9.3lf %9.3lf %9.3lf", particle[i].id, X.x, X.y, X.z);
             else if (decimal == 4)
-                fprintf (paraview_xyz, "\n%d %9.4lf %9.4lf %9.4lf", particle[i].id, X.z, X.y, X.x);
+                fprintf (paraview_xyz, "\n%d %9.4lf %9.4lf %9.4lf", particle[i].id, X.x, X.y, X.z);
             else if (decimal == 5)
-                fprintf (paraview_xyz, "\n%d %9.5lf %9.5lf %9.5lf", particle[i].id, X.z, X.y, X.x);
+                fprintf (paraview_xyz, "\n%d %9.5lf %9.5lf %9.5lf", particle[i].id, X.x, X.y, X.z);
             else if (decimal == 6)
-                fprintf (paraview_xyz, "\n%d %9.6lf %9.6lf %9.6lf", particle[i].id, X.z, X.y, X.x);
+                fprintf (paraview_xyz, "\n%d %9.6lf %9.6lf %9.6lf", particle[i].id, X.x, X.y, X.z);
             else if (decimal == 7)
-                fprintf (paraview_xyz, "\n%d %9.7lf %9.7lf %9.7lf", particle[i].id, X.z, X.y, X.x);
+                fprintf (paraview_xyz, "\n%d %9.7lf %9.7lf %9.7lf", particle[i].id, X.x, X.y, X.z);
             else if (decimal == 8)
-                fprintf (paraview_xyz, "\n%d %9.8lf %9.8lf %9.8lf", particle[i].id, X.z, X.y, X.x);
+                fprintf (paraview_xyz, "\n%d %9.8lf %9.8lf %9.8lf", particle[i].id, X.x, X.y, X.z);
             else if (decimal == 9)
-                fprintf (paraview_xyz, "\n%d %9.9lf %9.9lf %9.9lf", particle[i].id, X.z, X.y, X.x);
+                fprintf (paraview_xyz, "\n%d %9.9lf %9.9lf %9.9lf", particle[i].id, X.x, X.y, X.z);
             else if (decimal == 10)
-                fprintf (paraview_xyz, "\n%d %9.10lf %9.10lf %9.10lf", particle[i].id, X.z, X.y, X.x);
+                fprintf (paraview_xyz, "\n%d %9.10lf %9.10lf %9.10lf", particle[i].id, X.x, X.y, X.z);
         }
 
         printf ("paraview.xyz: Done!\n");
@@ -339,46 +391,96 @@ struct Particle
 
     void print_MPS_2D (FILE *mps_grid, long cont, Particle particle[], double DP, int decimal)
     {
-        double x1 = -DP/2;
-        //double x2 = 15.3 + DP, y1 = 27.1, y2 = 27.9;                      /// DP = 0.2
-        double x2 = 15.3 + DP/2, y1 = 27.1 + DP/2, y2 = 27.9 + DP/2;      /// DP = 0.1
-        //double x2 = 15.3 + DP/2, y1 = 27.1 + DP/2, y2 = 27.9 - DP/2;      /// DP = 0.05
-        //double x2 = 15.3 + DP/2, y1 = 27.1 - DP/2, y2 = 27.9 - 1.5*DP;    /// DP = 0.025
-        //double x2 = 15.3 + DP/2, y1 = 27.1 - 1.5*DP, y2 = 27.9 - 3.5*DP;  /// DP = 0.0125
-        double dx = x2 - x1;
-        double dy = y2 - y1;
-        double dist = sqrt(dx*dx + dy*dy);
-        long nPart = floor(dist/DP)-1;
-        long contTotal = nPart*3 + cont;
-
-        fprintf (mps_grid, "%d\n%ld", 0, contTotal);
+        int erase = 15;                                 //erase = 15
+        double fgh = 0.008985;                          // fgh = 0.008985
+        double l0 = 0.300;
+        double l1 = 0.505;
+        double h2 = 0.150;
+        double gratingSpacing;
+        double gratingWidth = 6*DP;
+        //double gratingLength = 26*DP;               /// DP = 0.000234375
+        double gratingLength = 14*DP;               /// DP = 0.00046875      
+        double firstGratingHeight = h2 + fgh + gratingWidth/2;
+        double centerX, centerY;
+        double deltaX, deltaY;
+        double alfa = 45;
+        double cosAlfa = cos(alfa*M_PI/180);
+        double sinAlfa = sin(alfa*M_PI/180);
+        double auxX, auxY;
+        double rotX, rotY;
+        double firstGratingX = l0 + l1 - fgh - gratingWidth/2;
+        
+        fprintf (mps_grid, "%d\n%ld", 0, cont-erase);
+        //fprintf (mps_grid, "%d\n%ld", 0, cont);
 
         for (long i = 0; i < cont; i++)
         {
             Point X (particle[i].r , DP);
-            fprintf (mps_grid, "\n%d %9.10lf %9.10lf %9.10lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, 0.0);
-        }
 
-        int id;
-        double x, y, y0, alfa, dpSlope;
-        alfa = atan(dy/dx);
-        dpSlope = dist/((double)nPart+1);
-
-        for (int j = 0; j < 3; ++j)
-        {
-            if (j == 0)
-                id = 2;
-            else
-                id = 3;
-
-            y0 = y1 + j*DP;
-
-            for (long i = 1; i < nPart+1; ++i)
+            if(particle[i].id == 12 || particle[i].id == 13)
             {
-                x = x1 + i*dpSlope*cos(alfa);
-                y = y0 + i*dpSlope*sin(alfa);
-                fprintf (mps_grid, "\n%d %9.10lf %9.10lf %9.10lf      0.0      0.0      0.0      0.0      0.0", id, x, y, 0.0);
+                //gratingSpacing = 0.008855;           /// DP = 0.000234375
+                gratingSpacing = 0.008855;           /// DP = 0.00046875
+                int nGrating = std::round((X.y-firstGratingHeight)/gratingSpacing);
+                centerX = l0+l1+gratingLength/2;
+                centerY = firstGratingHeight+nGrating*gratingSpacing;
+                //deltaX = 0.000477;                          /// DP = 0.000234375
+                //deltaY = 0.007912625;                       /// DP = 0.000234375
+                deltaX = 0.000165000;                       /// DP = 0.00046875
+                deltaY = 0.008664250;                       /// DP = 0.00046875
+
+                //deltaX = 0.0;                       /// DP = 0.00046875
+                //deltaY = 0.0;                       /// DP = 0.00046875
+
+                // translate point back to origin:
+                auxX = X.x - centerX;
+                auxY = X.y - centerY;
+
+                // rotate point
+                rotX = auxX*cosAlfa - auxY*sinAlfa;
+                rotY = auxX*sinAlfa + auxY*cosAlfa;
+
+                // translate point back:
+                X.x = rotX + centerX;
+                X.y = rotY + centerY;
+
+                X.x = X.x - deltaX;
+                X.y = X.y - deltaY;
+
+                //if (X.y < 0.150111)                            /// DP = 0.000234375
+                if (X.y < 0.15)                            /// DP = 0.00046875
+                    continue;
             }
+
+            /*if(particle[i].id == 12 || particle[i].id == 13)
+            {
+                gratingSpacing = 0.00889;
+                int nGrating = std::round((X.x-firstGratingX)/gratingSpacing);
+                centerX = firstGratingX+nGrating*gratingSpacing;
+                centerY = h2-gratingLength/2;
+                deltaX = 0.008046625;   
+                deltaY = 0.0005;
+
+                // translate point back to origin:
+                auxX = X.x - centerX;
+                auxY = X.y - centerY;
+
+                // rotate point
+                rotX = auxX*cosAlfa - auxY*sinAlfa;
+                rotY = auxX*sinAlfa + auxY*cosAlfa;
+
+                // translate point back:
+                X.x = rotX + centerX;
+                X.y = rotY + centerY;
+
+                X.x = X.x + deltaX;
+                X.y = X.y + deltaY;
+
+                if (X.x >= 0.805)
+                    continue;
+            }*/
+
+            fprintf (mps_grid, "\n%d %9.10lf %9.10lf %9.10lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, 0.0);
         }
 
         printf ("MPS.grid: Done!\n");
@@ -451,6 +553,27 @@ struct Particle
         else if (delta[1] >= delta [2] && delta[1] >= delta[0]) axis = 'y';
         else if (delta[2] >= delta [0] && delta[2] >= delta[1]) axis = 'z';
 
+        axis = 'x';
+
+        int erase = 15;                              //erase = 15
+        double gratingSpacing = 0.008855;           // gratingSpacing = 0.008855
+        double fgh = 0.008985;                      // fgh = 0.008985
+        double deltaX = 0.000477;                   // deltaX = 0.000477
+        double deltaY = 0.007912625;                   // deltaY = 0.007912625
+        double l0 = 0.300;
+        double l1 = 0.505;
+        double h2 = 0.150;
+        double gratingWidth = 6*DP;
+        double gratingLength = 26*DP;        
+        double firstGratingHeight = h2 + fgh + gratingWidth/2;
+        double centerX = l0+l1+gratingLength/2;
+        double centerY;
+        double alfa = 45;
+        double cosAlfa = cos(alfa*M_PI/180);
+        double sinAlfa = sin(alfa*M_PI/180);
+        double auxX, auxY;
+        double rotX, rotY;
+
         if (decimal == 2)
         {
             fprintf(dmps_grid, "%9d %10d %10d %10d %10.2lf %10.2lf %10.2lf %10.1lf %10.1lf %10.1lf\n",
@@ -597,9 +720,9 @@ struct Particle
         }
         else if (decimal == 10)
         {
-            fprintf(dmps_grid, "%9d %10d %10d %10d %10.10lf %10.10lf %10.10lf %10.1lf %10.1lf %10.1lf\n",
+            fprintf(dmps_grid, "%9d %13d %13d %13d %13.10lf %13.10lf %13.10lf %13.1lf %13.1lf %13.1lf\n",
                 0, (axis == 'x'), (axis == 'y'), (axis == 'z'), zero, zero, zero, zero, zero, zero);
-            fprintf(dmps_grid, "%9ld %10.10lf %10.10lf %10.10lf %10.10lf %10.10lf %10.10lf %10.1lf %10.1lf %10.1lf\n", cont,
+            fprintf(dmps_grid, "%9ld %13.10lf %13.10lf %13.10lf %13.10lf %13.10lf %13.10lf %13.1lf %13.1lf %13.1lf\n", cont-erase,
                  (rmin[0]+POSITIONX*0.5)*DP, (rmax[0]+POSITIONX*0.5)*DP,
                  (rmin[1]+POSITIONY*0.5)*DP, (rmax[1]+POSITIONY*0.5)*DP,
                  zero, zero, zero, zero, zero);
@@ -609,7 +732,32 @@ struct Particle
                     if (particle[i].r[axis-120] == r)
                     {
                         Point X (particle[i].r , DP);
-                        fprintf (dmps_grid, "%9d %10.10lf %10.10lf %10.10lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
+
+                        if(particle[i].id == 12 || particle[i].id == 13)
+                        {
+                            int nGrating = std::round((X.y-firstGratingHeight)/gratingSpacing);
+                            centerY = firstGratingHeight+nGrating*gratingSpacing;
+
+                            // translate point back to origin:
+                            auxX = X.x - centerX;
+                            auxY = X.y - centerY;
+
+                            // rotate point
+                            rotX = auxX*cosAlfa - auxY*sinAlfa;
+                            rotY = auxX*sinAlfa + auxY*cosAlfa;
+
+                            // translate point back:
+                            X.x = rotX + centerX;
+                            X.y = rotY + centerY;
+
+                            X.x = X.x - deltaX;
+                            X.y = X.y - deltaY;
+
+                            if (X.y < 0.150111)
+                                continue;
+                        }
+
+                        fprintf (dmps_grid, "%9d %13.10lf %13.10lf %13.10lf %13.1lf %13.1lf %13.1lf %13.1lf %13.1lf %13.1lf\n",
                             particle[i].id, X.x, X.y, zero, zero, zero, zero, zero, zero, zero);
                     }
         }
@@ -668,7 +816,7 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.2lf %10.2lf %10.2lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.z, X.y, X.x, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
                     }
         }
         else if (decimal == 3)
@@ -686,7 +834,7 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.3lf %10.3lf %10.3lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.z, X.y, X.x, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
                     }
         }
         else if (decimal == 4)
@@ -704,7 +852,7 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.4lf %10.4lf %10.4lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.z, X.y, X.x, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
                     }
         }
         else if (decimal == 5)
@@ -722,7 +870,7 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.5lf %10.5lf %10.5lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.z, X.y, X.x, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
                     }
         }
         else if (decimal == 6)
@@ -740,7 +888,7 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.6lf %10.6lf %10.6lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.z, X.y, X.x, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
                     }
         }
         else if (decimal == 7)
@@ -758,7 +906,7 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.7lf %10.7lf %10.7lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.z, X.y, X.x, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
                     }
         }
         else if (decimal == 8)
@@ -776,7 +924,7 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.8lf %10.8lf %10.8lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.z, X.y, X.x, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
                     }
         }
         else if (decimal == 9)
@@ -794,7 +942,7 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.9lf %10.9lf %10.9lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.z, X.y, X.x, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
                     }
         }
         else if (decimal == 10)
@@ -812,7 +960,7 @@ struct Particle
                     {
                         Point X (particle[i].r , DP);
                         fprintf (dmps_grid, "%9d %10.10lf %10.10lf %10.10lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf %10.1lf\n",
-                            particle[i].id, X.z, X.y, X.x, zero, zero, zero, zero, zero, zero);
+                            particle[i].id, X.x, X.y, X.z, zero, zero, zero, zero, zero, zero);
                     }
         }
 
@@ -826,47 +974,38 @@ struct Particle
 
     void print_alt (FILE *alt, long cont, Particle particle[], double DP)
     {
-        /// DP = 0.005 m
-        /*double PX1 = 28.4075;
-        double PY1 = 25.4525;
-        double PZ1 = 46.6825;
+        double PX1 = 0.15;
+        double PY1 = -DP/2;
+        double PZ1 = DP/2;
 
-        double PX2 = 28.5075;
-        double PY2 = 25.4525;
-        double PZ2 = 46.6825;*/
+        double PX2 = 0.805+DP/2;
+        double PY2 = 0.135;
+        double PZ2 = DP/2;
 
-        /// DP = 0.01 m
-        /*double PX1 = 28.4050;
-        double PY1 = 25.3550;
-        double PZ1 = 46.7850;
-
-        double PX2 = 28.5050;
-        double PY2 = 25.3550;
-        double PZ2 = 46.7850;*/
-
-        /// DP = 0.025 m
-        double PX1 = 28.3875;
-        double PY1 = 25.4625;
-        double PZ1 = 46.8875;
-
-        double PX2 = 28.4875;
-        double PY2 = 25.4625;
-        double PZ2 = 46.8875;
+        double PX3 = 0.8125;
+        double PY3 = 0.15-DP/2;
+        double PZ3 = DP/2;
 
         for (long i = 0; i < cont; i++)
         {
             Point X (particle[i].r , DP);
             if (particle[i].id == 2 && 
-                X.x >= PX1-0.0*DP && X.x < PX1+1.0*DP &&
-                X.y >= PY1-0.0*DP && X.y < PY1+1.0*DP &&
-                X.z >= PZ1-0.0*DP && X.z < PZ1+1.0*DP)
-                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" z=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.x, X.y, X.z);            
+                X.x >= PX1-0.5*DP && X.x < PX1+0.5*DP &&
+                X.y >= PY1-0.5*DP && X.y < PY1+0.5*DP &&
+                X.z >= PZ1-0.5*DP && X.z < PZ1+0.5*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.10f\" y=\"%.10f\" z=\"%.10f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.x, X.y, X.z);         
 
-            if (particle[i].id == 2 && 
-                X.x >= PX2-0.0*DP && X.x < PX2+1.0*DP &&
-                X.y >= PY2-0.0*DP && X.y < PY2+1.0*DP &&
-                X.z >= PZ2-0.0*DP && X.z < PZ2+1.0*DP)
-                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" z=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.x, X.y, X.z);            
+            if (particle[i].id == 4 && 
+                X.x >= PX2-0.5*DP && X.x < PX2+0.5*DP &&
+                X.y >= PY2-0.5*DP && X.y < PY2+0.5*DP &&
+                X.z >= PZ2-0.5*DP && X.z < PZ2+0.5*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.10f\" y=\"%.10f\" z=\"%.10f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.x, X.y, X.z);       
+
+            if (particle[i].id == 10 && 
+                X.x >= PX3-0.5*DP && X.x < PX3+0.5*DP &&
+                X.y >= PY3-0.5*DP && X.y < PY3+0.5*DP &&
+                X.z >= PZ3-0.5*DP && X.z < PZ3+0.5*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.10f\" y=\"%.10f\" z=\"%.10f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.x, X.y, X.z);      
         }
 
         printf ("alt.grid: Done!\n");

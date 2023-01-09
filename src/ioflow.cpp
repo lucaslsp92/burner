@@ -18,19 +18,18 @@ int Particle::ioflow (double DP, double geometry[])
     Point Z (0,0,1);
 
     //////////////////////////////////////////
-    //// Moonpool sloshing
+    //// Grating modeling
     //// Variaveis (double, Point, etc..)
-    double centerX = 46.78;
-    double centerY = 25.455;        /// DP = 0.005 m
-    //double centerY = 25.455;         /// DP = 0.010 m
-    double centerZ = 28.5388;
-    double dumpValveRadius = 0.100;
-    double dumpValveHeight = 0.120;
-    double deckWidth = 0.800;
-    double dumpValveOpening = 0.060;
-    double inletRadius = 0.095;
-    double inletHeight = 0.180;
-
+    double h0 = 0.240;   /// C4 h0 = 0.300, C3 h0 = 0.24, C2 h0 = 0.20, C1 h0 = 0.171
+    double l0 = 0.300;   
+    double h1 = 0.120;
+    double l1 = 0.505;
+    double h2 = 0.150;
+    double l2 = 0.195;
+    double h = 0.450;
+    double l = 1.000;
+    double b0 = 0.180;
+    double a0 = 0.150;
 
     /// Points
 
@@ -39,17 +38,32 @@ int Particle::ioflow (double DP, double geometry[])
     ///Operações
 
     ///Return padrão (caso nenhuma operação seja feita)
-    if ((z-centerX)*(z-centerX)+(y-centerY)*(y-centerY) < (inletRadius)*(inletRadius) && (x-centerZ+inletHeight) < 0)
-    {
-        return id+2;
-    }
-
-    if (((y-centerY) < -deckWidth/2 || (y-centerY) > deckWidth/2 || (z-centerX) < -deckWidth/2 || (z-centerX) > deckWidth/2) || (x-centerZ) > dumpValveHeight+deckWidth)
+    if (y > h)
     {
         return -1;
     }
 
-    if((x-centerZ) > dumpValveHeight)
+    if ((id == 2 || id == 3) && (x >= l0+l1 && x <= l0+l1+3*DP) && (y > 0) && (z > 0 && z <= DP))
+    {
+        return id+2;
+    }
+
+    if ((id == 2 || id == 3) && (x >= l0+l1+(l2-b0) && x <= l0+l1+l2) && (y >= h2-3*DP && y <= h2) && (z > 0 && z <= DP))
+    {
+        return id+4;
+    }
+
+    if ((id == 2 || id == 3) && (x >= l0+l1+l2 && x <= l0+l1+l2+3*DP) && (y >= h2-3*DP && y <= h2+a0) && (z > 0 && z <= DP))
+    {
+        return id+6;
+    }
+
+    if ((id == 2 || id == 3) && (x >= l0+l1+3*DP && x < l0+l1+(l2-b0)) && (y >= h2-3*DP && y <= h2) && (z > 0 && z <= DP))
+    {
+        return id+8;
+    }
+
+    if (z < 0 || z >= DP)
     {
         return -1;
     }
