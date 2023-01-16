@@ -151,13 +151,13 @@ int main() {
     }
 
     printf ("\nMinimum decimal places: %d ", decimal);
-    printf ("\nEnter with decimal places (between 2 and 10): ");
+    printf ("\nEnter with decimal places (between 2 and 13): ");
     scanf ("%d", &decimal);
 
     if (decimal < 2)
         decimal = 2;
-    else if (decimal > 10)
-        decimal = 10;
+    else if (decimal > 13)
+        decimal = 13;
 
     //initializationParticles ();
 

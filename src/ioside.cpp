@@ -36,12 +36,28 @@ int Particle::ioside (double DP, double geometry[])
     double a0 = 0.150;
     double gratingWidth = 6*DP;
     //double gratingLength = 26*DP;               /// DP = 0.000234375
-    double gratingLength = 14*DP;               /// DP = 0.00046875
+    //double gratingLength = 14*DP;               /// DP = 0.00046875
     //double gratingSpacing = 0.008855;           /// DP = 0.000234375
     double gratingSpacing = 0.008855;           /// DP = 0.00046875
     double gratingSpacingX = 0.00889;
     double firstGratingHeight = h2 + 0.008985 + gratingWidth/2;
     double firstGratingX = l0 + l1 - 0.008985 - gratingWidth/2;
+
+    double boxHeight = 0.1;
+    double boxWidth = 0.2;
+    double firstGratingElementX = 0.06557077;
+    //double firstGratingElementY = 0.01;
+    double firstGratingElementY = 0.005;        /// DP = 0.00005859375
+    //double gratingSpace = 0.00839961;         /// DP = 0.00046875
+    //double gratingSpace = 0.007230004;          /// DP = 0.000234375
+    //double gratingSpace = 0.006644004;          /// DP = 0.0001171875
+    //double gratingSpace = 0.006270001;          /// DP = 0.00005859375
+    double gratingSpace = 0.006144;               /// DP = 0.000029296875
+    //double gratingLength = 14*DP;               /// DP = 0.00046875
+    //double gratingLength = 27*DP;               /// DP = 0.000234375
+    //double gratingLength = 52*DP;               /// DP = 0.0001171875
+    //double gratingLength = 103*DP;               /// DP = 0.00005859375
+    double gratingLength = 206*DP;               /// DP = 0.000029296875
 
     /// Points
     Point TNK(0,0,-5*DP);
@@ -66,6 +82,17 @@ int Particle::ioside (double DP, double geometry[])
     Point GR18(firstGratingX-8*gratingSpacingX,h2-gratingLength/2,0);
     Point VS(l0+l1+gratingWidth/2,h2+lb/2,0);
     Point HS(l0+l1-lb/2,h2-gratingWidth/2,0);
+
+    Point BX(0,0,-5*DP);
+    Point GR20(firstGratingElementX+0*gratingSpace,firstGratingElementY,0);
+    Point GR21(firstGratingElementX+1*gratingSpace,firstGratingElementY,0);
+    Point GR22(firstGratingElementX+2*gratingSpace,firstGratingElementY,0);
+    Point GR23(firstGratingElementX+3*gratingSpace,firstGratingElementY,0);
+    Point GR24(firstGratingElementX+4*gratingSpace,firstGratingElementY,0);
+    Point GR25(firstGratingElementX+5*gratingSpace,firstGratingElementY,0);
+    Point GR26(firstGratingElementX+6*gratingSpace,firstGratingElementY,0);
+    Point GR27(firstGratingElementX+7*gratingSpace,firstGratingElementY,0);
+    Point GR28(firstGratingElementX+8*gratingSpace,firstGratingElementY,0);
     
     ///Regiões (Region)
     Region tank = P.transformation(TNK).rectangleXY(l,h,10*DP);
@@ -93,8 +120,19 @@ int Particle::ioside (double DP, double geometry[])
     Region verticalShield = P.transformation(VS).rectangleXYCenter(gratingWidth,lb,10*DP);
     Region horizontalShield = P.transformation(HS).rectangleXYCenter(lb,gratingWidth,10*DP);
 
+    Region box = P.transformation(BX).rectangleXY(boxWidth,boxHeight,10*DP);
+    Region grating20 = P.transformation(GR20).rectangleXYCenter(gratingWidth,gratingLength,10*DP);
+    Region grating21 = P.transformation(GR21).rectangleXYCenter(gratingWidth,gratingLength,10*DP);
+    Region grating22 = P.transformation(GR22).rectangleXYCenter(gratingWidth,gratingLength,10*DP);
+    Region grating23 = P.transformation(GR23).rectangleXYCenter(gratingWidth,gratingLength,10*DP);
+    Region grating24 = P.transformation(GR24).rectangleXYCenter(gratingWidth,gratingLength,10*DP);
+    Region grating25 = P.transformation(GR25).rectangleXYCenter(gratingWidth,gratingLength,10*DP);
+    Region grating26 = P.transformation(GR26).rectangleXYCenter(gratingWidth,gratingLength,10*DP);
+    Region grating27 = P.transformation(GR27).rectangleXYCenter(gratingWidth,gratingLength,10*DP);
+    Region grating28 = P.transformation(GR28).rectangleXYCenter(gratingWidth,gratingLength,10*DP);
+
     ///Operações
-    if(tank && !(ship))
+    /*if(tank && !(ship))
     {
         if (water0 || water1)
             return 0;
@@ -106,6 +144,14 @@ int Particle::ioside (double DP, double geometry[])
             //return 12;
         //else if (horizontalShield)
             //return 12;
+        else
+            return -1;
+    }*/
+
+    if(box)
+    {
+        if (grating20 || grating21 || grating22 || grating23 || grating24 || grating25 || grating26  || grating27  || grating28)
+            return 6;
         else
             return -1;
     }
