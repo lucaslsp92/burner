@@ -21,10 +21,10 @@ int Particle::ioside (double DP, double geometry[])
     //////////////////////////////////////////
     //// Moonpool sloshing
     //// Variaveis (double, Point, etc..)
-    double waterDepth = 0.50;
-    double waterLength = 1.2;
+    double waterDepth = 1.00;
+    double waterLength = 2.2;
     double tankHeight = 1.3;
-    double tankLength = 1.2;
+    double tankLength = 2.2;
     double draft = 0.11;
     double vesselLength = 0.40;
     double vesselHeight = 0.40;
@@ -60,11 +60,11 @@ int Particle::ioside (double DP, double geometry[])
     {
         return 4;
     }
-    if(water || (beachWater && leftBeach) || (beachWater && rightBeach))
+    if(water /*|| (beachWater && leftBeach) || (beachWater && rightBeach)*/)
     {
         return 0;
     }
-    if(tank || leftBeach || rightBeach)
+    if(tank /*|| leftBeach || rightBeach*/)
     {
         return -1;
     }    
