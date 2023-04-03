@@ -21,7 +21,8 @@ int Particle::ioflow (double DP, double geometry[])
     //// Moonpool sloshing
     //// Variaveis (double, Point, etc..)
     double cylinderRadius = 0.08;
-    double tankHeight = 10*cylinderRadius;
+    double waterDepth = 30.0*cylinderRadius;
+    double tankHeight = waterDepth + 2.0*cylinderRadius;
 
     /// Points
 

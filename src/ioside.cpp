@@ -24,10 +24,10 @@ int Particle::ioside (double DP, double geometry[])
     double cylinderRadius = 0.08;
     double cylinderDepth = 3.0*cylinderRadius;
     double cylinderPosition = 114.0*cylinderRadius;
-    double waterDepth = 8.0*cylinderRadius;
+    double waterDepth = 30.0*cylinderRadius;
     double waterLength = 125.0*cylinderRadius;
     double tankLength = 125.0*cylinderRadius;
-    double tankHeight = 10.0*cylinderRadius;
+    double tankHeight = waterDepth + 2.0*cylinderRadius;
 
     /// Points
     Point tankCorner(0.0,0.0,-4*DP);
@@ -41,8 +41,10 @@ int Particle::ioside (double DP, double geometry[])
     ///Operações
     if(tank)
     {
-        if(cylinder)
-            return 4;
+        //if(cylinder)
+            //return 4;
+        if((x-cylinderPosition)*(x-cylinderPosition)+(y-waterDepth+cylinderDepth)*(y-waterDepth+cylinderDepth) < (cylinderRadius+DP)*(cylinderRadius+DP))
+            return -1;
         if(water)
             return 0;
         else
