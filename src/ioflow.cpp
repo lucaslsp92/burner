@@ -22,6 +22,7 @@ int Particle::ioflow (double DP, double geometry[])
     //// Variaveis (double, Point, etc..)
     double cylinderRadius = 0.08;
     double waterDepth = 30.0*cylinderRadius;
+    double tankLength = 30.0*cylinderRadius;
     double tankHeight = waterDepth + 2.0*cylinderRadius;
 
     /// Points
@@ -29,6 +30,16 @@ int Particle::ioflow (double DP, double geometry[])
     ///Regiões (Region)
 
     ///Operações
+    if(x<0.0 && y>0.0 && y<waterDepth && z>=0.0 && z<DP && (id==2 || id==3))
+    {
+        return id+4;
+    }
+
+    if(x>tankLength)
+    {
+        return -1;
+    }
+
     if(y>tankHeight && (id==2 || id==3))
     {
         return -1;

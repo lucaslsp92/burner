@@ -23,10 +23,10 @@ int Particle::ioside (double DP, double geometry[])
     //// Variaveis (double, Point, etc..)
     double cylinderRadius = 0.08;
     double cylinderDepth = 3.0*cylinderRadius;
-    double cylinderPosition = 114.0*cylinderRadius;
+    double cylinderPosition = 10.0*cylinderRadius;
     double waterDepth = 30.0*cylinderRadius;
-    double waterLength = 125.0*cylinderRadius;
-    double tankLength = 125.0*cylinderRadius;
+    double waterLength = 30.0*cylinderRadius;
+    double tankLength = 30.0*cylinderRadius;
     double tankHeight = waterDepth + 2.0*cylinderRadius;
 
     /// Points

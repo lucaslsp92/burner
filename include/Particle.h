@@ -231,7 +231,7 @@ struct Particle
     void print_Paraview_2D (FILE *paraview_xyz, long cont, Particle particle[], double DP, double geometry[], int numgeometry, int decimal)
     {
         double cylinderRadius = 0.08;
-        double cylinderCenterX = 114.0*cylinderRadius;
+        double cylinderCenterX = 10.0*cylinderRadius;
         double cylinderCenterY = 27.0*cylinderRadius;
 
         int nPartWall = int(round(2*PI*cylinderRadius/DP));
@@ -360,7 +360,7 @@ struct Particle
     void print_MPS_2D (FILE *mps_grid, long cont, Particle particle[], double DP, int decimal)
     {
         double cylinderRadius = 0.08;
-        double cylinderCenterX = 114.0*cylinderRadius;
+        double cylinderCenterX = 10.0*cylinderRadius;
         double cylinderCenterY = 27.0*cylinderRadius;
 
         int nPartWall = int(round(2*PI*cylinderRadius/DP));
@@ -892,7 +892,25 @@ struct Particle
         {
             Point X (particle[i].r , DP);
             if (particle[i].id == 2 && 
-                X.x >= 1.0-0.5*DP && X.x < 1.0+0.5*DP &&
+                X.x >= 0.4-0.5*DP && X.x < 0.4+0.5*DP &&
+                X.y >= 0.0-1.0*DP && X.y < 0.0+0.0*DP &&
+                X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" z=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i+newCont, particle[i].id, X.x, X.y, X.z);
+
+            if (particle[i].id == 2 && 
+                X.x >= 0.8-0.5*DP && X.x < 0.8+0.5*DP &&
+                X.y >= 0.0-1.0*DP && X.y < 0.0+0.0*DP &&
+                X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" z=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i+newCont, particle[i].id, X.x, X.y, X.z);
+
+            if (particle[i].id == 2 && 
+                X.x >= 1.2-0.5*DP && X.x < 1.2+0.5*DP &&
+                X.y >= 0.0-1.0*DP && X.y < 0.0+0.0*DP &&
+                X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
+                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" z=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i+newCont, particle[i].id, X.x, X.y, X.z);
+
+            if (particle[i].id == 2 && 
+                X.x >= 1.6-0.5*DP && X.x < 1.6+0.5*DP &&
                 X.y >= 0.0-1.0*DP && X.y < 0.0+0.0*DP &&
                 X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
                 fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" z=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i+newCont, particle[i].id, X.x, X.y, X.z);
@@ -901,50 +919,7 @@ struct Particle
                 X.x >= 2.0-0.5*DP && X.x < 2.0+0.5*DP &&
                 X.y >= 0.0-1.0*DP && X.y < 0.0+0.0*DP &&
                 X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
-                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" z=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i+newCont, particle[i].id, X.x, X.y, X.z);
-
-            if (particle[i].id == 2 && 
-                X.x >= 3.0-0.5*DP && X.x < 3.0+0.5*DP &&
-                X.y >= 0.0-1.0*DP && X.y < 0.0+0.0*DP &&
-                X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
-                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" z=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i+newCont, particle[i].id, X.x, X.y, X.z);
-
-            if (particle[i].id == 2 && 
-                X.x >= 4.0-0.5*DP && X.x < 4.0+0.5*DP &&
-                X.y >= 0.0-1.0*DP && X.y < 0.0+0.0*DP &&
-                X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
-                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" z=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i+newCont, particle[i].id, X.x, X.y, X.z);
-
-            if (particle[i].id == 2 && 
-                X.x >= 5.0-0.5*DP && X.x < 5.0+0.5*DP &&
-                X.y >= 0.0-1.0*DP && X.y < 0.0+0.0*DP &&
-                X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
-                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" z=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i+newCont, particle[i].id, X.x, X.y, X.z);
-
-            if (particle[i].id == 2 && 
-                X.x >= 6.0-0.5*DP && X.x < 6.0+0.5*DP &&
-                X.y >= 0.0-1.0*DP && X.y < 0.0+0.0*DP &&
-                X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
-                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" z=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i+newCont, particle[i].id, X.x, X.y, X.z);
-        
-            if (particle[i].id == 2 && 
-                X.x >= 7.0-0.5*DP && X.x < 7.0+0.5*DP &&
-                X.y >= 0.0-1.0*DP && X.y < 0.0+0.0*DP &&
-                X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
-                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" z=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i+newCont, particle[i].id, X.x, X.y, X.z);
-        
-            if (particle[i].id == 2 && 
-                X.x >= 8.0-0.5*DP && X.x < 8.0+0.5*DP &&
-                X.y >= 0.0-1.0*DP && X.y < 0.0+0.0*DP &&
-                X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
-                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" z=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i+newCont, particle[i].id, X.x, X.y, X.z);
-        
-            if (particle[i].id == 2 && 
-                X.x >= 9.0-0.5*DP && X.x < 9.0+0.5*DP &&
-                X.y >= 0.0-1.0*DP && X.y < 0.0+0.0*DP &&
-                X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
-                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" z=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i+newCont, particle[i].id, X.x, X.y, X.z);
-        
+                fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" z=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i+newCont, particle[i].id, X.x, X.y, X.z);        
         }
 
         printf ("alt.grid: Done!\n");
