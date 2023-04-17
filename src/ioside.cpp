@@ -34,6 +34,7 @@ int Particle::ioside (double DP, double geometry[])
     double beachRatio = 2.5;
     double beachAngle = atan(1.0/beachRatio)*180/M_PI;
     double beachLength = 2.0*sqrt((waterDepth*waterDepth)+(beachRatio*waterDepth*beachRatio*waterDepth));
+    double hs = 0.04;
 
     /// Points
     Point tankVertex(-tankLength/2,-waterDepth,-4*DP);
@@ -56,7 +57,7 @@ int Particle::ioside (double DP, double geometry[])
     Region beachWater = P.transformation(beachWaterVertex).rectangleXY(waterLength+2*beachRatio*waterDepth,waterDepth,DP);
 
     ///Operações
-    if(leftVessel || rigthVessel || recess)
+    if(leftVessel || rigthVessel || (recess && y-hs*x/0.1+0.06+hs<0.0))
     {
         return 4;
     }
