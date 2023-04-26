@@ -34,7 +34,7 @@ int Particle::ioside (double DP, double geometry[])
     double beachRatio = 2.5;
     double beachAngle = atan(1.0/beachRatio)*180/M_PI;
     double beachLength = 2.0*sqrt((waterDepth*waterDepth)+(beachRatio*waterDepth*beachRatio*waterDepth));
-    double hs = 0.04;
+    double hs = 0.02;
 
     /// Points
     Point tankVertex(-tankLength/2,-waterDepth,-4*DP);
@@ -45,6 +45,8 @@ int Particle::ioside (double DP, double geometry[])
     Point leftBeachVertex(-waterLength/2,-waterDepth,-4*DP);
     Point rightBeachVertex(waterLength/2,-waterDepth,-4*DP);
     Point beachWaterVertex(-waterLength/2-beachRatio*waterDepth,-waterDepth,0);
+    Point leftBaffleVertex(-recessLength,recessHeight-draft,-4*DP);
+    Point rightBaffleVertex(0.0,recessHeight-draft,-4*DP);
 
     ///Regiões (Region)
     Region tank = P.transformation(tankVertex).rectangleXY(tankLength,tankHeight,8*DP);
@@ -55,9 +57,15 @@ int Particle::ioside (double DP, double geometry[])
     Region leftBeach = P.transformation(leftBeachVertex,Z,-(90-beachAngle)).rectangleXY(beachLength,beachLength,8*DP);
     Region rightBeach = P.transformation(rightBeachVertex,Z,-beachAngle).rectangleXY(beachLength,beachLength,8*DP);
     Region beachWater = P.transformation(beachWaterVertex).rectangleXY(waterLength+2*beachRatio*waterDepth,waterDepth,DP);
+    Region leftBaffle = P.transformation(leftBaffleVertex).rectangleXY(recessLength+4*DP,hs,8*DP);
+    Region rightBaffle = P.transformation(rightBaffleVertex).rectangleXY(recessLength,hs,8*DP);
 
     ///Operações
-    if(leftVessel || rigthVessel || (recess && y-hs*x/0.1+0.06+hs<0.0))
+    if(leftBaffle && rightBaffle)
+    {
+        return 6;
+    }
+    if(leftVessel || rigthVessel || (recess /*&& y-hs*x/0.1+0.06+hs<0.0*/))
     {
         return 4;
     }

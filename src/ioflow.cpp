@@ -38,6 +38,11 @@ int Particle::ioflow (double DP, double geometry[])
         return -1;
     }
 
+    if(x > 1*DP && x < 3*DP && y > -0.06-DP && y < -0.06+DP && z > 0.0 && z <= DP && (id==4 || id==6))
+    {
+        return id+1;
+    }
+
     ///Return padrão (caso nenhuma operação seja feita)
     return id;
 
