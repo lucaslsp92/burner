@@ -18,25 +18,33 @@ int Particle::ioflow (double DP, double geometry[])
     Point Z (0,0,1);
 
     //////////////////////////////////////////
-    //// Lid-driven cavity flow 2D
+    //// Free-surface poiseuille flow
     //// Variaveis (double, Point, etc..)
-    double D = 0.15;        // cavity length
-    double W = DP;         // cavity width
+    double H = 1.0;        // channel height
+    double L = 2*H;        // channel lenght
 
-    if (z < 0.0 || z >= W)
+    if(z < 0.0 || z >= DP)
     {
         return -1;
     }
 
-    if (y > D)
+    if(y >= 1.1*H)
     {
-        return id+2;
+        return -1;
     }
 
-    /*if (x < 0.0 && y >= 0.0 && y <= D)
+    if(x < 0 /*&& y > 0 && y < H*/)
     {
-        return id+2;
-    }*/
+        //return id+2;
+        return -1;
+    }
+
+    if(x >= L /*&& y > 0*/)
+    {
+        //return 6;
+        //return id+4;
+        return -1;
+    }
 
     ///Return padrão (caso nenhuma operação seja feita)
     return id;

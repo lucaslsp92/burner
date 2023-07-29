@@ -19,17 +19,23 @@ int Particle::ioside (double DP, double geometry[])
     Point Z (0,0,1);
 
     //////////////////////////////////////////
-    //// Lid-driven cavity flow 2D
+    //// Free-surface poiseuille flow
     //// Variaveis (double, Point, etc..)
-    double D = 0.15;        // cavity length
-    double W = DP;         // cavity width
+    double H = 1.0;        // channel height
+    double L = 2*H;        // channel lenght
 
     ///Regiões (Region)
-    Region fluid = P.rectangleXY(D, D, W);
+    Region fluid = P.rectangleXY(L, H, DP);
+    Region channel = P.rectangleXY(L, H*1.1, 10*DP);
 
     ///Operações
-    if (fluid) 
-        return 0;
+    if(channel)
+    {
+        if (fluid) 
+            return 0;
+
+        return -1;
+    }    
 
     ///Return padrão (constrói a parede externa)
     // DO NOT CHANGE HERE !!!
