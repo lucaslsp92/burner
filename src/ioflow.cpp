@@ -20,8 +20,9 @@ int Particle::ioflow (double DP, double geometry[])
     //////////////////////////////////////////
     //// Free-surface poiseuille flow
     //// Variaveis (double, Point, etc..)
-    double H = 1.0;        // channel height
-    double L = 2*H;        // channel lenght
+    double H = 1.0;                     // channel height
+    double L = 10.0*H;                  // channel lenght
+    //double L = 10.0*H + 4.0*DP;         // channel lenght
 
     if(z < 0.0 || z >= DP)
     {
@@ -33,17 +34,17 @@ int Particle::ioflow (double DP, double geometry[])
         return -1;
     }
 
-    if(x < 0 /*&& y > 0 && y < H*/)
+    if(x < 0 && y > 0 && y < H)
     {
-        //return id+2;
-        return -1;
+        return id+2;
+        //return -1;
     }
 
-    if(x >= L /*&& y > 0*/)
+    if(x >= L && y > 0)
     {
         //return 6;
-        //return id+4;
-        return -1;
+        return id+4;
+        //return -1;
     }
 
     ///Return padrão (caso nenhuma operação seja feita)

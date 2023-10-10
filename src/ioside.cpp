@@ -21,8 +21,9 @@ int Particle::ioside (double DP, double geometry[])
     //////////////////////////////////////////
     //// Free-surface poiseuille flow
     //// Variaveis (double, Point, etc..)
-    double H = 1.0;        // channel height
-    double L = 2*H;        // channel lenght
+    double H = 1.0;                     // channel height
+    double L = 10.0*H;                  // channel lenght
+    //double L = 10.0*H + 4.0*DP;         // channel lenght
 
     ///Regiões (Region)
     Region fluid = P.rectangleXY(L, H, DP);

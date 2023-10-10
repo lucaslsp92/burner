@@ -309,15 +309,15 @@ struct Particle
     void print_MPS_2D (FILE *mps_grid, long cont, Particle particle[], double DP, int decimal)
     {
         double Px, Py, Rx, Ry, Nx, Ny, Vx, Vy, V;
-        double Re = 200.0;
+        double Re = 100.0;
         double h = 1.0;
-        double s0 = 0.001;
         double g = 9.80665;
-        double nu = sqrt((g*s0)/(3*Re));
-        double alfa = -atan(s0);
-        double s = sin(alfa);
-        double c = cos(alfa);
-        double Cx = 2.02;
+        double alfa = 5.0;
+        double s0 = sin(alfa*M_PI/180.0);
+        double nu = sqrt((g*s0*h*h*h)/(3.0*Re));
+        double s = sin(alfa*M_PI/180.0);
+        double c = cos(alfa*M_PI/180.0);
+        double Cx = 10.0 + 2*DP;
         double Cy = -DP;
 
         fprintf (mps_grid, "%d\n%ld", 0, cont);
@@ -336,17 +336,9 @@ struct Particle
             Ny = Ry + Cy;
 
             if(particle[i].id == 0)
-            {
-                V = ((g*s0)/(2*nu))*(2*h*(X.y-DP/2.0)-(X.y-DP/2.0)*(X.y-DP/2.0));
-                Vx = V*c;
-                Vy = V*s;
-            }
+                V = 0.0; //V = (g*s0/nu)*((X.y-DP/2.0)-0.5*(X.y-DP/2.0)*(X.y-DP/2.0));
             else
-            {
-                V = 0.0;
-                Vx = 0.0;
-                Vy = 0.0;
-            }            
+                V = 0.0;   
 
             //fprintf (mps_grid, "\n%d %9.10lf %9.10lf %9.10lf %9.10lf %9.10lf %9.10lf %9.10lf %9.10lf", particle[i].id, Nx, Ny, 0.0, Vx, Vy, 0.0, 0.0, 0.0);
             fprintf (mps_grid, "\n%d %9.10lf %9.10lf %9.10lf %9.10lf %9.10lf %9.10lf %9.10lf %9.10lf", particle[i].id, X.x, X.y, 0.0, V, 0.0, 0.0, 0.0, 0.0);
