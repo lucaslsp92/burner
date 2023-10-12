@@ -25,7 +25,7 @@ int Particle::ioside (double DP, double geometry[])
     double W = DP;         // cavity width
 
     ///Regiões (Region)
-    Region fluid = P.rectangleXY(D, D, W);
+    Region fluid = P.rectangleXY(D, D, D);
 
     ///Operações
     if (fluid) 

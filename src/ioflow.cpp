@@ -23,10 +23,10 @@ int Particle::ioflow (double DP, double geometry[])
     double D = 0.15;        // cavity length
     double W = DP;         // cavity width
 
-    if (z < 0.0 || z >= W)
+    /*if (z < 0.0 || z >= W)
     {
         return -1;
-    }
+    }*/
 
     if (y > D)
     {

@@ -30,6 +30,6 @@ typedef bool Region;
 
 #define DMPS 1
 #define ALT 0
-#define DIMENSION 2
+#define DIMENSION 3
 
 #endif
