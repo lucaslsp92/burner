@@ -35,10 +35,10 @@ int Particle::ioside (double DP, double geometry[])
     double b0 = 0.180;    
     double a0 = 0.150;
     double gratingWidth = 6*DP;
-    //double gratingLength = 26*DP;               /// DP = 0.000234375
-    double gratingLength = 14*DP;               /// DP = 0.00046875
-    //double gratingSpacing = 0.008855;           /// DP = 0.000234375
-    double gratingSpacing = 0.008855;           /// DP = 0.00046875
+    double gratingLength = 39*DP;               /// DP = 0.000234375 --> 26*DP, 39*DP
+    //double gratingLength = 14*DP;               /// DP = 0.00046875
+    double gratingSpacing = 0.008855;           /// DP = 0.000234375
+    //double gratingSpacing = 0.008855;           /// DP = 0.00046875
     double gratingSpacingX = 0.00889;
     double firstGratingHeight = h2 + 0.008985 + gratingWidth/2;
     double firstGratingX = l0 + l1 - 0.008985 - gratingWidth/2;
@@ -98,10 +98,10 @@ int Particle::ioside (double DP, double geometry[])
     {
         if (water0 || water1)
             return 0;
-        else if (grating0 || grating1 || grating2 || grating3 || grating4 || grating5 || grating6 || grating7 || grating8)
-            return 12;
-        //else if (grating10 || grating11 || grating12 || grating13 || grating14 || grating15 || grating16 || grating17 || grating18)
+        //else if (grating0 || grating1 || grating2 || grating3 || grating4 || grating5 || grating6 || grating7 || grating8)
             //return 12;
+        else if (grating10 || grating11 || grating12 || grating13 || grating14 || grating15 || grating16 || grating17 || grating18)
+            return 12;
         //else if (verticalShield)
             //return 12;
         //else if (horizontalShield)

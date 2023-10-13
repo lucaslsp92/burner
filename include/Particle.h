@@ -261,7 +261,7 @@ struct Particle
         {
             Point X (particle[i].r , DP);
 
-            if(particle[i].id == 12 || particle[i].id == 13)
+            /*if(particle[i].id == 12 || particle[i].id == 13)
             {
                 //gratingSpacing = 0.008855;           /// DP = 0.000234375
                 gratingSpacing = 0.008855;           /// DP = 0.00046875
@@ -294,15 +294,15 @@ struct Particle
                 //if (X.y < 0.150111)                            /// DP = 0.000234375
                 if (X.y < 0.15)                            /// DP = 0.00046875
                     continue;
-            }
+            }*/
 
-            /*if(particle[i].id == 12 || particle[i].id == 13)
+            if(particle[i].id == 12 || particle[i].id == 13)
             {
                 gratingSpacing = 0.00889;
                 int nGrating = std::round((X.x-firstGratingX)/gratingSpacing);
                 centerX = firstGratingX+nGrating*gratingSpacing;
                 centerY = h2-gratingLength/2;
-                deltaX = 0.008046625;   
+                deltaX = 0.004897625;       /// 26*DP: 0.008046625, 39*DP: 0.004897625
                 deltaY = 0.0005;
 
                 // translate point back to origin:
@@ -322,7 +322,7 @@ struct Particle
 
                 if (X.x >= 0.805)
                     continue;
-            }*/
+            }
 
             if (decimal == 2)
                 fprintf (paraview_xyz, "\n%d %9.2lf %9.2lf %9.2lf", particle[i].id, X.x, X.y, 0.0);
@@ -417,7 +417,7 @@ struct Particle
         {
             Point X (particle[i].r , DP);
 
-            if(particle[i].id == 12 || particle[i].id == 13)
+            /*if(particle[i].id == 12 || particle[i].id == 13)
             {
                 //gratingSpacing = 0.008855;           /// DP = 0.000234375
                 gratingSpacing = 0.008855;           /// DP = 0.00046875
@@ -450,9 +450,9 @@ struct Particle
                 //if (X.y < 0.150111)                            /// DP = 0.000234375
                 if (X.y < 0.15)                            /// DP = 0.00046875
                     continue;
-            }
+            }*/
 
-            /*if(particle[i].id == 12 || particle[i].id == 13)
+            if(particle[i].id == 12 || particle[i].id == 13)
             {
                 gratingSpacing = 0.00889;
                 int nGrating = std::round((X.x-firstGratingX)/gratingSpacing);
@@ -478,7 +478,7 @@ struct Particle
 
                 if (X.x >= 0.805)
                     continue;
-            }*/
+            }
 
             fprintf (mps_grid, "\n%d %9.10lf %9.10lf %9.10lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, 0.0);
         }
