@@ -19,90 +19,63 @@ int Particle::ioside (double DP, double geometry[])
     Point Z (0,0,1);
 
     //////////////////////////////////////////
-    //// Moonpool sloshing
+    //// Pool weir fishway
     //// Variaveis (double, Point, etc..)
-    double cylinderLength = 0.1;
-    double cylinderWidth = 1.0*cylinderLength;
-    double cylinderDepth = 3.0*cylinderLength + 0.5*cylinderLength;
-    double cylinderPosition = 10.0*cylinderLength;
-    double waterDepth = 9.0*cylinderLength;
-    double waterLength = 30.0*cylinderLength;
-    double tankLength = 30.0*cylinderLength;
-    double tankHeight = waterDepth + 2.0*cylinderLength;
+    double waterDepth = 0.23;
+    double tankLength = 3.8;
+    double tankHeight = 0.3;
+    double weirHeight = 0.14;
+    double weirWidth;
+    double weirSpacing;
+    double firstWeirPosition;
+    double beachStart;
+    double beachSlope = 1000.0;
+    double beachLength = 1.0;
+    double beachEnd;
 
-    int nFluid = 149;
+    if(DP > 0.005)
+        weirSpacing = 0.33;
+    else
+        weirSpacing = 0.335;
+
+    if(6*DP > 0.01)
+        weirWidth = 6*DP;
+    else
+        weirWidth = 0.01;    
+    
+    firstWeirPosition = 1.0+weirSpacing-weirWidth/2.0;
+    beachStart = firstWeirPosition+6.0*weirSpacing;
+    beachEnd = beachStart+beachLength;
 
     /// Points
-    Point tankCorner(0.0,0.0,-4*DP);
-    Point cylinderCenter(cylinderPosition,waterDepth-cylinderDepth,0.0);
-    Point correction1Corner(0.0,waterDepth+0.0*DP,0.0);
-    Point correction2Corner(0.0,waterDepth+1.0*DP,0.0);
-    Point correction3Corner(0.0,waterDepth+2.0*DP,0.0);
-    Point correction4Corner(0.0,waterDepth+3.0*DP,0.0);
-    Point correction5Corner(0.0,waterDepth+4.0*DP,0.0);
+    Point Ref(0, 0, 1);
+    Point WP0(firstWeirPosition+0.0*weirSpacing, 0.0, -4*DP);
+    Point WP1(firstWeirPosition+1.0*weirSpacing, 0.0, -4*DP);
+    Point WP2(firstWeirPosition+2.0*weirSpacing, 0.0, -4*DP);
+    Point WP3(firstWeirPosition+3.0*weirSpacing, 0.0, -4*DP);
+    Point WP4(firstWeirPosition+4.0*weirSpacing, 0.0, -4*DP);
+    Point WP5(firstWeirPosition+5.0*weirSpacing, 0.0, -4*DP);
 
-    ///Regiões (Region)
-    Region water = P.rectangleXY(waterLength,waterDepth,DP); 
-    Region tank = P.transformation(tankCorner).rectangleXY(tankLength,tankHeight,8*DP);
-    Region cylinder = P.transformation(cylinderCenter).rectangleXYCenter(cylinderWidth,cylinderLength,8*DP);
-    Region correction1, correction2, correction3, correction4, correction5;
-    if(tankLength/DP > nFluid)
-    {
-        correction1 = P.transformation(correction1Corner).rectangleXY(nFluid*DP,DP,DP);
-        correction2 = P.transformation(correction2Corner).rectangleXY(0*DP,DP,DP);
-        correction3 = P.transformation(correction3Corner).rectangleXY(0*DP,DP,DP);
-        correction4 = P.transformation(correction4Corner).rectangleXY(0*DP,DP,DP);
-        correction5 = P.transformation(correction5Corner).rectangleXY(0*DP,DP,DP);
-    }
-    else if(2.0*tankLength/DP > nFluid)
-    {
-       correction1 = P.transformation(correction1Corner).rectangleXY(int(tankLength/DP)*DP,DP,DP); 
-       correction2 = P.transformation(correction2Corner).rectangleXY((nFluid-int(tankLength/DP))*DP,DP,DP); 
-       correction3 = P.transformation(correction3Corner).rectangleXY(0*DP,DP,DP);
-       correction4 = P.transformation(correction4Corner).rectangleXY(0*DP,DP,DP);
-       correction5 = P.transformation(correction5Corner).rectangleXY(0*DP,DP,DP);
-    }
-    else if(3.0*tankLength/DP > nFluid)
-    {
-       correction1 = P.transformation(correction1Corner).rectangleXY(int(tankLength/DP)*DP,DP,DP); 
-       correction2 = P.transformation(correction2Corner).rectangleXY(int(tankLength/DP)*DP,DP,DP); 
-       correction3 = P.transformation(correction3Corner).rectangleXY((nFluid-int(2.0*tankLength/DP))*DP,DP,DP);
-       correction4 = P.transformation(correction4Corner).rectangleXY(0*DP,DP,DP);
-       correction5 = P.transformation(correction5Corner).rectangleXY(0*DP,DP,DP);
-    }
-    else if(4.0*tankLength/DP > nFluid)
-    {
-       correction1 = P.transformation(correction1Corner).rectangleXY(int(tankLength/DP)*DP,DP,DP); 
-       correction2 = P.transformation(correction2Corner).rectangleXY(int(tankLength/DP)*DP,DP,DP); 
-       correction3 = P.transformation(correction3Corner).rectangleXY(int(tankLength/DP)*DP,DP,DP);
-       correction4 = P.transformation(correction4Corner).rectangleXY((nFluid-int(3.0*tankLength/DP))*DP,DP,DP);
-       correction5 = P.transformation(correction5Corner).rectangleXY(0*DP,DP,DP);
-    }
-    else
-    {
-       correction1 = P.transformation(correction1Corner).rectangleXY(int(tankLength/DP)*DP,DP,DP); 
-       correction2 = P.transformation(correction2Corner).rectangleXY(int(tankLength/DP)*DP,DP,DP); 
-       correction3 = P.transformation(correction3Corner).rectangleXY(int(tankLength/DP)*DP,DP,DP);
-       correction4 = P.transformation(correction4Corner).rectangleXY(int(tankLength/DP)*DP,DP,DP);
-       correction5 = P.transformation(correction5Corner).rectangleXY((nFluid-int(4.0*tankLength/DP))*DP,DP,DP);
-    }
+    ///Regioes (Region)
+    Region water = P.rectangleXY(tankLength,waterDepth,DP); 
+    Region tank = P.rectangleXY(tankLength,tankHeight,8*DP);
+    Region weir0 = P.transformation(WP0).rectangleXY(weirWidth,weirHeight,8*DP);
+    Region weir1 = P.transformation(WP1).rectangleXY(weirWidth,weirHeight,8*DP);
+    Region weir2 = P.transformation(WP2).rectangleXY(weirWidth,weirHeight,8*DP);
+    Region weir3 = P.transformation(WP3).rectangleXY(weirWidth,weirHeight,8*DP);
+    Region weir4 = P.transformation(WP4).rectangleXY(weirWidth,weirHeight,8*DP);
+    Region weir5 = P.transformation(WP5).rectangleXY(weirWidth,weirHeight,8*DP);
 
-    ///Operações
+    ///Operacoes
     if(tank)
     {
-        if(cylinder)
-            return 4;
-        //if((x-cylinderPosition)*(x-cylinderPosition)+(y-waterDepth+cylinderDepth)*(y-waterDepth+cylinderDepth) < (cylinderRadius+DP)*(cylinderRadius+DP))
-            //return -1;
-        if(water)
+        if(water && !(weir0) && !(weir1) && !(weir2) && !(weir3) && !(weir4) && !(weir5) && !(-beachSlope*x + y + beachSlope*beachStart < 0.0 && y < weirHeight))
             return 0;
-        //if(correction1 || correction2 || correction3 || correction4 || correction5)
-            //return 0;
-        else
+        else if(!(weir0) && !(weir1) && !(weir2) && !(weir3) && !(weir4) && !(weir5) && !(-beachSlope*x + y + beachSlope*beachStart < 0.0 && y < weirHeight))
             return -1;
     }  
 
-    ///Return padrão (constrói a parede externa)
+    ///Return padrao (constroi a parede externa)
     // DO NOT CHANGE HERE !!!
     return 2; // External wall
 }

@@ -230,65 +230,7 @@ struct Particle
 
     void print_Paraview_2D (FILE *paraview_xyz, long cont, Particle particle[], double DP, double geometry[], int numgeometry, int decimal)
     {
-        /*double cylinderRadius = 0.08;
-        double cylinderCenterX = 40.0*cylinderRadius;
-        double cylinderCenterY = 13.0*cylinderRadius;
-
-        int nPartWall = int(round(2*PI*cylinderRadius/DP));
-        int nPartDummy1 = int(round(2*PI*(cylinderRadius-DP)/DP));
-        int nPartDummy2 = int(round(2*PI*(cylinderRadius-2*DP)/DP));
-        long newCont = cont + nPartWall + nPartDummy1 + nPartDummy2;*/
-
         fprintf (paraview_xyz, "%ld\n", cont);
-        /*fprintf (paraview_xyz, "%ld\n", newCont);
-
-        for (int i = 0; i < numgeometry; i++)
-            fprintf (paraview_xyz, "geometry[%d] = %9lf   ", i, geometry[i]);
-
-        double angle = PI;
-        double dAngleWall = 2*PI/(double)nPartWall;
-        double dAngleDummy1 = 2*PI/(double)nPartDummy1;
-        double dAngleDummy2 = 2*PI/(double)nPartDummy2;
-
-        for (long i = 0; i < nPartWall; i++)
-        {
-            int idWall = 4;
-            double Px = cylinderCenterX+cos(angle)*cylinderRadius;
-            double Py = cylinderCenterY+sin(angle)*cylinderRadius;
-            double Pz = 0.0;
-
-            angle = angle + dAngleWall;
-
-            fprintf (paraview_xyz, "\n%d %9.9lf %9.9lf %9.9lf", idWall, Px, Py, Pz);
-        }
-
-        angle = PI;
-
-        for (long i = 0; i < nPartDummy1; i++)
-        {
-            int idDummy = 5;
-            double Px = cylinderCenterX+cos(angle)*(cylinderRadius-DP);
-            double Py = cylinderCenterY+sin(angle)*(cylinderRadius-DP);
-            double Pz = 0.0;
-
-            angle = angle + dAngleDummy1;
-
-            fprintf (paraview_xyz, "\n%d %9.9lf %9.9lf %9.9lf", idDummy, Px, Py, Pz);
-        }
-
-        angle = PI;
-
-        for (long i = 0; i < nPartDummy2; i++)
-        {
-            int idDummy = 5;
-            double Px = cylinderCenterX+cos(angle)*(cylinderRadius-2*DP);
-            double Py = cylinderCenterY+sin(angle)*(cylinderRadius-2*DP);
-            double Pz = 0.0;
-
-            angle = angle + dAngleDummy2;
-
-            fprintf (paraview_xyz, "\n%d %9.9lf %9.9lf %9.9lf", idDummy, Px, Py, Pz);
-        }*/
 
         for (long i = 0; i < cont; i++)
         {
@@ -359,62 +301,7 @@ struct Particle
 
     void print_MPS_2D (FILE *mps_grid, long cont, Particle particle[], double DP, int decimal)
     {
-        /*double cylinderRadius = 0.08;
-        double cylinderCenterX = 40.0*cylinderRadius;
-        double cylinderCenterY = 13.0*cylinderRadius;
-
-        int nPartWall = int(round(2*PI*cylinderRadius/DP));
-        int nPartDummy1 = int(round(2*PI*(cylinderRadius-DP)/DP));
-        int nPartDummy2 = int(round(2*PI*(cylinderRadius-2*DP)/DP));
-        long newCont = cont + nPartWall + nPartDummy1 + nPartDummy2;*/
-
         fprintf (mps_grid, "%d\n%ld", 0, cont);
-        /*fprintf (mps_grid, "%d\n%ld", 0, newCont);
-
-        double angle = PI;
-        double dAngleWall = 2*PI/(double)nPartWall;
-        double dAngleDummy1 = 2*PI/(double)nPartDummy1;
-        double dAngleDummy2 = 2*PI/(double)nPartDummy2;
-
-        for (long i = 0; i < nPartWall; i++)
-        {
-            int idWall = 4;
-            double Px = cylinderCenterX+cos(angle)*cylinderRadius;
-            double Py = cylinderCenterY+sin(angle)*cylinderRadius;
-            double Pz = 0.0;
-
-            angle = angle + dAngleWall;
-
-            fprintf (mps_grid, "\n%d %9.9lf %9.9lf %9.9lf      0.0      0.0      0.0      0.0      0.0", idWall, Px, Py, Pz);
-        }
-
-        angle = PI;
-
-        for (long i = 0; i < nPartDummy1; i++)
-        {
-            int idDummy = 5;
-            double Px = cylinderCenterX+cos(angle)*(cylinderRadius-DP);
-            double Py = cylinderCenterY+sin(angle)*(cylinderRadius-DP);
-            double Pz = 0.0;
-
-            angle = angle + dAngleDummy1;
-
-            fprintf (mps_grid, "\n%d %9.9lf %9.9lf %9.9lf      0.0      0.0      0.0      0.0      0.0", idDummy, Px, Py, Pz);
-        }
-
-        angle = PI;
-
-        for (long i = 0; i < nPartDummy2; i++)
-        {
-            int idDummy = 5;
-            double Px = cylinderCenterX+cos(angle)*(cylinderRadius-2*DP);
-            double Py = cylinderCenterY+sin(angle)*(cylinderRadius-2*DP);
-            double Pz = 0.0;
-
-            angle = angle + dAngleDummy2;
-
-            fprintf (mps_grid, "\n%d %9.9lf %9.9lf %9.9lf      0.0      0.0      0.0      0.0      0.0", idDummy, Px, Py, Pz);
-        }*/
 
         for (long i = 0; i < cont; i++)
         {
@@ -882,12 +769,6 @@ struct Particle
 
     void print_alt (FILE *alt, long cont, Particle particle[], double DP)
     {
-        /*double cylinderRadius = 0.08;
-        int nPartWall = int(round(2*PI*cylinderRadius/DP));
-        int nPartDummy1 = int(round(2*PI*(cylinderRadius-DP)/DP));
-        int nPartDummy2 = int(round(2*PI*(cylinderRadius-2*DP)/DP));
-        long newCont = nPartWall + nPartDummy1 + nPartDummy2;*/
-
         long newCont = 0;
 
         for (long i = 0; i < cont; i++)

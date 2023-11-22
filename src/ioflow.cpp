@@ -18,19 +18,23 @@ int Particle::ioflow (double DP, double geometry[])
     Point Z (0,0,1);
 
     //////////////////////////////////////////
-    //// Moonpool sloshing
+    //// Pool weir fishway
     //// Variaveis (double, Point, etc..)
-    double cylinderLength = 0.1;
-    double waterDepth = 9.0*cylinderLength;
-    double tankLength = 30.0*cylinderLength;
-    double tankHeight = waterDepth + 2.0*cylinderLength;
+    double waterDepth = 0.23;
+    double tankLength = 3.8;
+    double tankHeight = 0.3;
 
     /// Points
 
-    ///Regiões (Region)
+    ///Regioes (Region)
 
-    ///Operações
+    ///Operacoes
     if(x<0.0 && y>0.0 && y<waterDepth && z>=0.0 && z<DP && (id==2 || id==3))
+    {
+        return id+2;
+    }
+
+    if(x<0.0 && y>waterDepth && y<tankHeight && z>=0.0 && z<DP && (id==2 || id==3))
     {
         return id+4;
     }
@@ -55,7 +59,7 @@ int Particle::ioflow (double DP, double geometry[])
         return -1;
     }
 
-    ///Return padrão (caso nenhuma operação seja feita)
+    ///Return padrao (caso nenhuma operacao seja feita)
     return id;
 
 }
