@@ -231,8 +231,8 @@ struct Particle
     void print_Paraview_2D (FILE *paraview_xyz, long cont, Particle particle[], double DP, double geometry[], int numgeometry, int decimal)
     {
         double cylinderRadius = 0.08;
-        double cylinderCenterX = 10.0*cylinderRadius;
-        double cylinderCenterY = 27.0*cylinderRadius;
+        double cylinderCenterX = 20.0*cylinderRadius;
+        double cylinderCenterY = 13.0*cylinderRadius;
 
         int nPartWall = int(round(2*PI*cylinderRadius/DP));
         int nPartDummy1 = int(round(2*PI*(cylinderRadius-DP)/DP));
@@ -360,8 +360,8 @@ struct Particle
     void print_MPS_2D (FILE *mps_grid, long cont, Particle particle[], double DP, int decimal)
     {
         double cylinderRadius = 0.08;
-        double cylinderCenterX = 10.0*cylinderRadius;
-        double cylinderCenterY = 27.0*cylinderRadius;
+        double cylinderCenterX = 20.0*cylinderRadius;
+        double cylinderCenterY = 13.0*cylinderRadius;
 
         int nPartWall = int(round(2*PI*cylinderRadius/DP));
         int nPartDummy1 = int(round(2*PI*(cylinderRadius-DP)/DP));

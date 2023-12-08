@@ -23,22 +23,22 @@ int Particle::ioside (double DP, double geometry[])
     //// Variaveis (double, Point, etc..)
     double cylinderRadius = 0.08;
     double cylinderDepth = 3.0*cylinderRadius;
-    double cylinderPosition = 10.0*cylinderRadius;
-    double waterDepth = 30.0*cylinderRadius;
-    double waterLength = 30.0*cylinderRadius;
-    double tankLength = 30.0*cylinderRadius;
+    double cylinderPosition = 20.0*cylinderRadius;
+    double waterDepth = 16.0*cylinderRadius;
+    double waterLength = 60.0*cylinderRadius;
+    double tankLength = 60.0*cylinderRadius;
     double tankHeight = waterDepth + 2.0*cylinderRadius;
 
     /// Points
     Point tankCorner(0.0,0.0,-4*DP);
     Point cylinderCenter(cylinderPosition,waterDepth-cylinderDepth,-4*DP);
 
-    ///Regiões (Region)
+    ///Regiï¿½es (Region)
     Region water = P.rectangleXY(waterLength,waterDepth,DP); 
     Region tank = P.transformation(tankCorner).rectangleXY(tankLength,tankHeight,8*DP);
     Region cylinder = P.transformation(cylinderCenter).cylinder(cylinderRadius,8*DP);
 
-    ///Operações
+    ///Operaï¿½ï¿½es
     if(tank)
     {
         //if(cylinder)
@@ -51,7 +51,7 @@ int Particle::ioside (double DP, double geometry[])
             return -1;
     }  
 
-    ///Return padrão (constrói a parede externa)
+    ///Return padrï¿½o (constrï¿½i a parede externa)
     // DO NOT CHANGE HERE !!!
     return 2; // External wall
 }
