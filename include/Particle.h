@@ -237,8 +237,9 @@ struct Particle
         double h2 = 0.150;
         double gratingSpacing;
         double gratingWidth = 6*DP;
-        //double gratingLength = 26*DP;               /// DP = 0.000234375
-        double gratingLength = 14*DP;               /// DP = 0.00046875      
+        //double gratingLength = 26*DP;                     /// DP = 0.000234375
+        //double gratingLength = 14*DP;                     /// DP = 0.00046875   
+        double gratingLength = 65*DP;
         double firstGratingHeight = h2 + fgh + gratingWidth/2;
         double centerX, centerY;
         double deltaX, deltaY;
@@ -302,8 +303,8 @@ struct Particle
                 int nGrating = std::round((X.x-firstGratingX)/gratingSpacing);
                 centerX = firstGratingX+nGrating*gratingSpacing;
                 centerY = h2-gratingLength/2;
-                deltaX = 0.004897625;       /// 26*DP: 0.008046625, 39*DP: 0.004897625
-                deltaY = 0.0005;
+                deltaX = 0.004814625;               /// 26*DP: 0.008046625, 39*DP: 0.00696925, 52*DP: 0.005891625, 65*DP: 0.004814625
+                deltaY = 0.001837;                  /// 26*DP: 0.0005, 39*DP: 0.000945, 52*DP: 0.001391, 65*DP: 0.001837
 
                 // translate point back to origin:
                 auxX = X.x - centerX;
@@ -398,8 +399,9 @@ struct Particle
         double h2 = 0.150;
         double gratingSpacing;
         double gratingWidth = 6*DP;
-        //double gratingLength = 26*DP;               /// DP = 0.000234375
-        double gratingLength = 14*DP;               /// DP = 0.00046875      
+        //double gratingLength = 26*DP;                     /// DP = 0.000234375
+        //double gratingLength = 14*DP;                     /// DP = 0.00046875   
+        double gratingLength = 65*DP;     
         double firstGratingHeight = h2 + fgh + gratingWidth/2;
         double centerX, centerY;
         double deltaX, deltaY;
@@ -458,8 +460,8 @@ struct Particle
                 int nGrating = std::round((X.x-firstGratingX)/gratingSpacing);
                 centerX = firstGratingX+nGrating*gratingSpacing;
                 centerY = h2-gratingLength/2;
-                deltaX = 0.008046625;   
-                deltaY = 0.0005;
+                deltaX = 0.004814625;               /// 26*DP: 0.008046625, 39*DP: 0.00696925, 52*DP: 0.005891625, 65*DP: 0.004814625
+                deltaY = 0.001837;                  /// 26*DP: 0.0005, 39*DP: 0.000945, 52*DP: 0.001391, 65*DP: 0.001837
 
                 // translate point back to origin:
                 auxX = X.x - centerX;

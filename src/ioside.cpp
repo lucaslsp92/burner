@@ -35,7 +35,7 @@ int Particle::ioside (double DP, double geometry[])
     double b0 = 0.180;    
     double a0 = 0.150;
     double gratingWidth = 6*DP;
-    double gratingLength = 39*DP;               /// DP = 0.000234375 --> 26*DP, 39*DP
+    double gratingLength = 65*DP;               /// DP = 0.000234375 --> 26*DP, 39*DP, 52*DP, 65*DP
     //double gratingLength = 14*DP;               /// DP = 0.00046875
     double gratingSpacing = 0.008855;           /// DP = 0.000234375
     //double gratingSpacing = 0.008855;           /// DP = 0.00046875
