@@ -33,11 +33,11 @@ int Particle::ioflow (double DP, double geometry[])
 
     /// Points
 
-    ///Regiões (Region)
+    ///Regiï¿½es (Region)
 
-    ///Operações
+    ///Operaï¿½ï¿½es
 
-    ///Return padrão (caso nenhuma operação seja feita)
+    ///Return padrï¿½o (caso nenhuma operaï¿½ï¿½o seja feita)
     if (y > h)
     {
         return -1;

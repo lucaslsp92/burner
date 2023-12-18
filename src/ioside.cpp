@@ -67,7 +67,7 @@ int Particle::ioside (double DP, double geometry[])
     Point VS(l0+l1+gratingWidth/2,h2+lb/2,0);
     Point HS(l0+l1-lb/2,h2-gratingWidth/2,0);
     
-    ///Regiões (Region)
+    ///Regiï¿½es (Region)
     Region tank = P.transformation(TNK).rectangleXY(l,h,10*DP);
     Region water0 = P.rectangleXY(l0,h0,DP);
     Region water1 = P.rectangleXY(l0+l1,h1,DP);
@@ -93,7 +93,7 @@ int Particle::ioside (double DP, double geometry[])
     Region verticalShield = P.transformation(VS).rectangleXYCenter(gratingWidth,lb,10*DP);
     Region horizontalShield = P.transformation(HS).rectangleXYCenter(lb,gratingWidth,10*DP);
 
-    ///Operações
+    ///Operaï¿½ï¿½es
     if(tank && !(ship))
     {
         if (water0 || water1)
@@ -110,7 +110,7 @@ int Particle::ioside (double DP, double geometry[])
             return -1;
     }
 
-    ///Return padrão (constrói a parede externa)
+    ///Return padrï¿½o (constrï¿½i a parede externa)
     // DO NOT CHANGE HERE !!!
     return 2; // External wall
 }
