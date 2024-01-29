@@ -25,9 +25,9 @@ int Particle::ioflow (double DP, double geometry[])
 
     /// Points
 
-    ///Regiões (Region)
+    ///Regiï¿½es (Region)
 
-    ///Operações
+    ///Operaï¿½ï¿½es
     if(y>tankHeight-waterDepth && (id==2 || id==3))
     {
         return -1;
@@ -38,12 +38,17 @@ int Particle::ioflow (double DP, double geometry[])
         return -1;
     }
 
-    if(x > 1*DP && x < 3*DP && y > -0.06-DP && y < -0.06+DP && z > 0.0 && z <= DP && (id==4 || id==6))
+    if(x < -4.30 || x > 4.30 )
     {
-        return id+1;
+        return -1;
     }
 
-    ///Return padrão (caso nenhuma operação seja feita)
+    /*if(x > 1*DP && x < 3*DP && y > -0.06-DP && y < -0.06+DP && z > 0.0 && z <= DP && (id==4 || id==6))
+    {
+        return id+1;
+    }*/
+
+    ///Return padrï¿½o (caso nenhuma operaï¿½ï¿½o seja feita)
     return id;
 
 }

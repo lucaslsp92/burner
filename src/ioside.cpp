@@ -22,16 +22,16 @@ int Particle::ioside (double DP, double geometry[])
     //// Moonpool sloshing
     //// Variaveis (double, Point, etc..)
     double waterDepth = 1.00;
-    double waterLength = 2.2;
+    double waterLength = 1.2;
     double tankHeight = 1.3;
-    double tankLength = 2.2;
+    double tankLength = 1.2;
     double draft = 0.11;
     double vesselLength = 0.40;
     double vesselHeight = 0.40;
     double moonpoolLength = 0.20;
     double recessLength = 0.10;
     double recessHeight = 0.05;
-    double beachRatio = 2.5;
+    double beachRatio = 3.5;
     double beachAngle = atan(1.0/beachRatio)*180/M_PI;
     double beachLength = 2.0*sqrt((waterDepth*waterDepth)+(beachRatio*waterDepth*beachRatio*waterDepth));
     double hs = 0.02;
@@ -48,7 +48,7 @@ int Particle::ioside (double DP, double geometry[])
     Point leftBaffleVertex(-recessLength,recessHeight-draft,-4*DP);
     Point rightBaffleVertex(0.0,recessHeight-draft,-4*DP);
 
-    ///Regiões (Region)
+    ///Regiï¿½es (Region)
     Region tank = P.transformation(tankVertex).rectangleXY(tankLength,tankHeight,8*DP);
     Region water = P.transformation(waterVertex).rectangleXY(waterLength,waterDepth,DP);
     Region leftVessel = P.transformation(leftVesselVertex).rectangleXY(vesselLength,vesselHeight,8*DP);
@@ -60,25 +60,25 @@ int Particle::ioside (double DP, double geometry[])
     Region leftBaffle = P.transformation(leftBaffleVertex).rectangleXY(recessLength+4*DP,hs,8*DP);
     Region rightBaffle = P.transformation(rightBaffleVertex).rectangleXY(recessLength,hs,8*DP);
 
-    ///Operações
-    if(leftBaffle && rightBaffle)
+    ///Operaï¿½ï¿½es
+    /*if(leftBaffle && rightBaffle)
     {
         return 6;
-    }
+    }*/
     if(leftVessel || rigthVessel || (recess /*&& y-hs*x/0.1+0.06+hs<0.0*/))
     {
         return 4;
     }
-    if(water /*|| (beachWater && leftBeach) || (beachWater && rightBeach)*/)
+    if(water || (beachWater && leftBeach) || (beachWater && rightBeach))
     {
         return 0;
     }
-    if(tank /*|| leftBeach || rightBeach*/)
+    if(tank || leftBeach || rightBeach)
     {
         return -1;
     }    
 
-    ///Return padrão (constrói a parede externa)
+    ///Return padrï¿½o (constrï¿½i a parede externa)
     // DO NOT CHANGE HERE !!!
     return 2; // External wall
 }
