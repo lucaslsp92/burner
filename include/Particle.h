@@ -238,6 +238,7 @@ struct Particle
         for (long i = 0; i < cont; i++)
         {
             Point X (particle[i].r , DP);
+            X.x += DP/4.0; X.y += DP/2.0; X.z = 0.0; // X.z += DP/2.0;
             if (decimal == 2)
                 fprintf (paraview_xyz, "\n%d %9.2lf %9.2lf %9.2lf", particle[i].id, X.x, X.y, X.z);
             else if (decimal == 3)
@@ -313,6 +314,7 @@ struct Particle
         for (long i = 0; i < cont; i++)
         {
             Point X (particle[i].r , DP);
+            X.x += DP/4.0; X.y += DP/2.0; X.z = 0.0; // X.z += DP/2.0;
             if (decimal == 2)
                 fprintf (mps_grid, "\n%d %9.2lf %9.2lf %9.2lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, X.z);
             else if (decimal == 3)
