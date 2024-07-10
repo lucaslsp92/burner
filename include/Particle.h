@@ -250,10 +250,8 @@ struct Particle
         double rotX, rotY;
         double firstGratingX = l0 + l1 - fgh - gratingWidth/2;
         
-
         fprintf (paraview_xyz, "%ld\n", cont-erase);
         //fprintf (paraview_xyz, "%ld\n", cont);
-
 
         for (int i = 0; i < numgeometry; i++)
             fprintf (paraview_xyz, "geometry[%d] = %9lf   ", i, geometry[i]);
@@ -262,17 +260,19 @@ struct Particle
         {
             Point X (particle[i].r , DP);
 
-            /*if(particle[i].id == 12 || particle[i].id == 13)
+            if(particle[i].id == 12 || particle[i].id == 13)
             {
-                //gratingSpacing = 0.008855;           /// DP = 0.000234375
-                gratingSpacing = 0.008855;           /// DP = 0.00046875
+                gratingSpacing = 0.008855;           /// DP = 0.000234375
+                //gratingSpacing = 0.008855;           /// DP = 0.00046875
                 int nGrating = std::round((X.y-firstGratingHeight)/gratingSpacing);
                 centerX = l0+l1+gratingLength/2;
                 centerY = firstGratingHeight+nGrating*gratingSpacing;
                 //deltaX = 0.000477;                          /// DP = 0.000234375
                 //deltaY = 0.007912625;                       /// DP = 0.000234375
-                deltaX = 0.000165000;                       /// DP = 0.00046875
-                deltaY = 0.008664250;                       /// DP = 0.00046875
+                //deltaX = 0.000165000;                       /// DP = 0.00046875
+                //deltaY = 0.008664250;                       /// DP = 0.00046875
+                deltaX = 0.001815;      /// 26*DP: 0.000477000, 39*DP: 0.000923000, 52*DP: 0.001369000, 65*DP: 0.001815000
+                deltaY = 0.004681625;   /// 26*DP: 0.007912625, 39*DP: 0.006835625, 52*DP: 0.005758625, 65*DP: 0.004681625
 
                 //deltaX = 0.0;                       /// DP = 0.00046875
                 //deltaY = 0.0;                       /// DP = 0.00046875
@@ -292,12 +292,12 @@ struct Particle
                 X.x = X.x - deltaX;
                 X.y = X.y - deltaY;
 
-                //if (X.y < 0.150111)                            /// DP = 0.000234375
-                if (X.y < 0.15)                            /// DP = 0.00046875
+                if (X.y < 0.150111)                            /// DP = 0.000234375
+                //if (X.y < 0.15)                            /// DP = 0.00046875
                     continue;
-            }*/
+            }
 
-            if(particle[i].id == 12 || particle[i].id == 13)
+            /*if(particle[i].id == 12 || particle[i].id == 13)
             {
                 gratingSpacing = 0.00889;
                 int nGrating = std::round((X.x-firstGratingX)/gratingSpacing);
@@ -323,7 +323,7 @@ struct Particle
 
                 if (X.x >= 0.805)
                     continue;
-            }
+            }*/
 
             if (decimal == 2)
                 fprintf (paraview_xyz, "\n%d %9.2lf %9.2lf %9.2lf", particle[i].id, X.x, X.y, 0.0);
@@ -419,17 +419,19 @@ struct Particle
         {
             Point X (particle[i].r , DP);
 
-            /*if(particle[i].id == 12 || particle[i].id == 13)
+            if(particle[i].id == 12 || particle[i].id == 13)
             {
-                //gratingSpacing = 0.008855;           /// DP = 0.000234375
-                gratingSpacing = 0.008855;           /// DP = 0.00046875
+                gratingSpacing = 0.008855;           /// DP = 0.000234375
+                //gratingSpacing = 0.008855;           /// DP = 0.00046875
                 int nGrating = std::round((X.y-firstGratingHeight)/gratingSpacing);
                 centerX = l0+l1+gratingLength/2;
                 centerY = firstGratingHeight+nGrating*gratingSpacing;
                 //deltaX = 0.000477;                          /// DP = 0.000234375
                 //deltaY = 0.007912625;                       /// DP = 0.000234375
-                deltaX = 0.000165000;                       /// DP = 0.00046875
-                deltaY = 0.008664250;                       /// DP = 0.00046875
+                //deltaX = 0.000165000;                       /// DP = 0.00046875
+                //deltaY = 0.008664250;                       /// DP = 0.00046875
+                deltaX = 0.001815;      /// 26*DP: 0.000477000, 39*DP: 0.000923000, 52*DP: 0.001369000, 65*DP: 0.001815000
+                deltaY = 0.004681625;   /// 26*DP: 0.007912625, 39*DP: 0.006835625, 52*DP: 0.005758625, 65*DP: 0.004681625
 
                 //deltaX = 0.0;                       /// DP = 0.00046875
                 //deltaY = 0.0;                       /// DP = 0.00046875
@@ -449,12 +451,12 @@ struct Particle
                 X.x = X.x - deltaX;
                 X.y = X.y - deltaY;
 
-                //if (X.y < 0.150111)                            /// DP = 0.000234375
-                if (X.y < 0.15)                            /// DP = 0.00046875
+                if (X.y < 0.150111)                            /// DP = 0.000234375
+                //if (X.y < 0.15)                            /// DP = 0.00046875
                     continue;
-            }*/
+            }
 
-            if(particle[i].id == 12 || particle[i].id == 13)
+            /*if(particle[i].id == 12 || particle[i].id == 13)
             {
                 gratingSpacing = 0.00889;
                 int nGrating = std::round((X.x-firstGratingX)/gratingSpacing);
@@ -480,7 +482,7 @@ struct Particle
 
                 if (X.x >= 0.805)
                     continue;
-            }
+            }*/
 
             fprintf (mps_grid, "\n%d %9.10lf %9.10lf %9.10lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, 0.0);
         }
