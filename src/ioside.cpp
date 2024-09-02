@@ -29,7 +29,7 @@ int Particle::ioside (double DP, double geometry[])
     double vesselLength = 0.40;
     double vesselHeight = 0.40;
     double moonpoolLength = 0.20;
-    double recessLength = 0.10;
+    double recessLength = 0.05;
     double recessHeight = 0.05;
     double beachRatio = 3.5;
     double beachAngle = atan(1.0/beachRatio)*180/M_PI;
@@ -41,7 +41,7 @@ int Particle::ioside (double DP, double geometry[])
     Point waterVertex(-waterLength/2,-waterDepth,0);
     Point leftVesselVertex(-vesselLength-moonpoolLength/2,-draft,-4*DP);
     Point rigthVesselVertex(moonpoolLength/2,-draft,-4*DP);
-    Point recessVertex(0,-draft,-4*DP);
+    Point recessVertex(0.05,-draft,-4*DP);
     Point leftBeachVertex(-waterLength/2,-waterDepth,-4*DP);
     Point rightBeachVertex(waterLength/2,-waterDepth,-4*DP);
     Point beachWaterVertex(-waterLength/2-beachRatio*waterDepth,-waterDepth,0);

@@ -800,7 +800,7 @@ struct Particle
                 fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" z=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.x, X.y, X.z);
 
             if (particle[i].id == 4 && 
-                X.x >= 0.0-0.0*DP && X.x < 0.0+1.0*DP &&
+                X.x >= 0.05-0.0*DP && X.x < 0.05+1.0*DP &&
                 X.y >= -0.0825-0.5*DP && X.y < -0.0825+0.5*DP &&
                 X.z >= 0.0-0.0*DP && X.z < 0.0+1.0*DP)
                 fprintf (alt, "\n<condition id=\"%ld\" mat=\"%d\" x=\"%.4f\" y=\"%.4f\" z=\"%.4f\" rz=\"0\" ry=\"0\" rx=\"0\" />", i, particle[i].id, X.x, X.y, X.z);
