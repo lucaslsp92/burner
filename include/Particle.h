@@ -106,9 +106,9 @@ struct Particle
                                 contParticles ++;
                             }
                         } else {
-                            for (int I = R[0]+CELLBORDER-3; I <= R[0]+CELLBORDER+3 && flag == 0; I++)
-                                for (int J = R[1]+CELLBORDER-3; J <= R[1]+CELLBORDER+3 && flag == 0; J++)
-                                    for (int K = R[2]+CELLBORDER-3; K <= R[2]+CELLBORDER+3 && flag == 0; K++)
+                            for (int I = R[0]+CELLBORDER-4; I <= R[0]+CELLBORDER+4 && flag == 0; I++)
+                                for (int J = R[1]+CELLBORDER-4; J <= R[1]+CELLBORDER+4 && flag == 0; J++)
+                                    for (int K = R[2]+CELLBORDER-4; K <= R[2]+CELLBORDER+4 && flag == 0; K++)
                                         if (Matrix[I][J][K] != Matrix[R[0]+CELLBORDER][R[1]+CELLBORDER][R[2]+CELLBORDER])
                                             flag = 1;
 
@@ -238,7 +238,7 @@ struct Particle
         for (long i = 0; i < cont; i++)
         {
             Point X (particle[i].r , DP);
-            X.x += DP/4.0; X.y += DP/2.0; X.z = 0.0; // X.z += DP/2.0;
+            X.x += 0.0; X.y += DP/2.0; X.z = 0.0;
             if (decimal == 2)
                 fprintf (paraview_xyz, "\n%d %9.2lf %9.2lf %9.2lf", particle[i].id, X.x, X.y, X.z);
             else if (decimal == 3)
@@ -314,7 +314,7 @@ struct Particle
         for (long i = 0; i < cont; i++)
         {
             Point X (particle[i].r , DP);
-            X.x += DP/4.0; X.y += DP/2.0; X.z = 0.0; // X.z += DP/2.0;
+            X.x += 0.0; X.y += DP/2.0; X.z = 0.0;
             if (decimal == 2)
                 fprintf (mps_grid, "\n%d %9.2lf %9.2lf %9.2lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, X.z);
             else if (decimal == 3)

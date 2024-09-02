@@ -17,23 +17,16 @@ int Particle::ioflow (double DP, double geometry[])
     Point Y (0,1,0);
     Point Z (0,0,1);
 
-    //////////////////////////////////////////
-    //// Hydrostatic tank 3D
-    ///Variaveis (double, Point, etc..)
-    double H = 3.0;         // water column
-    double L = 6.0;         // tank length
+    double H = 0.5;
+    double L = 0.2; 
+    double D = 10*DP;
 
-    if(x > L/2.0)
+    if (x < 0.0 || x > L)
     {
         return -1;
     }
 
-    if (y >= 1.1*H)
-    {
-        return -1;
-    }
-
-    if (z < 0.0 || z >= DP)
+    if (z <= 0.0 || z > DP)
     {
         return -1;
     }

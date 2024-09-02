@@ -18,31 +18,17 @@ int Particle::ioside (double DP, double geometry[])
     Point Y (0,1,0);
     Point Z (0,0,1);
 
-    //////////////////////////////////////////
-    //// Hydrostatic tank 3D
-    ///Variaveis (double, Point, etc..)
-    double H = 3.0;         // water column
-    double L = 6.0;         // tank length
-    double W = DP;          // tank width
-    //double W = 2.5+DP;         // tank width  
+    double H = 0.5;
+    double L = 0.2; 
+    double D = 10*DP;
 
-    Point A (0, 0, 0); 
+    Point A (0, 0, -5*DP); 
 
-    ///Regi�es (Region)
-    Region fluid = P.transformation(A).rectangleXY(L/2.0, H, W);
-    Region tank  = P.rectangleXY(L, H*1.1, W);
+    Region fluid = P.rectangleXY(L, H-DP, DP);
 
-    ///Opera��es
-    if (tank)
-    {
-        if (fluid) 
-            return 0;
+    if (fluid) 
+        return 0;
 
-    	return -1;
-    }
-
-    ///Return padr�o (constr�i a parede externa)
-    // DO NOT CHANGE HERE !!!
-    return 2; // External wall
+    return 2;
 }
 #endif
