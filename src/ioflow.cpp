@@ -43,7 +43,7 @@ int Particle::ioflow (double DP, double geometry[])
         return -1;
     }
 
-    /*if(x > 1*DP && x < 3*DP && y > -0.06-DP && y < -0.06+DP && z > 0.0 && z <= DP && (id==4 || id==6))
+    /*if(x > 0.05+1*DP && x < 0.05+3*DP && y > -0.06-DP && y < -0.06+DP && z > 0.0 && z <= DP && (id==4 || id==6))
     {
         return id+1;
     }*/

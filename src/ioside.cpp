@@ -34,7 +34,7 @@ int Particle::ioside (double DP, double geometry[])
     double beachRatio = 3.5;
     double beachAngle = atan(1.0/beachRatio)*180/M_PI;
     double beachLength = 2.0*sqrt((waterDepth*waterDepth)+(beachRatio*waterDepth*beachRatio*waterDepth));
-    double hs = 0.02;
+    double hs = 0.08;
 
     /// Points
     Point tankVertex(-tankLength/2,-waterDepth,-4*DP);
@@ -45,8 +45,8 @@ int Particle::ioside (double DP, double geometry[])
     Point leftBeachVertex(-waterLength/2,-waterDepth,-4*DP);
     Point rightBeachVertex(waterLength/2,-waterDepth,-4*DP);
     Point beachWaterVertex(-waterLength/2-beachRatio*waterDepth,-waterDepth,0);
-    Point leftBaffleVertex(-recessLength,recessHeight-draft,-4*DP);
-    Point rightBaffleVertex(0.0,recessHeight-draft,-4*DP);
+    Point leftBaffleVertex(recessLength,recessHeight-draft,-4*DP);
+    Point rightBaffleVertex(recessLength,recessHeight-draft,-4*DP);
 
     ///Regi�es (Region)
     Region tank = P.transformation(tankVertex).rectangleXY(tankLength,tankHeight,8*DP);
@@ -57,7 +57,7 @@ int Particle::ioside (double DP, double geometry[])
     Region leftBeach = P.transformation(leftBeachVertex,Z,-(90-beachAngle)).rectangleXY(beachLength,beachLength,8*DP);
     Region rightBeach = P.transformation(rightBeachVertex,Z,-beachAngle).rectangleXY(beachLength,beachLength,8*DP);
     Region beachWater = P.transformation(beachWaterVertex).rectangleXY(waterLength+2*beachRatio*waterDepth,waterDepth,DP);
-    Region leftBaffle = P.transformation(leftBaffleVertex).rectangleXY(recessLength+4*DP,hs,8*DP);
+    Region leftBaffle = P.transformation(leftBaffleVertex).rectangleXY(4*DP,hs,8*DP);
     Region rightBaffle = P.transformation(rightBaffleVertex).rectangleXY(recessLength,hs,8*DP);
 
     ///Opera��es
@@ -65,7 +65,7 @@ int Particle::ioside (double DP, double geometry[])
     {
         return 6;
     }*/
-    if(leftVessel || rigthVessel || (recess /*&& y-hs*x/0.1+0.06+hs<0.0*/))
+    if(leftVessel || rigthVessel || (recess && y-hs*x/0.1+0.06+hs<0.0))
     {
         return 4;
     }
