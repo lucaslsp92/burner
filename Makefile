@@ -25,7 +25,7 @@ LIB_DIR := lib
 OUTPUT_DIR := data
 
 CXXFLAGS := $(DEBUGS) -std=c++11 -MP -MMD -fopenmp -lm -D_GNU_SOURCE
-CPPFLAGS := -I $(INCLUDE_DIR) -Ieigen -Ijson/single_include/nlohmann -Ilibigl/include
+CPPFLAGS := -I $(INCLUDE_DIR)
 LDFLAGS := -L $(LIB_DIR)
 LDLIBS :=
 
