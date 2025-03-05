@@ -19,11 +19,19 @@ int Particle::ioflow (double DP, double geometry[])
 
     //////////////////////////////////////////
     //// Dam break tank 2D
+    double H = 0.07;         // water column
+    double W = 0.32;         // water width
+    double L = 0.7;          // tank length
 
-    /*if (z < 0.0 || z >= DP)
+    if (y >= H+3.0*DP)
     {
         return -1;
-    }*/
+    }
+
+    if(z <= 0.0 || z > DP)
+    {
+        return -1;
+    }
 
     ///Return padrão (caso nenhuma operação seja feita)
     return id;

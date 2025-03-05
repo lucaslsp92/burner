@@ -21,23 +21,18 @@ int Particle::ioside (double DP, double geometry[])
     //////////////////////////////////////////
     //// Dam break tank 2D
     //// Variaveis (double, Point, etc..)
-    double H = 0.45;         // water column
-    double W = 0.17;         // water length
-    double L = 0.7;          // tank length
-    double th = 0.60;        // tank height
-    double Hb = 0.00;        // water height tank bottom
-    double Wb = 0.0;         // water length tank bottom
-    double tw = 0.1;         // tank width
+    double H = 0.07;         // water column
+    double W = 0.32;         // water width
+    double L = 0.5;          // tank length
 
     ///Regiões (Region)
-    Region fluid = P.rectangleXY(W, H, tw);
-    Region bottomFluid = P.rectangleXY(Wb, Hb, tw);
-    Region tank  = P.rectangleXY(L, th, tw);
+    Region fluid = P.rectangleXY(L, H, DP);
+    Region tank  = P.rectangleXY(0.7, H+3.0*DP, W);
 
     ///Operações
     if (tank)
     {
-        if (fluid || bottomFluid) 
+        if (fluid ) 
             return 0;
 
     	return -1;
