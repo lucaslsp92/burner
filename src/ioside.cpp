@@ -21,22 +21,22 @@ int Particle::ioside (double DP, double geometry[])
     //////////////////////////////////////////
     //// Dam break tank 2D
     //// Variaveis (double, Point, etc..)
-    double H = 0.07;         // water column
-    double W = 0.32;         // water width
-    double L = 0.5;          // tank length
+    double L = 0.05; 
+    double D = 0.005;
+    double hin = 0.005;
+    double H = 0.06;
+
+    Point A(L/2.0, L/2.0, H);
 
     ///Regiões (Region)
-    Region fluid = P.rectangleXY(L, H, DP);
-    Region tank  = P.rectangleXY(0.7, H+3.0*DP, W);
+    Region table = P.rectangleXY(L, L, L);
+    Region inflow = P.transformation(A).cylinder(D/2.0, hin);
 
     ///Operações
-    if (tank)
-    {
-        if (fluid ) 
-            return 0;
-
-    	return -1;
-    }
+    if(inflow)
+      return -1;
+    if (table)
+       return -1;
 
     ///Return padrão (constrói a parede externa)
     // DO NOT CHANGE HERE !!!

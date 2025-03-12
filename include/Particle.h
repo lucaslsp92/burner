@@ -230,7 +230,12 @@ struct Particle
 
     void print_Paraview (FILE *paraview_xyz, long cont, Particle particle[], double DP, double geometry[], int numgeometry, int decimal)
     {
-        fprintf (paraview_xyz, "%ld\n", cont);
+        long countNew = 0;
+        for (long i = 0; i < cont; i++)
+            if(particle[i].id != 2 && particle[i].id != 3)
+                countNew++;
+
+        fprintf (paraview_xyz, "%ld\n", countNew);
 
         for (int i = 0; i < numgeometry; i++)
             fprintf (paraview_xyz, "geometry[%d] = %9lf   ", i, geometry[i]);
@@ -238,6 +243,8 @@ struct Particle
         for (long i = 0; i < cont; i++)
         {
             Point X (particle[i].r , DP);
+            if(particle[i].id == 2 || particle[i].id == 3)
+                continue;
             if (decimal == 2)
                 fprintf (paraview_xyz, "\n%d %9.2lf %9.2lf %9.2lf", particle[i].id, X.x, X.y, X.z);
             else if (decimal == 3)
@@ -308,11 +315,18 @@ struct Particle
 
     void print_MPS (FILE *mps_grid, long cont, Particle particle[], double DP, int decimal)
     {
-        fprintf (mps_grid, "%d\n%ld", 0, cont);
+        long countNew = 0;
+        for (long i = 0; i < cont; i++)
+            if(particle[i].id != 2 && particle[i].id != 3)
+                countNew++;
+
+        fprintf (mps_grid, "%d\n%ld", 0, countNew);
 
         for (long i = 0; i < cont; i++)
         {
             Point X (particle[i].r , DP);
+            if(particle[i].id == 2 || particle[i].id == 3)
+                continue;
             if (decimal == 2)
                 fprintf (mps_grid, "\n%d %9.2lf %9.2lf %9.2lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, X.z);
             else if (decimal == 3)
