@@ -16,7 +16,7 @@ typedef bool Region;
 
 #define CELLDIAMETER 25
 #define CELLRADIUS 12
-#define CELLBORDER 3
+#define CELLBORDER 4
 
 #define SIMPLECUBE 1
 

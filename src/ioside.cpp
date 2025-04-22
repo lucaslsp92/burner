@@ -21,11 +21,11 @@ int Particle::ioside (double DP, double geometry[])
     //////////////////////////////////////////
     //// Poiseuille flow 2D
     //// Variaveis (double, Point, etc..)
-    double D = 0.1;         // pipe diameter
+    double D = 1.0;         // pipe diameter
     double L = 0.5;         // pipe length
 
     ///Regiões (Region)
-    Region fluid = P.rectangleXY(L, D, DP);
+    Region fluid = P.rectangleXY(L, D-DP, DP);
 
     ///Operações
     if (fluid) 
