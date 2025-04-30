@@ -23,7 +23,7 @@ int Particle::ioflow (double DP, double geometry[])
     double D = 1.0;         // pipe diameter
     double L = 0.5;         // pipe length
 
-    if (z < 0.0 || z >= DP)
+    if (z < 0.0 || z >= L)
     {
         return -1;
     }

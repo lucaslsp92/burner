@@ -25,7 +25,7 @@ int Particle::ioside (double DP, double geometry[])
     double L = 0.5;         // pipe length
 
     ///Regiões (Region)
-    Region fluid = P.rectangleXY(L, D-DP, DP);
+    Region fluid = P.rectangleXY(L, D-DP, L);
 
     ///Operações
     if (fluid) 
