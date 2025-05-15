@@ -18,18 +18,26 @@ int Particle::ioside (double DP, double geometry[])
     Point Y (0,1,0);
     Point Z (0,0,1);
 
-    //////////////////////////////////////////
-    //// Poiseuille flow 2D
     //// Variaveis (double, Point, etc..)
-    double D = 1.0;         // pipe diameter
+    double H = 0.2;         // pipe diameter
     double L = 0.5;         // pipe length
 
+    Point A(0.2075, 0.1, -5.0*DP);
+    Point B(0.2250, 0.1, -5.0*DP);
+
     ///Regiões (Region)
-    Region fluid = P.rectangleXY(L, D-DP, L);
+    Region fluid = P.rectangleXY(L, H, DP);
+    Region tank = P.rectangleXY(L, 1.1*H, 10.0*DP);
+    Region cup = P.transformation(A).rectangleXY(0.085, 0.1175, 10.0*DP); 
+    Region vazio = P.transformation(B).rectangleXY(0.05, 0.1, 10.0*DP);
 
     ///Operações
+    if(cup && !vazio)
+        return 4;
     if (fluid) 
-        return 0;
+        return 0;    
+    if(tank)
+        return -1;
 
     ///Return padrão (constrói a parede externa)
     // DO NOT CHANGE HERE !!!
