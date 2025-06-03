@@ -21,15 +21,23 @@ int Particle::ioside (double DP, double geometry[])
     //////////////////////////////////////////
     //// Poiseuille flow 2D
     //// Variaveis (double, Point, etc..)
-    double D = 0.1;         // pipe diameter
-    double L = 0.3;         // pipe length
+    double R = 0.1;
+    double r = 0.05;
+    double H = 0.3;
+    double L = 0.35;
 
     ///Regiões (Region)
-    Region fluid = P.rectangleXY(L, D-DP, DP);
+    Region cone = P.cone(R, r, H);
+    Region table = P.cylinder(L, 2.0*H);
 
     ///Operações
-    if (fluid) 
-        return 0;
+    if(table)
+    {
+        if (cone) 
+            return 0;
+        else
+            return -1;
+    }    
 
     ///Return padrão (constrói a parede externa)
     // DO NOT CHANGE HERE !!!

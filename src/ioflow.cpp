@@ -20,23 +20,16 @@ int Particle::ioflow (double DP, double geometry[])
     //////////////////////////////////////////
     //// Poiseuille flow 2D
     //// Variaveis (double, Point, etc..)
-    double D = 0.1;         // pipe diameter
-    double L = 0.3;         // pipe length
+    double R = 0.1;
+    double r = 0.05;
+    double H = 0.3;
+    double L = 0.35;
 
-    if (z < 0.0 || z >= DP)
-    {
+    if(z>0.0 && (id==2 || id==3))
         return -1;
-    }
 
-    if (x < 0.0  || x >= L)
-    {
+    if(x*x + y*y > L*L)
         return -1;
-    }
-
-    /*if (x < 0.0 && y >= 0.0 && y <= D)
-    {
-        return id+2;
-    }*/
 
     ///Return padrão (caso nenhuma operação seja feita)
     return id;

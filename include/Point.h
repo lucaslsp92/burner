@@ -146,6 +146,18 @@ struct Point
         return false;
     }
 
+    Region cone (double R, double r, double H)
+    {
+        if (z > 0 && z < H)
+        {
+            double radius = R - (R-r)*z/H;
+            if (x*x + y*y < radius*radius)
+                return true;
+        }
+
+        return false;
+    }
+
     Region extrudeEllipse (double a, double b, double R, double H)
     {
         if (z > 0 && z < H)
