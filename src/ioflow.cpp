@@ -25,13 +25,16 @@ int Particle::ioflow (double DP, double geometry[])
     double H = 0.3;
     double L = 0.35;
 
-    if(z>0.0 && (id==2 || id==3))
+    if(y>0.0 && (id==2 || id==3))
         return -1;
 
-    if(x*x + y*y > L*L)
+    if(x*x + z*z > L*L)
         return -1;
 
-    ///Return padrão (caso nenhuma operação seja feita)
+    if(z<=0.0 || z>DP)
+        return -1;
+
+    ///Return padrï¿½o (caso nenhuma operaï¿½ï¿½o seja feita)
     return id;
 
 }

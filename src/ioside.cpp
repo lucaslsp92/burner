@@ -26,20 +26,22 @@ int Particle::ioside (double DP, double geometry[])
     double H = 0.3;
     double L = 0.35;
 
-    ///Regiões (Region)
-    Region cone = P.cone(R, r, H);
-    Region table = P.cylinder(L, 2.0*H);
+    Point A(0.0, 0.0, 0.0);
 
-    ///Operações
+    ///Regiï¿½es (Region)
+    Region cone = P.transformation(A, Y).cone(R, r, H);
+    Region table = P.transformation(A, Y).cylinder(L, 2.0*H);
+
+    ///Operaï¿½ï¿½es
     if(table)
     {
-        if (cone) 
+        if (cone && (z>0.0 && z<=DP)) 
             return 0;
         else
             return -1;
     }    
 
-    ///Return padrão (constrói a parede externa)
+    ///Return padrï¿½o (constrï¿½i a parede externa)
     // DO NOT CHANGE HERE !!!
     return 2; // External wall
 }
