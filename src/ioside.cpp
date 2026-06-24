@@ -4,6 +4,8 @@
 #include "Point.h"
 #include "Particle.h"
 
+CStlFile *stlProa = new CStlFile("data/CASCO-180-C01-ASCII.stl");
+
 int Particle::ioside (double DP, double geometry[])
 {
     Point P (r, DP);
@@ -18,33 +20,40 @@ int Particle::ioside (double DP, double geometry[])
     Point Y (0,1,0);
     Point Z (0,0,1);
 
-    //////////////////////////////////////////
-    //// Dam break tank 2D
-    //// Variaveis (double, Point, etc..)
-    double H = 0.45;         // water column
-    double W = 0.17;         // water length
-    double L = 0.7;          // tank length
-    double th = 0.60;        // tank height
-    double Hb = 0.00;        // water height tank bottom
-    double Wb = 0.0;         // water length tank bottom
-    double tw = 0.1;         // tank width
+    ///Variaveis (double, Point, etc..)
+    double tankLength = 1500.0;
+    double tankHeight = 292.0;
+    double waterHeight = 250.0;
+    double beachLength = 200.0;
 
-    ///Regiões (Region)
-    Region fluid = P.rectangleXY(W, H, tw);
-    Region bottomFluid = P.rectangleXY(Wb, Hb, tw);
-    Region tank  = P.rectangleXY(L, th, tw);
+    double boxLenght = 311.0;
+    double boxHeight = 33.5;
+    double boxX = 544.5;
+    double boxY = 236.5;
 
-    ///Operações
-    if (tank)
-    {
-        if (fluid || bottomFluid) 
-            return 0;
+    Point base(1200.0, 0, 0);
+	Point normal(0.7808688094, -0.6246950476, 0.0);
+	Point wm(-20.0, 0.0, 0.0);
+	Point boxCorner(boxX, boxY, -5.0*DP);
 
-    	return -1;
-    }
+    ///RegiÃµes (Region)
+    Region tank = P.parallelepiped(tankLength, tankHeight, 10*DP);
+    Region water = P.parallelepiped(tankLength, waterHeight, DP);
+    Region wavemaker = P.transformation(wm).parallelepiped(20.0-5*DP, tankHeight, 10.0*DP);
+    Region beach = P.plane(base, normal);
+    Region proa = P.stlmodel(stlProa);
+    Region box = P.transformation(boxCorner).parallelepiped(boxLenght, boxHeight, 10*DP);
 
-    ///Return padrão (constrói a parede externa)
-    // DO NOT CHANGE HERE !!!
-    return 2; // External wall
+    ///OperaÃ§Ãµes
+    if(proa)
+        return 6;
+    /*if(box)
+        return 6;*/
+    else if(water && beach)
+        return 0;
+    else if(tank && beach)
+        return -1;
+
+   return 2;
 }
 #endif

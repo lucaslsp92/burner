@@ -2,6 +2,7 @@
 #define H_POINT
 
 #include "define.h"
+#include "CStlFile.h"
 
 struct Point
 {
@@ -306,10 +307,111 @@ struct Point
 
 	}
 
+	Region cone (double theta, double h)
+	{
+        if((x*x+y*y)*cos(theta)*cos(theta)-z*z*sin(theta)*sin(theta) < 0.0)
+            if(z > 0.0 && z < h)
+                    return true;
+
+        return false;
+	}
+
 	double plane (Point O, Point Vec)
 	{
-	    return Vec.x * ( x - O.x ) + Vec.y * ( y - O.y ) + Vec.z * ( z - O.z );
+	    if(Vec.x * ( x - O.x ) + Vec.y * ( y - O.y ) + Vec.z * ( z - O.z ) <= 0.0)
+            return true;
+
+        return false;
 	}
+
+    inline Point cross(Point B)
+    {
+            return Point(this->y * B.z - this->z * B.y, - this->x * B.z + this->z * B.x, this->x * B.y - this->y * B.x);
+    }
+
+    inline double dot(Point B)
+    {
+            return double(this->x * B.x + this->y * B.y + this->z * B.z);
+    }
+
+    inline Point sub(Point B)
+    {
+         return Point(this->x - B.x , this->y - B.y , this->z - B.z);
+    }
+
+    static int raycasting(Point v1, Point v2, Point v3, Point A, Point direction)
+    {
+        double epsilon = 1e-6;
+
+        Point e1(v2.sub(v1));
+        Point e2(v3.sub(v1));
+
+        Point q = direction.cross(e2);
+        double a = e1.dot(q);
+
+        if (a > -epsilon and a < epsilon)  return 0;
+
+        double f = 1/a;
+        Point s = (A.sub(v1));
+        double u = f*s.dot(q);
+
+        if (u<0)
+          return 0;
+
+        Point r = s.cross(e1);
+        double v = f*(direction.dot(r));
+
+        if (v<0.0 or u+v>1.0) return 0;
+
+        double t = f*e2.dot(r);
+        if (t>-epsilon)  return 1;
+        return 0;
+    }
+
+    Region stlmodel(CStlFile *stlFile)
+    {
+        StlFile::Facet *facets = stlFile->facets;
+        StlFile::Stats *stats = &stlFile->stats;
+
+        if (x < stlFile->xmin ){return false;}
+        if (y < stlFile->ymin ){return false;}
+        if (z < stlFile->zmin){return false;}
+        if (x > stlFile->xmax){return false;}
+        if (y > stlFile->ymax){return false;}
+        if (z > stlFile->zmax){return false;}
+
+        Point A(x, y, z);
+
+        Point F1(stats->min.x+1, stats->max.y+1, stats->max.z+1);
+        Point F2(stats->max.x+1, stats->max.y-1, stats->max.z);
+        Point F3(stats->max.x-1, stats->max.y+2, stats->max.z-1);
+
+        int flag1 = 0;
+        int flag2 = 0;
+        int flag3 = 0;
+        int flag = 0;
+
+        for (int i = 0; i < stats->numFacets; i ++)
+        {
+            Point V0(facets[i].vector[0].x, facets[i].vector[0].y,  facets[i].vector[0].z);
+            Point V1(facets[i].vector[1].x, facets[i].vector[1].y,  facets[i].vector[1].z);
+            Point V2(facets[i].vector[2].x, facets[i].vector[2].y,  facets[i].vector[2].z);
+
+            flag1 = flag1 + Point::raycasting(V0, V1, V2, A, F1);
+            flag2 = flag2 + Point::raycasting(V0, V1, V2, A, F2);
+            flag3 = flag3 + Point::raycasting(V0, V1, V2, A, F3);
+        }
+
+        if (flag1 == flag2) { flag = flag1; }
+        else if (flag1==flag3) { flag = flag1; }
+        else if (flag2==flag3) { flag = flag2; }
+
+        if (flag % 2 == 1)
+        {
+            return true;
+        };
+        return false;
+    }
 
 };
 

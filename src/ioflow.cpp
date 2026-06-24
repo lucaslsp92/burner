@@ -17,15 +17,26 @@ int Particle::ioflow (double DP, double geometry[])
     Point Y (0,1,0);
     Point Z (0,0,1);
 
-    //////////////////////////////////////////
-    //// Dam break tank 2D
+    ///Variaveis (double, Point, etc..)
+    double tankLength = 1500.0;
+    double tankHeight = 292.0;
+    double waterHeight = 250.0;
+    double beachLength = 200.0;
 
-    /*if (z < 0.0 || z >= DP)
-    {
+    ///OperaÃ§Ãµes
+    if(y>=tankHeight)
         return -1;
-    }*/
 
-    ///Return padrão (caso nenhuma operação seja feita)
+    if(z<0.0 || z>=DP)
+        return -1;
+
+    if(x<0.0 && y>129.0 && (id==2 || id==3))
+        return id+2;
+
+    if(x>850 && x<950 && y>0 && (id==2 || id==3))
+        return id+4;
+
+    ///Return padrÃ£o (caso nenhuma operaÃ§Ã£o seja feita)
     return id;
 
 }
