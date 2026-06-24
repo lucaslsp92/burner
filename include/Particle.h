@@ -230,14 +230,73 @@ struct Particle
 
     void print_Paraview (FILE *paraview_xyz, long cont, Particle particle[], double DP, double geometry[], int numgeometry, int decimal)
     {
-        fprintf (paraview_xyz, "%ld\n", cont);
-
-        for (int i = 0; i < numgeometry; i++)
-            fprintf (paraview_xyz, "geometry[%d] = %9lf   ", i, geometry[i]);
+        int remove = 0;
+        int add = 0;
 
         for (long i = 0; i < cont; i++)
         {
             Point X (particle[i].r , DP);
+            if(particle[i].id == 0 && X.x >= 527.75 && X.x <= 544.25 && X.y >= 236.75 && X.y <= 256.75 && -X.y - 1.20385853086*X.x + 891.950005421 < DP)
+            {
+                remove++;
+            }
+            else if(particle[i].id >= 6 && X.x >= 527.75 && X.x <= 544.25 && X.y >= 236.75 && X.y <= 256.75)
+            {
+                remove++;
+            }
+            else if(particle[i].id == 7 && X.x == 529.25 && X.y == 257.25)
+            {
+                remove++;
+            }
+            else if(particle[i].id == 7 && X.x == 544.75 && X.y == 238.25)
+            {
+                remove++;
+            }      
+            else if(particle[i].id == 7 && X.x == 544.75 && X.y == 237.75)
+            {
+                remove++;
+            }   
+            else if(particle[i].id == 7 && X.x == 528.75 && X.y == 257.25)
+            {
+                remove++;
+            } 
+        }
+
+        for (long i = 0; i < 53; i++)
+        {
+            add++;
+        }
+
+        for (long i = 1; i < 3; i++)
+        {
+            add++;
+        }
+
+        for (long i = 1; i < 3; i++)
+        {
+            add++;
+        }
+
+        for (long i = 0; i < 50; i++)
+        {
+            add++;
+        }
+
+        for (long i = 0; i < 49; i++)
+        {
+            add++;
+        }
+
+        //fprintf (paraview_xyz, "%ld\n", cont);
+        fprintf (paraview_xyz, "%ld\n", cont-remove+add);
+
+        for (int i = 0; i < numgeometry; i++)
+            fprintf (paraview_xyz, "geometry[%d] = %9lf   ", i, geometry[i]);
+
+        /*for (long i = 0; i < cont; i++)
+        {
+            Point X (particle[i].r , DP);
+
             if (decimal == 2)
                 fprintf (paraview_xyz, "\n%d %9.2lf %9.2lf %9.2lf", particle[i].id, X.x, X.y, X.z);
             else if (decimal == 3)
@@ -256,6 +315,233 @@ struct Particle
                 fprintf (paraview_xyz, "\n%d %9.9lf %9.9lf %9.9lf", particle[i].id, X.x, X.y, X.z);
             else if (decimal == 10)
                 fprintf (paraview_xyz, "\n%d %9.10lf %9.10lf %9.10lf", particle[i].id, X.x, X.y, X.z);
+        }*/
+
+        for (long i = 0; i < cont; i++)
+        {
+            Point X (particle[i].r , DP);
+            if(particle[i].id == 0 && X.x >= 527.75 && X.x <= 544.25 && X.y >= 236.75 && X.y <= 256.75 && -X.y - 1.20385853086*X.x + 891.950005421 < DP)
+            {
+
+            }
+            else if(particle[i].id >= 6 && X.x >= 527.75 && X.x <= 544.25 && X.y >= 236.75 && X.y <= 256.75)
+            {
+
+            }
+            else if(particle[i].id == 7 && X.x == 529.25 && X.y == 257.25)
+            {
+
+            }
+            else if(particle[i].id == 7 && X.x == 544.75 && X.y == 238.25)
+            {
+                
+            }
+            else if(particle[i].id == 7 && X.x == 544.75 && X.y == 237.75)
+            {
+                
+            }
+            else if(particle[i].id == 7 && X.x == 528.75 && X.y == 257.25)
+            {
+                
+            }
+            else
+            {
+                double nx, ny, nz, area;
+
+                if(particle[i].id == 0 || particle[i].id == 3 || particle[i].id == 5)
+                {
+                    nx = 0.0; ny = 0.0; nz = 0.0; area = 0.0;
+                }
+                else if (particle[i].id == 2)
+                {
+                    if(X.x < 0.0)
+                    {
+                        nx = 1.0; ny = 0.0; nz = 0.0; area = DP;
+                    }
+                    else if (X.x < 1200.0)
+                    {
+                        nx = 0.0; ny = 1.0; nz = 0.0; area = DP;
+                    }
+                    else
+                    {
+                        nx = -0.78165168; ny = 0.62371521; nz = 0.0; area = DP/1.408043771;
+                    }
+                }
+                else if (particle[i].id == 4)
+                {
+                    nx = 1.0; ny = 0.0; nz = 0.0; area = DP;
+                }
+                else if(particle[i].id >= 6)
+                {
+                    if(particle[i].id == 6)
+                    {
+                        if(X.x >= 544.75 && X.y <= 236.75 && X.x < 843.25)
+                        {
+                            nx = 0.0; ny = -1.0; nz = 0.0; area = DP;
+                        }
+                        else if(X.x >= 843.25 && X.y >= 236.75 && X.x <= 872.25 && X.y <= 265.75)
+                        {
+                            nx = 0.70710678; ny = -0.70710678; nz = 0.0; area = DP/1.426405059;
+                        }
+                        else if(X.x >= 872.25 && X.y > 265.75 && X.y <= 270.25)
+                        {
+                            nx = 1.0; ny = 0.0; nz = 0.0; area = DP;
+                        }
+                        else if(X.x < 872.25 && X.y >= 270.25 && X.x > 547.75)
+                        {
+                            nx = 0.0; ny = 1.0; nz = 0.0; area = DP;
+                        }
+                        else if(X.x >= 547.75 && X.y >= 270.25 && X.y <= 276.25)
+                        {
+                            nx = 1.0; ny = 0.0; nz = 0.0; area = DP;
+                        }
+                        else if(X.x < 547.75 && X.y >= 276.25 && X.x > 527.75)
+                        {
+                            nx = 0.0; ny = 1.0; nz = 0.0; area = DP;
+                        }
+                    }
+                    
+                    if(particle[i].id >= 6 && X.x >= 527.75 && X.x <= 528.75 && X.y >= 257.25 && X.y <= 276.25)
+                    {                  
+                        if(particle[i].id == 7 && X.x == 528.25 && X.y >= 257.25 && X.y <= 274.75)
+                        {
+                            X.x -= 0.1132477258;
+                            X.y += (0.168956898*(274.75-X.y))/17.5;
+                            nx = 0.0; ny = 0.0; nz = 0.0; area = 0.0;
+                        }
+                        else if(particle[i].id == 7 && X.x == 528.75 && X.y >= 257.75 && X.y <= 274.75)
+                        {
+                            X.x -= 0.1132477258;
+                            X.y -= (0.163864977*(274.75-X.y))/17.0;
+                            nx = 0.0; ny = 0.0; nz = 0.0; area = 0.0;
+                        }
+                        else
+                        {
+                            X.x -= 0.1132477258;
+                            nx = -1.0; ny = 0.0; nz = 0.0; area = DP;
+                        }
+                    }
+                    if(particle[i].id >= 6 && X.x >= 529.25 && X.x <= 546.25 && X.y >= 275.25 && X.y <= 276.25)
+                    {
+                        X.x -= (0.1132477258*(546.25-X.x))/17.0;
+                        if(particle[i].id == 6)
+                        {
+                            nx = 0.0; ny = 1.0; nz = 0.0; area = DP;
+                        }
+                        else if(particle[i].id == 7)
+                        {
+                            nx = 0.0; ny = 0.0; nz = 0.0; area = 0.0;
+                        }
+                    }
+                    if(particle[i].id == 7 && X.x >= 544.75 && X.x <= 569.75 && X.y == 237.25)
+                    {
+                        X.x += (0.21018573*(569.75-X.x))/25.0;
+                        nx = 0.0; ny = 0.0; nz = 0.0; area = 0.0;
+                    }
+                    if(particle[i].id == 7 && X.x >= 545.25 && X.x <= 570.25 && X.y == 237.75)
+                    {
+                        X.x -= (0.084188849*(570.25-X.x))/25.0;
+                        nx = 0.0; ny = 0.0; nz = 0.0; area = 0.0;
+                    }
+
+                    if(particle[i].id == 7)
+                    {
+                        nx = 0.0; ny = 0.0; nz = 0.0; area = 0.0;
+                    }
+                }                
+                
+                fprintf (paraview_xyz, "\n%d %9.10lf %9.10lf %9.10lf %9.10lf %9.10lf %9.10lf %9.10lf", particle[i].id, X.x, X.y, X.z, nx, ny, nz, area);
+            }            
+        }
+
+        for (long i = 0; i < 53; i++)
+        {
+            int ID = 6;
+            double Px = 527.636752274;
+            double Py = 256.75;
+            double dx = 0.319485533188;
+            double dy = -0.384615384615;
+
+            double X = Px + i*dx;
+            double Y = Py + i*dy;
+            double Z = 0.0;
+
+            double nx, ny, nz, area;
+            nx = -0.76923076923; ny = -0.638971066376; nz = 0.0; area = DP;
+
+            fprintf (paraview_xyz, "\n%d %9.10lf %9.10lf %9.10lf %9.10lf %9.10lf %9.10lf %9.10lf", ID, X, Y, Z, nx, ny, nz, area);
+        }
+
+        for (long i = 1; i < 3; i++)
+        {
+            int ID = 7;
+            double Px = 544.25;
+            double Py = 236.75;
+            double dx = 0.424869941053;
+            double dy = 0.905254402469;
+
+            double X = Px + i*dx*DP;
+            double Y = Py + i*dy*DP;
+            double Z = 0.0;
+
+            double nx, ny, nz, area;
+            nx = 0.0; ny = 0.0; nz = 0.0; area = 0.0;
+
+            fprintf (paraview_xyz, "\n%d %9.10lf %9.10lf %9.10lf %9.10lf %9.10lf %9.10lf %9.10lf", ID, X, Y, Z, nx, ny, nz, area);
+        }
+
+        for (long i = 1; i < 3; i++)
+        {
+            int ID = 7;
+            double Px = 527.636752274;
+            double Py = 256.75;
+            double dx = 0.940539943127;
+            double dy = 0.339683110242;
+
+            double X = Px + i*dx*DP;
+            double Y = Py + i*dy*DP;
+            double Z = 0.0;
+
+            double nx, ny, nz, area;
+            nx = 0.0; ny = 0.0; nz = 0.0; area = 0.0;
+
+            fprintf (paraview_xyz, "\n%d %9.10lf %9.10lf %9.10lf %9.10lf %9.10lf %9.10lf %9.10lf", ID, X, Y, Z, nx, ny, nz, area);
+        }
+
+        for (long i = 0; i < 50; i++)
+        {
+            int ID = 7;
+            double Px = 528.4488;
+            double Py = 256.55491746327;
+            double dx = 0.321061224489795;
+            double dy = -0.386512294030398;
+
+            double X = Px + i*dx;
+            double Y = Py + i*dy;
+            double Z = 0.0;
+
+            double nx, ny, nz, area;
+            nx = 0.0; ny = 0.0; nz = 0.0; area = 0.0;
+
+            fprintf (paraview_xyz, "\n%d %9.10lf %9.10lf %9.10lf %9.10lf %9.10lf %9.10lf %9.10lf", ID, X, Y, Z, nx, ny, nz, area);
+        }
+
+        for (long i = 0; i < 49; i++)
+        {
+            int ID = 7;
+            double Px = 528.9403;
+            double Py = 256.745729039352;
+            double dx = 0.322785416666666;
+            double dy = -0.388587977491367;
+
+            double X = Px + i*dx;
+            double Y = Py + i*dy;
+            double Z = 0.0;
+
+            double nx, ny, nz, area;
+            nx = 0.0; ny = 0.0; nz = 0.0; area = 0.0;
+
+            fprintf (paraview_xyz, "\n%d %9.10lf %9.10lf %9.10lf %9.10lf %9.10lf %9.10lf %9.10lf", ID, X, Y, Z, nx, ny, nz, area);
         }
 
         printf ("paraview.xyz: Done!\n");
@@ -308,9 +594,67 @@ struct Particle
 
     void print_MPS (FILE *mps_grid, long cont, Particle particle[], double DP, int decimal)
     {
-        fprintf (mps_grid, "%d\n%ld", 0, cont);
+        int remove = 0;
+        int add = 0;
 
         for (long i = 0; i < cont; i++)
+        {
+            Point X (particle[i].r , DP);
+            if(particle[i].id == 0 && X.x >= 527.75 && X.x <= 544.25 && X.y >= 236.75 && X.y <= 256.75 && -X.y - 1.20385853086*X.x + 891.950005421 < DP)
+            {
+                remove++;
+            }
+            else if(particle[i].id >= 6 && X.x >= 527.75 && X.x <= 544.25 && X.y >= 236.75 && X.y <= 256.75)
+            {
+                remove++;
+            }
+            else if(particle[i].id == 7 && X.x == 529.25 && X.y == 257.25)
+            {
+                remove++;
+            }
+            else if(particle[i].id == 7 && X.x == 544.75 && X.y == 238.25)
+            {
+                remove++;
+            }      
+            else if(particle[i].id == 7 && X.x == 544.75 && X.y == 237.75)
+            {
+                remove++;
+            }   
+            else if(particle[i].id == 7 && X.x == 528.75 && X.y == 257.25)
+            {
+                remove++;
+            } 
+        }
+
+        for (long i = 0; i < 53; i++)
+        {
+            add++;
+        }
+
+        for (long i = 1; i < 3; i++)
+        {
+            add++;
+        }
+
+        for (long i = 1; i < 3; i++)
+        {
+            add++;
+        }
+
+        for (long i = 0; i < 50; i++)
+        {
+            add++;
+        }
+
+        for (long i = 0; i < 49; i++)
+        {
+            add++;
+        }
+
+        //fprintf (mps_grid, "%d\n%ld", 0, cont);
+        fprintf (mps_grid, "%d\n%ld", 0, cont-remove+add);
+
+        /*for (long i = 0; i < cont; i++)
         {
             Point X (particle[i].r , DP);
             if (decimal == 2)
@@ -331,7 +675,235 @@ struct Particle
                 fprintf (mps_grid, "\n%d %9.9lf %9.9lf %9.9lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, X.z);
             else if (decimal == 10)
                 fprintf (mps_grid, "\n%d %9.10lf %9.10lf %9.10lf      0.0      0.0      0.0      0.0      0.0", particle[i].id, X.x, X.y, X.z);
+        }*/
+
+        for (long i = 0; i < cont; i++)
+        {
+            Point X (particle[i].r , DP);
+            if(particle[i].id == 0 && X.x >= 527.75 && X.x <= 544.25 && X.y >= 236.75 && X.y <= 256.75 && -X.y - 1.20385853086*X.x + 891.950005421 < DP)
+            {
+
+            }
+            else if(particle[i].id >= 6 && X.x >= 527.75 && X.x <= 544.25 && X.y >= 236.75 && X.y <= 256.75)
+            {
+
+            }
+            else if(particle[i].id == 7 && X.x == 529.25 && X.y == 257.25)
+            {
+
+            }
+            else if(particle[i].id == 7 && X.x == 544.75 && X.y == 238.25)
+            {
+                
+            }
+            else if(particle[i].id == 7 && X.x == 544.75 && X.y == 237.75)
+            {
+                
+            }
+            else if(particle[i].id == 7 && X.x == 528.75 && X.y == 257.25)
+            {
+                
+            }
+            else
+            {
+                double nx, ny, nz, area;
+
+                if(particle[i].id == 0 || particle[i].id == 3 || particle[i].id == 5)
+                {
+                    nx = 0.0; ny = 0.0; nz = 0.0; area = 0.0;
+                }
+                else if (particle[i].id == 2)
+                {
+                    if(X.x < 0.0)
+                    {
+                        nx = 1.0; ny = 0.0; nz = 0.0; area = DP;
+                    }
+                    else if (X.x < 1200.0)
+                    {
+                        nx = 0.0; ny = 1.0; nz = 0.0; area = DP;
+                    }
+                    else
+                    {
+                        nx = -0.78165168; ny = 0.62371521; nz = 0.0; area = DP/1.408043771;
+                    }
+                }
+                else if (particle[i].id == 4)
+                {
+                    nx = 1.0; ny = 0.0; nz = 0.0; area = DP;
+                }
+                else if(particle[i].id >= 6)
+                {
+                    if(particle[i].id == 6)
+                    {
+                        if(X.x >= 544.75 && X.y <= 236.75 && X.x < 843.25)
+                        {
+                            nx = 0.0; ny = -1.0; nz = 0.0; area = DP;
+                        }
+                        else if(X.x >= 843.25 && X.y >= 236.75 && X.x <= 872.25 && X.y <= 265.75)
+                        {
+                            nx = 0.70710678; ny = -0.70710678; nz = 0.0; area = DP/1.426405059;
+                        }
+                        else if(X.x >= 872.25 && X.y > 265.75 && X.y <= 270.25)
+                        {
+                            nx = 1.0; ny = 0.0; nz = 0.0; area = DP;
+                        }
+                        else if(X.x < 872.25 && X.y >= 270.25 && X.x > 547.75)
+                        {
+                            nx = 0.0; ny = 1.0; nz = 0.0; area = DP;
+                        }
+                        else if(X.x >= 547.75 && X.y >= 270.25 && X.y <= 276.25)
+                        {
+                            nx = 1.0; ny = 0.0; nz = 0.0; area = DP;
+                        }
+                        else if(X.x < 547.75 && X.y >= 276.25 && X.x > 527.75)
+                        {
+                            nx = 0.0; ny = 1.0; nz = 0.0; area = DP;
+                        }
+                    }
+                    
+                    if(particle[i].id >= 6 && X.x >= 527.75 && X.x <= 528.75 && X.y >= 257.25 && X.y <= 276.25)
+                    {                  
+                        if(particle[i].id == 7 && X.x == 528.25 && X.y >= 257.25 && X.y <= 274.75)
+                        {
+                            X.x -= 0.1132477258;
+                            X.y += (0.168956898*(274.75-X.y))/17.5;
+                            nx = 0.0; ny = 0.0; nz = 0.0; area = 0.0;
+                        }
+                        else if(particle[i].id == 7 && X.x == 528.75 && X.y >= 257.75 && X.y <= 274.75)
+                        {
+                            X.x -= 0.1132477258;
+                            X.y -= (0.163864977*(274.75-X.y))/17.0;
+                            nx = 0.0; ny = 0.0; nz = 0.0; area = 0.0;
+                        }
+                        else
+                        {
+                            X.x -= 0.1132477258;
+                            nx = -1.0; ny = 0.0; nz = 0.0; area = DP;
+                        }
+                    }
+                    if(particle[i].id >= 6 && X.x >= 529.25 && X.x <= 546.25 && X.y >= 275.25 && X.y <= 276.25)
+                    {
+                        X.x -= (0.1132477258*(546.25-X.x))/17.0;
+                        if(particle[i].id == 6)
+                        {
+                            nx = 0.0; ny = 1.0; nz = 0.0; area = DP;
+                        }
+                        else if(particle[i].id == 7)
+                        {
+                            nx = 0.0; ny = 0.0; nz = 0.0; area = 0.0;
+                        }
+                    }
+                    if(particle[i].id == 7 && X.x >= 544.75 && X.x <= 569.75 && X.y == 237.25)
+                    {
+                        X.x += (0.21018573*(569.75-X.x))/25.0;
+                        nx = 0.0; ny = 0.0; nz = 0.0; area = 0.0;
+                    }
+                    if(particle[i].id == 7 && X.x >= 545.25 && X.x <= 570.25 && X.y == 237.75)
+                    {
+                        X.x -= (0.084188849*(570.25-X.x))/25.0;
+                        nx = 0.0; ny = 0.0; nz = 0.0; area = 0.0;
+                    }
+
+                    if(particle[i].id == 7)
+                    {
+                        nx = 0.0; ny = 0.0; nz = 0.0; area = 0.0;
+                    }
+                }                
+                
+                fprintf (mps_grid, "\n%d %9.10lf %9.10lf %9.10lf      0.0      0.0      0.0      0.0      0.0 %9.10lf %9.10lf %9.10lf %9.10lf", particle[i].id, X.x, X.y, X.z, nx, ny, nz, area);
+            }            
         }
+
+        for (long i = 0; i < 53; i++)
+        {
+            int ID = 6;
+            double Px = 527.636752274;
+            double Py = 256.75;
+            double dx = 0.319485533188;
+            double dy = -0.384615384615;
+
+            double X = Px + i*dx;
+            double Y = Py + i*dy;
+            double Z = 0.0;
+
+            double nx, ny, nz, area;
+            nx = -0.76923076923; ny = -0.638971066376; nz = 0.0; area = DP;
+            
+            fprintf (mps_grid, "\n%d %9.10lf %9.10lf %9.10lf      0.0      0.0      0.0      0.0      0.0 %9.10lf %9.10lf %9.10lf %9.10lf", ID, X, Y, Z, nx, ny, nz, area);
+        }
+
+        for (long i = 1; i < 3; i++)
+        {
+            int ID = 7;
+            double Px = 544.25;
+            double Py = 236.75;
+            double dx = 0.424869941053;
+            double dy = 0.905254402469;
+
+            double X = Px + i*dx*DP;
+            double Y = Py + i*dy*DP;
+            double Z = 0.0;
+
+            double nx, ny, nz, area;
+            nx = 0.0; ny = 0.0; nz = 0.0; area = 0.0;
+
+            fprintf (mps_grid, "\n%d %9.10lf %9.10lf %9.10lf      0.0      0.0      0.0      0.0      0.0 %9.10lf %9.10lf %9.10lf %9.10lf", ID, X, Y, Z, nx, ny, nz, area);
+        }
+
+        for (long i = 1; i < 3; i++)
+        {
+            int ID = 7;
+            double Px = 527.636752274;
+            double Py = 256.75;
+            double dx = 0.940539943127;
+            double dy = 0.339683110242;
+
+            double X = Px + i*dx*DP;
+            double Y = Py + i*dy*DP;
+            double Z = 0.0;
+
+            double nx, ny, nz, area;
+            nx = 0.0; ny = 0.0; nz = 0.0; area = 0.0;
+
+            fprintf (mps_grid, "\n%d %9.10lf %9.10lf %9.10lf      0.0      0.0      0.0      0.0      0.0 %9.10lf %9.10lf %9.10lf %9.10lf", ID, X, Y, Z, nx, ny, nz, area);
+        }
+
+        for (long i = 0; i < 50; i++)
+        {
+            int ID = 7;
+            double Px = 528.4488;
+            double Py = 256.55491746327;
+            double dx = 0.321061224489795;
+            double dy = -0.386512294030398;
+
+            double X = Px + i*dx;
+            double Y = Py + i*dy;
+            double Z = 0.0;
+
+            double nx, ny, nz, area;
+            nx = 0.0; ny = 0.0; nz = 0.0; area = 0.0;
+
+            fprintf (mps_grid, "\n%d %9.10lf %9.10lf %9.10lf      0.0      0.0      0.0      0.0      0.0 %9.10lf %9.10lf %9.10lf %9.10lf", ID, X, Y, Z, nx, ny, nz, area);
+        }
+
+        for (long i = 0; i < 49; i++)
+        {
+            int ID = 7;
+            double Px = 528.9403;
+            double Py = 256.745729039352;
+            double dx = 0.322785416666666;
+            double dy = -0.388587977491367;
+
+            double X = Px + i*dx;
+            double Y = Py + i*dy;
+            double Z = 0.0;
+
+            double nx, ny, nz, area;
+            nx = 0.0; ny = 0.0; nz = 0.0; area = 0.0;
+
+            fprintf (mps_grid, "\n%d %9.10lf %9.10lf %9.10lf      0.0      0.0      0.0      0.0      0.0 %9.10lf %9.10lf %9.10lf %9.10lf", ID, X, Y, Z, nx, ny, nz, area);
+        }
+
         printf ("MPS.grid: Done!\n");
 
         fclose (mps_grid);
