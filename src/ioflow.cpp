@@ -38,7 +38,7 @@ int Particle::ioflow (double DP, double geometry[])
         return -1;
     }
 
-    if(x < -4.30 || x > 4.30 )
+    if(x < -12.0 || x > 12.0 )
     {
         return -1;
     }
